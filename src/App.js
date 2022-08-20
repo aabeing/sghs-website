@@ -1,9 +1,8 @@
+import ParentComp from "./components/ParentComp";
 
 
 function App() {
-  return (
-    <div>HI</div>
-  );
+  return (<ParentComp/>  );
 }
 
 export default App;

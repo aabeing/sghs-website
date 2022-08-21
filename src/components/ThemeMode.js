@@ -1,4 +1,4 @@
-import React, { useContext,useState,useMemo,createContext } from 'react'
+import React, { useContext, useState, useMemo, createContext } from 'react'
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 const ColorModeContext = createContext({ toggleColorMode: () => { } });
@@ -8,7 +8,7 @@ const ColorModeContext = createContext({ toggleColorMode: () => { } });
 //       mode: 'dark',
 //     },
 //   });
-export function useColorMode(){
+export function useColorMode() {
     const colorMode = useContext(ColorModeContext);
     return colorMode
 }
@@ -30,12 +30,19 @@ export function ThemeMode({ children }) {
             createTheme({
                 palette: {
                     primary: {
-                        main: '#81a265',
-                      },
-                      secondary: {
-                        main: '#f50057',},
+                        main: '#2f4a1c',
+                    },
+                    secondary: {
+                        main: '#688158',
+                    },
+                    customWhite: {
+                        light: '#ffcdd2',
+                        main: '#ffcdd2',
+                        dark: '#ffcdd2',
+                        contrastText: '#ffcdd2',
+                    },
                     mode,
-                  },
+                },
             }),
         [mode],
     );

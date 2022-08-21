@@ -18,7 +18,7 @@ const LargeScreenMenu = () => {
     const [activeNavBtn, setActiveNavBtn] = useState(0);
     return (
         <>
-            <Box sx={{ display: { xs: 'none', lg: 'flex' }, width: '100%', paddingBottom: 1 }}>
+            <Box sx={{ display: { xs: 'none', md: 'flex' }, width: '100%', paddingBottom: 1 }}>
                 <Button startIcon={<SchoolIcon />} component={RouterLink} to="/home" variant="text" color='inherit' onClick={() => setActiveNavBtn(0)}>
                     <Typography variant="h6" noWrap="true"
                         sx={{

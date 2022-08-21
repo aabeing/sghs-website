@@ -5,23 +5,46 @@ import Toolbar from '@mui/material/Toolbar';
 import SchoolIcon from '@mui/icons-material/School';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
-import { Typography, IconButton, Button, Tab, Tabs, useTheme } from '@mui/material';
+import { Typography, IconButton, Button, Tab, Tabs, useTheme, ButtonGroup, ToggleButtonGroup, ToggleButton } from '@mui/material';
 import { Box } from '@mui/system';
 
 import { NavLink as RouterLink, Outlet } from 'react-router-dom';
 import { useColorMode } from './ThemeMode';
+import { styled } from '@mui/material/styles';
 
 const pages = ['home', 'about', 'admissions', 'contact'];
-
+const secondaryMenu = ['home', 'about', 'admissions', 'contact'];
+// const secondaryMenu = ['academics','athletics','arts'];
 // const handleNavButtons = () =>{}
-const LargeScreenMenu = () => {
+function ThemeChangeButton() {
+    const theme = useTheme();
+    console.log("Theme :",theme);
+    const colorMode = useColorMode();
+    return (
+                <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
+                    {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+                </IconButton>
+    )
+}
+const CustomBtn = styled(Button)(({ theme }) => {
+    console.log("theme: " ,theme);
+    return {
+      '&.active': {
+        background:'black'
+      },
+  }});
+function Navigation() {
     const [activeNavBtn, setActiveNavBtn] = useState(0);
+    const [activeSecNav, setActiveSecNav] = useState(0);
     return (
         <>
-            <Box sx={{ display: { xs: 'none', md: 'flex' }, width: '100%', paddingBottom: 1 }}>
-                <Button startIcon={<SchoolIcon />} component={RouterLink} to="/home" variant="text" color='inherit' onClick={() => setActiveNavBtn(0)}>
-                    <Typography variant="h6" noWrap="true"
-                        sx={{
+            <AppBar color='primary' position="static">
+                <Container maxWidth="false">
+                    <Toolbar >
+                    <Box sx={{ display: { xs: 'none', md: 'flex' }, width: '100%', paddingBottom: 1 }}>
+                <Button  startIcon={<SchoolIcon />} component={RouterLink} to="/home" variant="text" color='inherit' onClick={() => setActiveNavBtn(0)}>
+                    <Typography variant="h6" 
+                        sx={{                            
                             ml: 1,
                             mr: 2,
                             fontFamily: 'monospace',
@@ -33,35 +56,15 @@ const LargeScreenMenu = () => {
                 </Button>
 
                 <Box sx={{ ml: 'auto', borderColor: 'divider' }}>
-                    <Tabs textColor='white' variant='scrollable' TabIndicatorProps={{ style: { background: 'white' } }} value={activeNavBtn} onChange={(e, val) => setActiveNavBtn(val)}>
+                    <Tabs textColor='primary' indicatorColor='secondary' variant='scrollable' TabIndicatorProps={{ style: { background: 'white' } }} value={activeNavBtn} onChange={(e, val) => setActiveNavBtn(val)}>
                         {pages.map((page, index) => (
-                            <Tab component={RouterLink} to={page} sx={{ fontWeight: 'bold', mx: 1 }} label={page} />
+                            <Tab key={index} component={RouterLink} to={page} sx={{ fontWeight: 'bold', mx: 1 }} label={page} />
                         ))}
                         <ThemeChangeButton />
                     </Tabs>
                     
                 </Box>
             </Box>
-        </>
-    )
-}
-function ThemeChangeButton() {
-    const theme = useTheme();
-    const colorMode = useColorMode();
-    return (
-                <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
-                    {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
-                </IconButton>
-    )
-}
-function Navigation() {
-
-    return (
-        <>
-            <AppBar color='primary' position="static">
-                <Container maxWidth="false">
-                    <Toolbar >
-                        <LargeScreenMenu />
                     </Toolbar>
                 </Container>
                 
@@ -69,8 +72,9 @@ function Navigation() {
             <AppBar color='secondary' position="static" sx={{ my: 0.2 }}>
                 <Container maxWidth="false" >
                     <Toolbar variant='dense' sx={{ minHeight: '2rem', display: { xs: 'none', md: 'flex' } }}>
-                        HI
-
+                        {secondaryMenu.map((secondMenuItem,index)=>(                            
+                            <CustomBtn key={index} component={RouterLink} to={secondMenuItem} color='secondary' onClick={()=> setActiveNavBtn(0)}>{secondMenuItem}</CustomBtn>                          
+                        ))}
                     </Toolbar>
                 </Container>
             </AppBar>            

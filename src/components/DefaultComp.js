@@ -5,6 +5,7 @@ import About from './pages/About'
 import Home from './pages/Home'
 import Admissions from './pages/Admissions'
 import Contact from './pages/Contact'
+import Gallery from './pages/Gallery'
 function DefaultComp() {
   return (
     <BrowserRouter>
@@ -15,6 +16,7 @@ function DefaultComp() {
         <Route path='about' element={<About/>} />
         <Route path='admissions' element={<Admissions/>} />
         <Route path='contact' element={<Contact/>} />
+        <Route path='gallery' element={<Gallery/>} />
       </Route>
     </Routes>
     </BrowserRouter>

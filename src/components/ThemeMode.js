@@ -17,6 +17,8 @@ export function ThemeMode({ children }) {
     const colorMode = useMemo(
         () => ({
             toggleColorMode: () => {
+                console.log("Theme Mode change")
+                // console.log()
                 setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
             },
         }),
@@ -27,8 +29,13 @@ export function ThemeMode({ children }) {
         () =>
             createTheme({
                 palette: {
+                    primary: {
+                        main: '#81a265',
+                      },
+                      secondary: {
+                        main: '#f50057',},
                     mode,
-                },
+                  },
             }),
         [mode],
     );

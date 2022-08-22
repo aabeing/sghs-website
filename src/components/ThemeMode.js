@@ -14,6 +14,7 @@ export function useColorMode() {
 }
 export function ThemeMode({ children }) {
     const [mode, setMode] = useState('dark');
+
     const colorMode = useMemo(
         () => ({
             toggleColorMode: () => {
@@ -25,28 +26,59 @@ export function ThemeMode({ children }) {
         [],
     );
 
+    const customPalLight =
+    {
+        palette: {
+            type: 'light',
+            primary: {
+                main: '#002147',
+            },
+            secondary: {
+                main: '#00142B',
+            },
+            background: {
+                default: '#E0DED9',
+                paper: '#fff',
+            },
+            customWhite: {
+                light: '#ffcdd2',
+                main: '#ffcdd2',
+                dark: '#ffcdd2',
+                contrastText: '#ffcdd2',
+            },
+        },
+    }
+    const customPalDark =
+    {
+        palette: {
+            type: 'dark',
+            primary: {
+                main: '#002147',
+                dark: '#002147'
+            },
+            secondary: {
+                main: '#00142B',
+            },
+            background: {
+                default: '#303030',
+                paper: '#424242',
+            },
+            customWhite: {
+                light: '#ffcdd2',
+                main: '#ffcdd2',
+                dark: '#ffcdd2',
+                contrastText: '#ffcdd2',
+            },
+        },
+    }
+    const customModeObj = mode === 'light' ? customPalLight : customPalDark;
+    console.log('Theme TEST')
     const theme = useMemo(
         () =>
-            createTheme({
-                palette: {
-                    primary: {
-                        main: '#2f4a1c',
-                    },
-                    secondary: {
-                        main: '#688158',
-                    },
-                    customWhite: {
-                        light: '#ffcdd2',
-                        main: '#ffcdd2',
-                        dark: '#ffcdd2',
-                        contrastText: '#ffcdd2',
-                    },
-                    mode,
-                },
-            }),
+            createTheme(customModeObj),
         [mode],
     );
-
+    console.log("THEME LOG: ", theme);
     return (
         <ColorModeContext.Provider value={colorMode}>
             <ThemeProvider theme={theme}>

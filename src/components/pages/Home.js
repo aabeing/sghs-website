@@ -8,11 +8,6 @@ import SchoolPic from '../../images/school.jpg'
              elva-fairy-640w.jpg 2x"
      src="elva-fairy-640w.jpg"
      alt="Elva dressed as a fairy"> */}
-function CustomGridItem({ children }) {
-  <Grid item xs={11.9} md={5.9} padding={2}>
-    {children}
-  </Grid>
-}
 function Home() {
   return (
     // <Paper elevation={3}>

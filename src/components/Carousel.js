@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { useTheme } from '@mui/material/styles';
+// import { useTheme } from '@mui/material/styles';
 // import Box from '@mui/material/Box';
 import MobileStepper from '@mui/material/MobileStepper';
 // import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+// import Button from '@mui/material/Button';
+// import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
+// import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import { Step, StepButton, Stepper } from '@mui/material';
 import { Box, Grid, Paper } from '@mui/material'
 // import SwipeableViews from 'react-swipeable-views';
@@ -25,11 +25,29 @@ const images = [
         imgPath:
             '/images/w2.jpg',
     },
-    
+    {
+        label: 'San Francisco- Oakland Bay Bridge, United States',
+        imgPath:
+            '/images/w1.jpg',
+    },
+    {
+        label: 'Bird',
+        imgPath:
+            '/images/w2.jpg',
+    },
+
+    {
+        label: 'San Francisco- Oakland Bay Bridge, United States',
+        imgPath:
+            '/images/w1.jpg',
+    },
+
+
+
 ];
 
 function Carousel() {
-    const theme = useTheme();
+    // const theme = useTheme();
     const [activeStep, setActiveStep] = React.useState(0);
     const maxSteps = images.length;
 
@@ -48,9 +66,9 @@ function Carousel() {
         setActiveStep((prevActiveStep) => (prevActiveStep + 1) % maxSteps);
     };
 
-    const handleBack = () => {
-        setActiveStep((prevActiveStep) => (prevActiveStep - 1 + maxSteps) % maxSteps);
-    };
+    // const handleBack = () => {
+    //     setActiveStep((prevActiveStep) => (prevActiveStep - 1 + maxSteps) % maxSteps);
+    // };
 
     const handleStepChange = (step) => {
         setActiveStep(step);
@@ -98,22 +116,30 @@ function Carousel() {
                     minWidth: 0,
                 }}> */}
                 <Grid container columns={12} >
-                <Grid item xs={6} padding={2}></Grid>
-                    <Grid item xs={6} padding={2}>
-                        <Stepper nonLinear activeStep={activeStep} sx={{ position: 'relative', top: "-2rem" }}>
-                            {images.map((step, index) => (
-                                <Step key={index}>
-                                    <StepButton size='small' color="inherit" onClick={() => handleStepChange(index)}>
-                                        {/* {label} */}
-                                    </StepButton>
-                                </Step>
-                            ))}
-                        </Stepper>
-                    </Grid>
+                        <Grid item xs={6} padding={2}></Grid>
+                        <Grid item xs={6} padding={2}>
+                            <Stepper nonLinear activeStep={activeStep} sx={{
+                                position: 'relative', top: "-2rem",
+                                display: { xs: 'none', md: 'flex' }
+                            }}>
+                                {images.map((step, index) => (
+                                    <Step key={index}>
+                                        <StepButton size='small' color="inherit" onClick={() => handleStepChange(index)}>
+                                            {/* {label} */}
+                                        </StepButton>
+                                    </Step>
+                                ))}
+                            </Stepper>
+                            <MobileStepper steps={maxSteps} position="static" activeStep={activeStep}
+                                sx={{ position: 'relative', top: "-2rem",  display: { md: 'none' }, 
+                                background: 'transparent' }} />
+                        </Grid>
                 </Grid>
 
-                </Box >
-    {/* <MobileStepper
+            </Box>
+
+
+            {/* <MobileStepper
                     steps={maxSteps}
                     position="static"
                     activeStep={activeStep}

@@ -6,8 +6,9 @@ import SchoolIcon from '@mui/icons-material/School';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import MenuIcon from '@mui/icons-material/Menu';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
-import { Typography, IconButton, Button, Tab, Tabs, useTheme, ButtonGroup, ToggleButtonGroup, ToggleButton, Divider, Drawer, ListItem, ListItemButton, ListItemText, List } from '@mui/material';
+import { Typography, IconButton, Button, Tab, Tabs, useTheme, Divider, Drawer, ListItem, ListItemButton, ListItemText, List } from '@mui/material';
 import { Box } from '@mui/system';
 
 import { NavLink as RouterLink, Outlet } from 'react-router-dom';
@@ -53,15 +54,28 @@ function LogoComp({ setActiveNavBtn, logoHeading }) {
                     width: '300px',
                     overflow: 'hidden',
                     lineHeight: '1.5em',
-                    height: '3em',     
+                    height: '3em',
                 }}>
                 {logoHeading}
             </Typography>
         </Button >
     )
 }
+function SecMenu({setActiveNavBtn}) {
+    return (
+        <AppBar color='primary' position="static" sx={{ mb: 0.2, mt: '74px' }}>
+            <Container maxWidth="false" >
+                <Toolbar variant='dense' sx={{ minHeight: '2rem', display: { xs: 'none', md: 'flex' } }}>
+                    {secondaryMenu.map((secondMenuItem, index) => (
+                        <CustomBtn variant='text' color='customWhite' key={index} component={RouterLink} to={secondMenuItem} onClick={() => setActiveNavBtn(0)}>{secondMenuItem}</CustomBtn>
+                    ))}
+                </Toolbar>
+            </Container>
+        </AppBar>
+    )
+}
 function LargeScreenNav({ setActiveNavBtn, activeNavBtn }) {
-    const [activeSecNav, setActiveSecNav] = useState(0);
+    // const [activeSecNav, setActiveSecNav] = useState(0);
     return (
         <Box sx={{ display: { xs: 'none', md: 'block' }, width: '100%', paddingBottom: 1 }}>
             <AppBar color='primary' position="fixed">
@@ -76,22 +90,12 @@ function LargeScreenNav({ setActiveNavBtn, activeNavBtn }) {
                                 ))}
                                 <ThemeChangeButton />
                             </Tabs>
-
                         </Box>
-
-                    </Toolbar>
-                </Container>
-
-            </AppBar>
-            <AppBar color='primary' position="static" sx={{ mb: 0.2, mt: '74px' }}>
-                <Container maxWidth="false" >
-                    <Toolbar variant='dense' sx={{ minHeight: '2rem', display: { xs: 'none', md: 'flex' } }}>
-                        {secondaryMenu.map((secondMenuItem, index) => (
-                            <CustomBtn variant='text' color='customWhite' key={index} component={RouterLink} to={secondMenuItem} onClick={() => setActiveNavBtn(0)}>{secondMenuItem}</CustomBtn>
-                        ))}
                     </Toolbar>
                 </Container>
             </AppBar>
+
+           
         </Box>
     )
 }
@@ -101,10 +105,11 @@ function SmallScreenNav({ setActiveNavBtn }) {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
             return;
         }
-
         setDrawerState(open)
     };
+    // Drawer contents as list
     const list = () => (
+        // App bars
         <Box
             sx={{ width: 250 }}
             role="presentation"
@@ -132,7 +137,8 @@ function SmallScreenNav({ setActiveNavBtn }) {
             </List>
         </Box>
     );
-    return (<>
+    return (
+
         <Box sx={{ display: { xs: 'block', md: 'none' }, width: '100%', paddingBottom: 1 }}>
             <AppBar color='primary' position="fixed">
                 <Container maxWidth="false">
@@ -157,15 +163,22 @@ function SmallScreenNav({ setActiveNavBtn }) {
                 {list()}
             </Drawer>
         </Box>
-    </>
     )
 }
 function Navigation() {
     const [activeNavBtn, setActiveNavBtn] = useState(0);
+    const theme = useTheme();
+    const isMatchSmall = useMediaQuery(theme.breakpoints.between('xs','md'));
+    const isMatchLarge = useMediaQuery(theme.breakpoints.up('md'));
     return (
         <>
-            <LargeScreenNav setActiveNavBtn={setActiveNavBtn} activeNavBtn={activeNavBtn} />
-            <SmallScreenNav setActiveNavBtn={setActiveNavBtn} activeNavBtn={activeNavBtn} />
+        {isMatchLarge?
+        <LargeScreenNav setActiveNavBtn={setActiveNavBtn} activeNavBtn={activeNavBtn} />
+        :null}
+        {isMatchSmall?
+        <SmallScreenNav setActiveNavBtn={setActiveNavBtn} activeNavBtn={activeNavBtn} />
+        :null}            
+            <SecMenu setActiveNavBtn={setActiveNavBtn}/>
             <Outlet />
         </>
     )

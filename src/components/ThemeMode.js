@@ -13,7 +13,7 @@ export function useColorMode() {
     return colorMode
 }
 export function ThemeMode({ children }) {
-    const [mode, setMode] = useState('dark');
+    const [mode, setMode] = useState('light');
 
     const colorMode = useMemo(
         () => ({
@@ -72,11 +72,11 @@ export function ThemeMode({ children }) {
         },
     }
     const customModeObj = mode === 'light' ? customPalLight : customPalDark;
-    console.log('Theme TEST')
+    // console.log('Theme TEST')
     const theme = useMemo(
         () =>
             createTheme(customModeObj),
-        [mode],
+        [customModeObj],
     );
     console.log("THEME LOG: ", theme);
     return (

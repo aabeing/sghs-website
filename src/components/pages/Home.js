@@ -16,7 +16,7 @@ function Home() {
     //  alt="Elva dressed as a fairy"/>
     // </Paper>
     <Paper sx={{
-      margin: 8, padding: 3
+      margin: {xs:2,md:8}, padding: {xs:0.5,md: 3}
     }}>
       <Grid container columns={12} >
         <Grid item xs={11.9} md={5.9} padding={2}>
@@ -39,7 +39,7 @@ function Home() {
         <Grid item xs={11.9} md={5.9} padding={2}>
           <Box component="img"
             sx={{
-              height: '100%',
+              height: 500,
               width: '100%',
               maxHeight: { xs: '100%', md: '100%' },
               maxWidth: { xs: '100%', md: '100%' },

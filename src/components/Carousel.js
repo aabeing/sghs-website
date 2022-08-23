@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
+// import Box from '@mui/material/Box';
 import MobileStepper from '@mui/material/MobileStepper';
-import Paper from '@mui/material/Paper';
+// import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+import { Step, StepButton, Stepper } from '@mui/material';
+import { Box, Grid, Paper } from '@mui/material'
 // import SwipeableViews from 'react-swipeable-views';
 // import { autoPlay } from 'react-swipeable-views-utils';
 
@@ -21,8 +23,9 @@ const images = [
     {
         label: 'Bird',
         imgPath:
-        '/images/w2.jpg',
-    }
+            '/images/w2.jpg',
+    },
+    
 ];
 
 function Carousel() {
@@ -34,7 +37,7 @@ function Carousel() {
     React.useEffect(() => {
         const interval = setInterval(() => {
             handleNext()
-        }, 2000);
+        }, 3000);
         return () => {
             if (interval) {
                 clearInterval(interval);
@@ -46,15 +49,15 @@ function Carousel() {
     };
 
     const handleBack = () => {
-        setActiveStep((prevActiveStep) => (prevActiveStep - 1 + maxSteps) % maxSteps );
+        setActiveStep((prevActiveStep) => (prevActiveStep - 1 + maxSteps) % maxSteps);
     };
 
-    // const handleStepChange = (step) => {
-    //     setActiveStep(step);
-    // };
+    const handleStepChange = (step) => {
+        setActiveStep(step);
+    };
     return (
         <div>
-            <Box sx={{ maxWidth: '100%', flexGrow: 1 }}>
+            <Box sx={{ maxWidth: '100%' }}>
                 <Paper
                     square
                     elevation={0}
@@ -70,7 +73,7 @@ function Carousel() {
                 </Paper>
                 {/* Autoswipe add here */}
                 {images.map((step, index) => (
-                    <div key={step.label}>
+                    <div key={index}>
                         {/* {console.log("Index test: ", activeStep, index)} */}
                         {activeStep === index ? (
                             <Box
@@ -81,7 +84,7 @@ function Carousel() {
                                     maxWidth: '100%',
                                     overflow: 'hidden',
                                     width: '100%',
-                                    position: 'relative'
+                                    // position: 'relative'
                                 }}
                                 src={step.imgPath}
                                 alt={step.label}
@@ -90,7 +93,27 @@ function Carousel() {
                     </div>
                 ))}
                 {/* Autoswipe add here */}
-                <MobileStepper
+                {/* <Box sx={{
+                    width: '10%', ml: 'auto', display: 'flex', justifyContent: 'center',
+                    minWidth: 0,
+                }}> */}
+                <Grid container columns={12} >
+                <Grid item xs={6} padding={2}></Grid>
+                    <Grid item xs={6} padding={2}>
+                        <Stepper nonLinear activeStep={activeStep} sx={{ position: 'relative', top: "-2rem" }}>
+                            {images.map((step, index) => (
+                                <Step key={index}>
+                                    <StepButton size='small' color="inherit" onClick={() => handleStepChange(index)}>
+                                        {/* {label} */}
+                                    </StepButton>
+                                </Step>
+                            ))}
+                        </Stepper>
+                    </Grid>
+                </Grid>
+
+                </Box >
+    {/* <MobileStepper
                     steps={maxSteps}
                     position="static"
                     activeStep={activeStep}
@@ -124,9 +147,10 @@ function Carousel() {
 
                         </Button>
                     }
-                />
-            </Box>
-        </div>
+                /> */}
+
+
+        </div >
     );
 }
 

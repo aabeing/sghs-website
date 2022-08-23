@@ -15,12 +15,14 @@ function Home() {
     //   <img src={SchoolPic} max
     //  alt="Elva dressed as a fairy"/>
     // </Paper>
+    <>
+    <Carousel />
     <Paper sx={{
       margin: {xs:2,md:8}, padding: {xs:0.5,md: 3}
     }}>
       <Grid container columns={12} >
         <Grid item xs={11.9} md={5.9} padding={2}>
-            <Carousel/>
+            
             {/* <Box component="img"
               sx={{
                 height: '100%',
@@ -48,6 +50,7 @@ function Home() {
         </Grid>
       </Grid>
     </Paper>
+    </>
   )
 }
 

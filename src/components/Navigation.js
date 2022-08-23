@@ -40,7 +40,7 @@ const CustomBtn = styled(Button)(({ theme }) => {
         },
     }
 });
-function LogoComp({ setActiveNavBtn,logoHeading}) {
+function LogoComp({ setActiveNavBtn, logoHeading }) {
     return (
         <Button startIcon={<SchoolIcon />} component={RouterLink} to="/home" variant="text" color='inherit' onClick={() => setActiveNavBtn(0)}>
             <Typography variant="h6"
@@ -50,20 +50,24 @@ function LogoComp({ setActiveNavBtn,logoHeading}) {
                     fontFamily: 'monospace',
                     fontWeight: 700,
                     letterSpacing: '.001 rem',
+                    width: '300px',
+                    overflow: 'hidden',
+                    lineHeight: '1.5em',
+                    height: '3em',     
                 }}>
                 {logoHeading}
             </Typography>
-        </Button>
+        </Button >
     )
 }
 function LargeScreenNav({ setActiveNavBtn, activeNavBtn }) {
     const [activeSecNav, setActiveSecNav] = useState(0);
     return (
         <Box sx={{ display: { xs: 'none', md: 'block' }, width: '100%', paddingBottom: 1 }}>
-            <AppBar color='primary' position="static">
+            <AppBar color='primary' position="fixed">
                 <Container maxWidth="false">
                     <Toolbar >
-                        <LogoComp setActiveNavBtn={setActiveNavBtn} logoHeading={logoHeadingLarge}/>
+                        <LogoComp setActiveNavBtn={setActiveNavBtn} logoHeading={logoHeadingLarge} />
                         {/* TabIndicatorProps={{ style: { background: 'white' } }} */}
                         <Box sx={{ ml: 'auto', borderColor: 'divider' }}>
                             <Tabs textColor='inherit' indicatorColor='customWhite' variant='standard' TabIndicatorProps={{ style: { background: 'white' } }} value={activeNavBtn} onChange={(e, val) => setActiveNavBtn(val)}>
@@ -79,7 +83,7 @@ function LargeScreenNav({ setActiveNavBtn, activeNavBtn }) {
                 </Container>
 
             </AppBar>
-            <AppBar color='primary' position="static" sx={{ my: 0.2 }}>
+            <AppBar color='primary' position="static" sx={{ mb: 0.2, mt: '74px' }}>
                 <Container maxWidth="false" >
                     <Toolbar variant='dense' sx={{ minHeight: '2rem', display: { xs: 'none', md: 'flex' } }}>
                         {secondaryMenu.map((secondMenuItem, index) => (
@@ -130,7 +134,7 @@ function SmallScreenNav({ setActiveNavBtn }) {
     );
     return (<>
         <Box sx={{ display: { xs: 'block', md: 'none' }, width: '100%', paddingBottom: 1 }}>
-            <AppBar color='primary' position="static">
+            <AppBar color='primary' position="fixed">
                 <Container maxWidth="false">
                     <Toolbar >
                         <IconButton
@@ -142,7 +146,7 @@ function SmallScreenNav({ setActiveNavBtn }) {
                         >
                             <MenuIcon />
                         </IconButton>
-                        <LogoComp setActiveNavBtn={setActiveNavBtn} logoHeading={logoHeadingSmall}/>
+                        <LogoComp setActiveNavBtn={setActiveNavBtn} logoHeading={logoHeadingSmall} />
                     </Toolbar >  </Container></AppBar>
 
             <Drawer

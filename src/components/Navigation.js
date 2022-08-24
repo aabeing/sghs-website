@@ -65,7 +65,9 @@ function SecMenu({setActiveNavBtn}) {
     return (
         <AppBar color='primary' position="static" sx={{ mb: 0.2, mt: '74px' }}>
             <Container maxWidth="false" >
-                <Toolbar variant='dense' sx={{ minHeight: '2rem', display: { xs: 'none', md: 'flex' } }}>
+                <Toolbar variant='dense' sx={{ minHeight: '2rem', 
+                // display: { xs: 'none', md: 'flex' } 
+                }}>
                     {secondaryMenu.map((secondMenuItem, index) => (
                         <CustomBtn variant='text' color='customWhite' key={index} component={RouterLink} to={secondMenuItem} onClick={() => setActiveNavBtn(0)}>{secondMenuItem}</CustomBtn>
                     ))}
@@ -77,7 +79,9 @@ function SecMenu({setActiveNavBtn}) {
 function LargeScreenNav({ setActiveNavBtn, activeNavBtn }) {
     // const [activeSecNav, setActiveSecNav] = useState(0);
     return (
-        <Box sx={{ display: { xs: 'none', md: 'block' }, width: '100%', paddingBottom: 1 }}>
+        <Box sx={{ 
+            // display: { xs: 'none', md: 'block' }, 
+            width: '100%', paddingBottom: 1 }}>
             <AppBar color='primary' position="fixed">
                 <Container maxWidth="false">
                     <Toolbar >
@@ -100,6 +104,7 @@ function LargeScreenNav({ setActiveNavBtn, activeNavBtn }) {
     )
 }
 function SmallScreenNav({ setActiveNavBtn }) {
+    //Drawer menu
     const [drawerState, setDrawerState] = useState(false);
     const toggleDrawer = (open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -139,7 +144,7 @@ function SmallScreenNav({ setActiveNavBtn }) {
     );
     return (
 
-        <Box sx={{ display: { xs: 'block', md: 'none' }, width: '100%', paddingBottom: 1 }}>
+        <Box sx={{ width: '100%', paddingBottom: 1 }}>
             <AppBar color='primary' position="fixed">
                 <Container maxWidth="false">
                     <Toolbar >
@@ -176,6 +181,7 @@ function Navigation() {
         <LargeScreenNav setActiveNavBtn={setActiveNavBtn} activeNavBtn={activeNavBtn} />
         :null}
         {isMatchSmall?
+        // Drawer Menu
         <SmallScreenNav setActiveNavBtn={setActiveNavBtn} activeNavBtn={activeNavBtn} />
         :null}            
             <SecMenu setActiveNavBtn={setActiveNavBtn}/>

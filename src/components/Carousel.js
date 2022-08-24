@@ -25,22 +25,22 @@ const images = [
         imgPath:
             '/images/w2.jpg',
     },
-    {
-        label: 'San Francisco- Oakland Bay Bridge, United States',
-        imgPath:
-            '/images/w1.jpg',
-    },
-    {
-        label: 'Bird',
-        imgPath:
-            '/images/w2.jpg',
-    },
+    // {
+    //     label: 'San Francisco- Oakland Bay Bridge, United States',
+    //     imgPath:
+    //         '/images/w1.jpg',
+    // },
+    // {
+    //     label: 'Bird',
+    //     imgPath:
+    //         '/images/w2.jpg',
+    // },
 
-    {
-        label: 'San Francisco- Oakland Bay Bridge, United States',
-        imgPath:
-            '/images/w1.jpg',
-    },
+    // {
+    //     label: 'San Francisco- Oakland Bay Bridge, United States',
+    //     imgPath:
+    //         '/images/w1.jpg',
+    // },
 
 
 
@@ -53,6 +53,7 @@ function Carousel() {
 
     // Autoplay effect based on given interval
     React.useEffect(() => {
+        console.log('component mounted');
         const interval = setInterval(() => {
             handleNext()
         }, 3000);

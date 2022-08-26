@@ -69,6 +69,9 @@ export function ThemeMode({ children }) {
                 dark: '#ffcdd2',
                 contrastText: '#ffcdd2',
             },
+            text: {
+                primary:'#D7D9DD'
+            }
         },
     }
     const customModeObj = mode === 'light' ? customPalLight : customPalDark;

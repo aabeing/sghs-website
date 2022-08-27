@@ -27,7 +27,7 @@ const ImageSlider = ({ imagesArr,settings }) => {
       <Box className="imgslider">
         <Slider {...settings} >
           {imagesArr.map((item, index) => (
-            <Box key={index} component='img' sx={{width:'auto',height:'auto',maxHeight:500,objectFit:'contain'}} src={item.src} alt={item.alt}>
+            <Box key={index} component='img' sx={{width:'auto',height:'auto',maxHeight:500,objectFit:'contain'}} src={item.src} alt={item.alt} loading="lazy">
               {/* <img  /> */}
             </Box>
           ))}

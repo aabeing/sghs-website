@@ -1,7 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-const { initializeApp } = require("firebase/app");
 const { initializeAppCheck, ReCaptchaV3Provider } = require("firebase/app-check");
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -21,7 +20,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const fireApp = initializeApp(firebaseConfig);
-const appCheck = initializeAppCheck(app, {
+const appCheck = initializeAppCheck(fireApp, {
   provider: new ReCaptchaV3Provider(process.env.REACT_APP_FIRE_APPCHECK),
 
   // Optional argument. If true, the SDK automatically refreshes App Check

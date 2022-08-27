@@ -1,6 +1,10 @@
 Enabled google api restrictions using Google API console
+### `npm run build`
+serve -s build
 
-
+firebase init
+firebase hosting:disable
+firebase deploy --only hosting
 
 
 

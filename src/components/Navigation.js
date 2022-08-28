@@ -12,7 +12,7 @@ import { Typography, IconButton, Button, Tab, Tabs, useTheme, Divider, Drawer, L
 import { Box } from '@mui/system';
 
 import { NavLink as RouterLink, Outlet } from 'react-router-dom';
-import { useColorMode } from './ThemeMode';
+import { useColorMode } from '../context/ThemeMode';
 import { styled } from '@mui/material/styles';
 
 const primaryMenu = ['home', 'about', 'admissions', 'contact'];

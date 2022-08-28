@@ -1,5 +1,5 @@
-import fireApp from "../dbConfig/firebaseInit";
-import {collection,doc, getFirestore, limit,orderBy,onSnapshot,query} from "firebase/firestore"
+import fireApp from "../fireConfig/firebaseInit";
+import {collection,doc, getFirestore,onSnapshot,query} from "firebase/firestore"
 
 // const fireDB = {};
 const db = getFirestore(fireApp);
@@ -17,7 +17,7 @@ export const getFireDocsRT = async (cName,runAfterFetch) => {
     // const q = query(collection(db, cName),orderBy('DateInfo'),limit(5));
     const q = query(collection(db, cName));
     const unsubscribe = onSnapshot(q, runAfterFetch, (error) => {
-        // throw "Failed to retrieve docs from db"
+        throw "Failed to retrieve docs from db"
       });
     return unsubscribe;
 }
@@ -25,7 +25,8 @@ export const getFireDocsRT = async (cName,runAfterFetch) => {
 export const getFireInitDoc = async (cName,dName,runAfterFetch)=>{
     const unsubscribe = onSnapshot(doc(db, cName, dName),runAfterFetch,
     (error) => {
-        // throw "Failed to retrieve docs from db"
+        throw "Failed to retrieve docs from db"
       });
+      return unsubscribe;
 }
 

@@ -6,6 +6,8 @@ firebase init
 firebase hosting:disable
 firebase deploy --only hosting
 
+# Pending
+Error handling
 
 
 

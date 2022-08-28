@@ -1,12 +1,12 @@
-import { styled } from '@mui/material/styles';
-import { Avatar, Box, Card, Divider, Grid, List, ListItem, ListItemAvatar, ListItemText, Paper, Typography } from '@mui/material'
+// import { styled } from '@mui/material/styles';
+import { Avatar, Box, Grid, List, ListItem, ListItemAvatar, ListItemText, Paper, Typography } from '@mui/material'
 // import { fontSize } from '@mui/system';
-import React, { useEffect, useState } from 'react'
+// import React from 'react'
 import ImageSlider from '../ImageSlider';
 import SquareIcon from '@mui/icons-material/Square';
-import { getFireDocsRT, getFireInitDoc, getFireInitDocs } from '../../dbConfig/firestore';
-import { getFirestore, collection, query, where, onSnapshot } from "firebase/firestore";
-import fireApp from "../../dbConfig/firebaseInit";
+// import { getFireDocsRT, getFireInitDoc, getFireInitDocs } from '../../fireConfig/firestore';
+// import { getFirestore, collection, query, where, onSnapshot } from "firebase/firestore";
+// import fireApp from "../../fireConfig/firebaseInit";
 
 
 const sliderSettings = {
@@ -33,10 +33,10 @@ const lineClampStyle = {
   WebkitLineClamp: '2',
   WebkitBoxOrient: 'vertical',
 }
-function Home({ announceData, initCollectData, isLoad }) {
+function Home({ announceData, initCollectData }) {
   // const [announcements, setannouncements] = useState([]);
   const announcements = announceData;
-  const [initCollect, setinitCollect] = useState({ WelcomeMessage: [] });
+  // const [initCollect, setinitCollect] = useState({ WelcomeMessage: [] });
   // useEffect(() => {
   // setannouncements(announceData)
   // setinitCollect(initCollectData);
@@ -101,7 +101,6 @@ function Home({ announceData, initCollectData, isLoad }) {
             {/* </Grid>  */}
 
             <Grid container xs={12} lg={6} padding={2} justifyContent='center' alignContent='center' component={Box} sx={{ overflow: 'hidden', display: { xs: 'none', lg: 'flex' } }}>
-
               <Box component="img"
                 sx={{
                   // pl:'15%',

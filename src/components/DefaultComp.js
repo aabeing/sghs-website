@@ -57,7 +57,7 @@ function DefaultComp() {
           <Route path='admissions' element={<Admissions />} />
           <Route path='contact' element={<Contact />} />
           <Route path='gallery' element={<Gallery />} />
-          <Route path='/admin' element={<Admin />} />
+          <Route path='/admin' element={<AdminLogin />} />
           <Route path='/adminlogin' element={<AdminLogin />} />
           <Route path='/adminlogout' element={<AdminLogout />} />
         </Route>

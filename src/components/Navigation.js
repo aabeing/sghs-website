@@ -61,12 +61,13 @@ function LogoComp({ setActiveNavBtn, logoHeading }) {
         </Button >
     )
 }
-function SecMenu({setActiveNavBtn}) {
+function SecMenu({ setActiveNavBtn }) {
     return (
-        <AppBar color='primary' position="static" sx={{ mb: 0.2, mt: '74px' }}>
+        <AppBar color='primary' position="static" >
             <Container maxWidth="false" >
-                <Toolbar variant='dense' sx={{ minHeight: '2rem', 
-                // display: { xs: 'none', md: 'flex' } 
+                <Toolbar variant='dense' sx={{
+                    minHeight: '2rem',
+                    // display: { xs: 'none', md: 'flex' } 
                 }}>
                     {secondaryMenu.map((secondMenuItem, index) => (
                         <CustomBtn variant='text' color='customWhite' key={index} component={RouterLink} to={secondMenuItem} onClick={() => setActiveNavBtn(0)}>{secondMenuItem}</CustomBtn>
@@ -79,9 +80,10 @@ function SecMenu({setActiveNavBtn}) {
 function LargeScreenNav({ setActiveNavBtn, activeNavBtn }) {
     // const [activeSecNav, setActiveSecNav] = useState(0);
     return (
-        <Box sx={{ 
+        <Box sx={{
             // display: { xs: 'none', md: 'block' }, 
-            width: '100%', paddingBottom: 1 }}>
+            width: '100%', paddingBottom: 1
+        }}>
             <AppBar color='primary' position="fixed">
                 <Container maxWidth="false">
                     <Toolbar >
@@ -99,7 +101,7 @@ function LargeScreenNav({ setActiveNavBtn, activeNavBtn }) {
                 </Container>
             </AppBar>
 
-           
+
         </Box>
     )
 }
@@ -173,18 +175,20 @@ function SmallScreenNav({ setActiveNavBtn }) {
 function Navigation() {
     const [activeNavBtn, setActiveNavBtn] = useState(0);
     const theme = useTheme();
-    const isMatchSmall = useMediaQuery(theme.breakpoints.between('xs','md'));
+    const isMatchSmall = useMediaQuery(theme.breakpoints.between('xs', 'md'));
     const isMatchLarge = useMediaQuery(theme.breakpoints.up('md'));
     return (
         <>
-        {isMatchLarge?
-        <LargeScreenNav setActiveNavBtn={setActiveNavBtn} activeNavBtn={activeNavBtn} />
-        :null}
-        {isMatchSmall?
-        // Drawer Menu
-        <SmallScreenNav setActiveNavBtn={setActiveNavBtn} activeNavBtn={activeNavBtn} />
-        :null}            
-            <SecMenu setActiveNavBtn={setActiveNavBtn}/>
+            {isMatchLarge ?
+                <LargeScreenNav setActiveNavBtn={setActiveNavBtn} activeNavBtn={activeNavBtn} />
+                : null}
+            {isMatchSmall ?
+                // Drawer Menu
+                <SmallScreenNav setActiveNavBtn={setActiveNavBtn} activeNavBtn={activeNavBtn} />
+                : null}
+            <Box sx={{ mb: 0.2, mt: '74px' }}>
+                {isMatchSmall ? <SecMenu setActiveNavBtn={setActiveNavBtn} /> : null}
+            </Box>
             <Outlet />
         </>
     )

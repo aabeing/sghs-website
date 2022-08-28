@@ -16,7 +16,7 @@ import { useColorMode } from '../context/ThemeMode';
 import { styled } from '@mui/material/styles';
 
 const primaryMenu = ['home', 'about', 'admissions', 'contact'];
-const secondaryMenu = ['home', 'about', 'admissions', 'contact'];
+// const secondaryMenu = ['gallery', 'about', 'admissions', 'contact'];
 const logoHeadingLarge = 'St.George High School Chempanthotty';
 const logoHeadingSmall = 'St.George HS Chempanthotty';
 // const secondaryMenu = ['academics','athletics','arts'];
@@ -61,7 +61,8 @@ function LogoComp({ setActiveNavBtn, logoHeading }) {
         </Button >
     )
 }
-function SecMenu({ setActiveNavBtn }) {
+function SecMenu({ setActiveNavBtn,secNav }) {
+    console.log("TESTSEC: ",secNav)
     return (
         <AppBar color='primary' position="static" >
             <Container maxWidth="false" >
@@ -69,7 +70,7 @@ function SecMenu({ setActiveNavBtn }) {
                     minHeight: '2rem',
                     // display: { xs: 'none', md: 'flex' } 
                 }}>
-                    {secondaryMenu.map((secondMenuItem, index) => (
+                    {secNav.map((secondMenuItem, index) => (
                         <CustomBtn variant='text' color='customWhite' key={index} component={RouterLink} to={secondMenuItem} onClick={() => setActiveNavBtn(0)}>{secondMenuItem}</CustomBtn>
                     ))}
                 </Toolbar>
@@ -105,7 +106,7 @@ function LargeScreenNav({ setActiveNavBtn, activeNavBtn }) {
         </Box>
     )
 }
-function SmallScreenNav({ setActiveNavBtn }) {
+function SmallScreenNav({ setActiveNavBtn,secNav }) {
     //Drawer menu
     const [drawerState, setDrawerState] = useState(false);
     const toggleDrawer = (open) => (event) => {
@@ -134,7 +135,7 @@ function SmallScreenNav({ setActiveNavBtn }) {
             </List>
             <Divider />
             <List>
-                {secondaryMenu.map((text, index) => (
+                {secNav.map((text, index) => (
                     <ListItem key={text} disablePadding>
                         <ListItemButton component={RouterLink} to={text}>
                             <ListItemText primary={text.toUpperCase()} />
@@ -172,7 +173,7 @@ function SmallScreenNav({ setActiveNavBtn }) {
         </Box>
     )
 }
-function Navigation() {
+function Navigation({secNav}) {
     const [activeNavBtn, setActiveNavBtn] = useState(0);
     const theme = useTheme();
     const isMatchSmall = useMediaQuery(theme.breakpoints.between('xs', 'md'));
@@ -184,10 +185,10 @@ function Navigation() {
                 : null}
             {isMatchSmall ?
                 // Drawer Menu
-                <SmallScreenNav setActiveNavBtn={setActiveNavBtn} activeNavBtn={activeNavBtn} />
+                <SmallScreenNav setActiveNavBtn={setActiveNavBtn} activeNavBtn={activeNavBtn} secNav={secNav}/>
                 : null}
             <Box sx={{ mb: 0.2, mt: '74px' }}>
-                {isMatchSmall ? <SecMenu setActiveNavBtn={setActiveNavBtn} /> : null}
+                {isMatchLarge ? <SecMenu setActiveNavBtn={setActiveNavBtn} secNav={secNav} /> : null}
             </Box>
             <Outlet />
         </>

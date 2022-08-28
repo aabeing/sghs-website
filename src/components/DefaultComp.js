@@ -7,7 +7,7 @@ import Admissions from './pages/Admissions'
 import Contact from './pages/Contact'
 import Gallery from './pages/Gallery'
 import { getFireDocsRT, getFireInitDoc } from '../fireConfig/firestore';
-import Admin from './pages/Admin'
+// import Admin from './pages/Admin'
 // import { useAuth } from '../context/authContext'
 import AdminLogin from './pages/AdminLogin'
 import AdminLogout from './pages/AdminLogout'
@@ -16,7 +16,8 @@ function DefaultComp() {
   const [announceData, setannounceData] = useState([]);
   const [initCollectData, setinitCollectData] = useState({ WelcomeMessage: [] });
   // const [isLoad, setisLoad] = useState(true);
-
+  // const [priNav,setpriNav] = useState(['home', 'about', 'admissions', 'contact']);
+  const [secNav,setsecNav] = useState(['gallery', 'about', 'admissions', 'contact','admin'])
 
   useEffect(() => {
     try {
@@ -50,16 +51,16 @@ function DefaultComp() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Navigation />}>
+        <Route path='/' element={<Navigation secNav={secNav} setsecNav={setsecNav}/>}>
           <Route index element={<Home announceData={announceData} initCollectData={initCollectData} />} />
           <Route path='home' element={<Home announceData={announceData} initCollectData={initCollectData} />} />
           <Route path='about' element={<About />} />
           <Route path='admissions' element={<Admissions />} />
           <Route path='contact' element={<Contact />} />
           <Route path='gallery' element={<Gallery />} />
-          <Route path='/admin' element={<AdminLogin />} />
-          <Route path='/adminlogin' element={<AdminLogin />} />
-          <Route path='/adminlogout' element={<AdminLogout />} />
+          <Route path='/admin' element={<AdminLogin setsecNav={setsecNav} secNav={secNav}/>} />
+          {/* <Route path='/adminlogin' element={<AdminLogin setsecNav={setsecNav} secNav={secNav}/>} /> */}
+          <Route path='/logout' element={<AdminLogout setsecNav={setsecNav}/>} />
         </Route>
       </Routes>
     </BrowserRouter>

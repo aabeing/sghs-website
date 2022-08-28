@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import GoogleIcon from '@mui/icons-material/Google';
 import { useAuth } from '../../context/authContext';
 // import { Button } from '@mui/material';
@@ -7,21 +7,40 @@ import { useNavigate } from 'react-router-dom';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 // import { async } from '@firebase/util';
 
-function AdminLogin() {
+function AdminLogin({ setsecNav, secNav }) {
 
     const { loginAdmin, loggedInUser, setloggedInUser, auth } = useAuth();
     const [status, setstatus] = useState('');
     const [loading, setloading] = useState(false);
     const [curUserAdmin, setcurUserAdmin] = useState(loggedInUser)
     // const nav = useNavigate();
+    const addLogoutNav = useCallback(() => {
+        try {
+            console.log("CHECK.......")
+            if (secNav.indexOf('logout') === -1) {
+                setsecNav(['gallery', 'about', 'admissions', 'contact', 'admin', 'logout']);
+            }
 
+        } catch (err) {
+            console.log("Error ", err)
+        }
+    })
+    // const addLogoutNav = () => {
+    //     try {
+    //         console.log("CHECK.......")
+    //         setsecNav(['gallery', 'about', 'admissions', 'contact','admin','logout']);
+    //     } catch (err) {
+    //         console.log("Error ", err)
+    //     }
+    // }
     useEffect(() => {
-        console.log("loggedInUser: ",loggedInUser)
+        console.log("loggedInUser: ", loggedInUser)
         if (loggedInUser) {
             // nav('/admin')
             setcurUserAdmin(true);
+            addLogoutNav();
         }
-    }, [loggedInUser])
+    }, [loggedInUser, addLogoutNav])
     const handleLogin = async () => {
         setloading(true);
         const provider = new GoogleAuthProvider();
@@ -35,8 +54,10 @@ function AdminLogin() {
                 console.log("LOGINSUCCESS: ", user)
                 // nav('/admin');                
                 // setcurUser(user);
-                setcurUserAdmin(true)
+                setcurUserAdmin(true);
+                addLogoutNav();
                 setloggedInUser(user);
+
             }).catch((error) => {
                 setcurUserAdmin(false);
                 setloading(false);
@@ -47,7 +68,6 @@ function AdminLogin() {
                 const email = error.customData.email;
                 // The AuthCredential type that was used.
                 // const credential = GoogleAuthProvider.credentialFromError(error);
-                // ...
                 console.log("LOGINFAILED")
             });
         // setloading(true);
@@ -84,9 +104,6 @@ function AdminLogin() {
                 >
                     Sign in with Google
                 </LoadingButton>
-                {/* <Button onClick={handleLogin} variant="contained" startIcon={<GoogleIcon color='success' />} >
-                Sign in with Google  {console.log("CU: ", loggedInUser)}
-            </Button> */}
                 {status ? <div>status</div> : null}
             </>
         )

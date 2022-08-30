@@ -34,7 +34,7 @@ export function ThemeMode({ children }) {
                 main: '#002147',
             },
             secondary: {
-                main: '#00142B',
+                main: '#4b40ff',
             },
             background: {
                 default: '#E0DED9',
@@ -57,7 +57,7 @@ export function ThemeMode({ children }) {
                 dark: '#002147'
             },
             secondary: {
-                main: '#00142B',
+                main: '#4b40ff',
             },
             background: {
                 default: '#303030',

@@ -3,8 +3,12 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import { Container, textAlign } from '@mui/system';
 import SimpleReactLightbox, { SRLWrapper } from 'simple-react-lightbox';
-import { Divider, Typography, useMediaQuery } from '@mui/material';
+import { Button, Divider, ImageListItemBar, Typography, useMediaQuery } from '@mui/material';
 import { useTheme } from '@emotion/react';
+import Upload from './Upload';
+import { styled } from '@mui/system';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 
 const itemData = [
   {
@@ -84,70 +88,91 @@ const itemData = [
 export default function Gallery() {
   const theme = useTheme();
   const isMatchLarge = useMediaQuery(theme.breakpoints.up('md'));
-  return (
-    <Container maxWidth='xl'>
-      <Divider
-        sx={{
-          paddingTop: 2,
-          "&::before, &::after": {
-            borderColor: "black",
-          },
-        }}
-      >
-        <Typography variant='h4'>Some Text</Typography>
-      </Divider>
-      {isMatchLarge &&
-        <SimpleReactLightbox>
-          <SRLWrapper>
-            <ImageList cols={4} gap={12} sx={{
-              m: { md: 1 }, p: { md: 3 },
-              gridTemplateColumns: 'repeat(auto-fill,minmax(310px,1fr))!important'
-            }}>
-              {itemData.map((item) => (
-                <ImageListItem key={item.img} sx={{
-                  m: 1,
-                  cursor: 'pointer',
-                  opacity: { md: '.7' },
-                  transition: 'opacity .4s linear',
-                  '&:hover': { md: { opacity: 1, transform: 'scale(1.03)' } },
-                }}>
-                  <img
-                    src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-                    srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                    alt={item.title}
-                    // style={{ cursor: 'pointer' }}
-                    loading="lazy"
-                  />
-                  {/* <ImageListItemBar title={item.title} /> */}
-                </ImageListItem>
-              ))}
-            </ImageList>
-          </SRLWrapper>
-        </SimpleReactLightbox>
-      }
-      {!isMatchLarge &&
-        <ImageList cols={4} gap={12} sx={{
-          gridTemplateColumns: 'repeat(auto-fill,minmax(310px,1fr))!important'
-        }}>
-          {itemData.map((item) => (
-            <ImageListItem key={item.img} sx={{
-              m: 1,
-              cursor: 'pointer',
-            }}>
-              <img
-                src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-                srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                alt={item.title}
-                // style={{ cursor: 'pointer' }}
-                loading="lazy"
-              />
-              {/* <ImageListItemBar title={item.title} /> */}
-            </ImageListItem>
-          ))}
-        </ImageList>
-      }
+  const MyComponent = styled('div')({
+    "& .hiddenbtn": {
+      display: "none"
+    },
+    "&:hover .hiddenbtn": {
+      display: "flex"
+    },
+    cursor: 'pointer',
+    m: 1,
+    transition: ' 0.4s all ease-in-out',
+    '&:hover': {  transform: 'scale(1.03)' } ,
+  });
 
-    </Container>
+  return (
+    <>
+      <Upload />
+      <Container maxWidth='xl'>
+        <Divider
+          sx={{
+            paddingTop: 2,
+            "&::before, &::after": {
+              borderColor: "black",
+            },
+          }}
+        >
+          <Typography variant='h4'>Some Text</Typography>
+        </Divider>
+        {/* Large screen view */}
+        {isMatchLarge &&
+          <SimpleReactLightbox>
+            <SRLWrapper>
+              <ImageList cols={4} gap={12} sx={{
+                m: { md: 1 }, p: { md: 3 },
+                gridTemplateColumns: 'repeat(auto-fill,minmax(310px,1fr))!important'
+              }}>
+                {itemData.map((item) => (
+                  <MyComponent>
+                    <ImageListItem key={item.img} sx={{
+                      
+                      // opacity: { md: '.7' },
+
+                      // '&:hover': { md: {  transform: 'scale(1.03)' } },
+                    }}>
+                      <img
+                        src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
+                        srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                        alt={item.title}
+                        // style={{ cursor: 'pointer' }}
+                        loading="lazy"
+                      />
+                      {/* <ImageListItemBar title='Delete' sx={{ background: (theme) => theme.palette.secondary.main }}  /> */}
+                      <Button className='hiddenbtn' color='secondary' startIcon={<DeleteIcon />} variant='contained' sx={{position:'absolute',right:0}} onClick={() => { console.log('TEST') }}></Button>
+                    </ImageListItem>
+                    
+                  </MyComponent>
+                ))}
+              </ImageList>
+            </SRLWrapper>
+          </SimpleReactLightbox>
+        }
+        {/* Small screen view */}
+        {!isMatchLarge &&
+          <ImageList cols={4} gap={12} sx={{
+            gridTemplateColumns: 'repeat(auto-fill,minmax(310px,1fr))!important'
+          }}>
+            {itemData.map((item) => (
+              <ImageListItem key={item.img} sx={{
+                m: 1,
+                cursor: 'pointer',
+              }}>
+                <img
+                  src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
+                  srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                  alt={item.title}
+                  // style={{ cursor: 'pointer' }}
+                  loading="lazy"
+                />
+                {/* <ImageListItemBar title={item.title} /> */}
+              </ImageListItem>
+            ))}
+          </ImageList>
+        }
+
+      </Container>
+    </>
   );
 }
 

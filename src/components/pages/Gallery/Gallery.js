@@ -1,13 +1,14 @@
 import * as React from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
-import { Container, textAlign } from '@mui/system';
+import { Container } from '@mui/system';
 import SimpleReactLightbox, { SRLWrapper } from 'simple-react-lightbox';
-import { Button, Divider, ImageListItemBar, Typography, useMediaQuery } from '@mui/material';
+import {  Divider, Typography, useMediaQuery } from '@mui/material';
 import { useTheme } from '@emotion/react';
 import Upload from './Upload';
 import { styled } from '@mui/system';
-import DeleteIcon from '@mui/icons-material/Delete';
+
+import Delete from './Delete';
 
 
 const itemData = [
@@ -139,7 +140,9 @@ export default function Gallery() {
                         loading="lazy"
                       />
                       {/* <ImageListItemBar title='Delete' sx={{ background: (theme) => theme.palette.secondary.main }}  /> */}
-                      <Button className='hiddenbtn' color='secondary' startIcon={<DeleteIcon />} variant='contained' sx={{position:'absolute',right:0}} onClick={() => { console.log('TEST') }}></Button>
+                      
+
+                      <Delete/>
                     </ImageListItem>
                     
                   </MyComponent>

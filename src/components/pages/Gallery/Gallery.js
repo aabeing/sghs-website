@@ -1,14 +1,10 @@
 import * as React from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
-import ImageListItemBar from '@mui/material/ImageListItemBar';
-import ListSubheader from '@mui/material/ListSubheader';
-import IconButton from '@mui/material/IconButton';
-import InfoIcon from '@mui/icons-material/Info';
 import { Container, textAlign } from '@mui/system';
 import SimpleReactLightbox, { SRLWrapper } from 'simple-react-lightbox';
-import { styled } from '@mui/material/styles'
-import { Divider, Typography } from '@mui/material';
+import { Divider, Typography, useMediaQuery } from '@mui/material';
+import { useTheme } from '@emotion/react';
 
 const itemData = [
   {
@@ -86,6 +82,8 @@ const itemData = [
 
 
 export default function Gallery() {
+  const theme = useTheme();
+  const isMatchLarge = useMediaQuery(theme.breakpoints.up('md'));
   return (
     <Container maxWidth='xl'>
       <Divider
@@ -98,33 +96,56 @@ export default function Gallery() {
       >
         <Typography variant='h4'>Some Text</Typography>
       </Divider>
-
-      <SimpleReactLightbox>
-        <SRLWrapper>
-          <ImageList cols={4} gap={12} sx={{
-            m: 3, p: 3,
-            gridTemplateColumns: 'repeat(auto-fill,minmax(280px,1fr))!important'
-          }}>
-            {itemData.map((item) => (
-              <ImageListItem key={item.img} sx={{
-                cursor: 'pointer',
-                opacity: '.7',
-                transition: 'opacity .4s linear',
-                '&:hover': { opacity: 1, transform: 'scale(1.03)' },
-              }}>
-                <img
-                  src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-                  srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                  alt={item.title}
-                  // style={{ cursor: 'pointer' }}
-                  loading="lazy"
-                />
-                {/* <ImageListItemBar title={item.title} /> */}
-              </ImageListItem>
-            ))}
-          </ImageList>
-        </SRLWrapper>
-      </SimpleReactLightbox>
+      {isMatchLarge &&
+        <SimpleReactLightbox>
+          <SRLWrapper>
+            <ImageList cols={4} gap={12} sx={{
+              m: { md: 1 }, p: { md: 3 },
+              gridTemplateColumns: 'repeat(auto-fill,minmax(310px,1fr))!important'
+            }}>
+              {itemData.map((item) => (
+                <ImageListItem key={item.img} sx={{
+                  m: 1,
+                  cursor: 'pointer',
+                  opacity: { md: '.7' },
+                  transition: 'opacity .4s linear',
+                  '&:hover': { md: { opacity: 1, transform: 'scale(1.03)' } },
+                }}>
+                  <img
+                    src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
+                    srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                    alt={item.title}
+                    // style={{ cursor: 'pointer' }}
+                    loading="lazy"
+                  />
+                  {/* <ImageListItemBar title={item.title} /> */}
+                </ImageListItem>
+              ))}
+            </ImageList>
+          </SRLWrapper>
+        </SimpleReactLightbox>
+      }
+      {!isMatchLarge &&
+        <ImageList cols={4} gap={12} sx={{
+          gridTemplateColumns: 'repeat(auto-fill,minmax(310px,1fr))!important'
+        }}>
+          {itemData.map((item) => (
+            <ImageListItem key={item.img} sx={{
+              m: 1,
+              cursor: 'pointer',
+            }}>
+              <img
+                src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
+                srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                alt={item.title}
+                // style={{ cursor: 'pointer' }}
+                loading="lazy"
+              />
+              {/* <ImageListItemBar title={item.title} /> */}
+            </ImageListItem>
+          ))}
+        </ImageList>
+      }
 
     </Container>
   );

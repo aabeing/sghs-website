@@ -2,7 +2,7 @@
 import { Avatar, Box, Grid, List, ListItem, ListItemAvatar, ListItemText, Paper, Typography } from '@mui/material'
 // import { fontSize } from '@mui/system';
 // import React from 'react'
-import ImageSlider from '../ImageSlider';
+import ImageSlider from './ImageSlider';
 import SquareIcon from '@mui/icons-material/Square';
 // import { getFireDocsRT, getFireInitDoc, getFireInitDocs } from '../../fireConfig/firestore';
 // import { getFirestore, collection, query, where, onSnapshot } from "firebase/firestore";

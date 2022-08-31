@@ -1,13 +1,13 @@
 import { collection, doc, onSnapshot, orderBy, query } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import { fireApp,db } from './firebaseInit';
-console.log("TEST ",fireApp.name);
+import { db } from './firebaseInit';
+// console.log("TEST ",fireApp.name);
 export const useFireDocs = (collectionName) => {
     const [documents, setDocuments] = useState([]);
     useEffect(() => {
         const q = query(
             collection(db, collectionName),
-              orderBy('timestamp', 'desc')
+              orderBy('Timestamp', 'desc')
         );
         const unsubscribe = onSnapshot(
             q,
@@ -49,7 +49,7 @@ export const useFireDoc = (collectionName,docName) => {
         );
         return () => unsubscribe();
     }, [collectionName,docName]);
-    // console.log("IN: ",document)
+    console.log("IN: ",document)
     return { ...document };
 };
 

@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { getAuth, GoogleAuthProvider, signInWithRedirect, onAuthStateChanged, signOut, browserSessionPersistence, setPersistence, inMemoryPersistence } from "firebase/auth";
 // import { useNavigate } from 'react-router-dom';y
+import {auth} from '../fireConfig/firebaseInit';
 
 const AuthContext = createContext()
 export function useAuth() {
@@ -8,7 +9,7 @@ export function useAuth() {
 }
 
 
-const auth = getAuth();
+// const auth = getAuth();
 setPersistence(auth, browserSessionPersistence)
     .then(() => {
         console.log("AUth init")

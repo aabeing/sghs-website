@@ -102,7 +102,7 @@ function Home({ announceData, initCollectData }) {
                       <Typography variant='h6'>{ele.Heading}</Typography>
                     } secondary={
                       <>
-                        {ele.DateInfo.toDate().toDateString()}
+                        {ele.Timestamp.toDate().toDateString()}
                         <Typography color='text.primary'
                           sx={{
                             ...lineClampStyle,

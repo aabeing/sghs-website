@@ -3,7 +3,7 @@ import GoogleIcon from '@mui/icons-material/Google';
 import { useAuth } from '../../context/authContext';
 // import { Button } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 // import { async } from '@firebase/util';
 
@@ -24,7 +24,7 @@ function AdminLogin({ setsecNav, secNav }) {
         } catch (err) {
             console.log("Error ", err)
         }
-    })
+    },[secNav])
     // const addLogoutNav = () => {
     //     try {
     //         console.log("CHECK.......")

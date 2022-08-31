@@ -4,7 +4,7 @@ import ImageListItem from '@mui/material/ImageListItem';
 import { Container } from '@mui/system';
 import SimpleReactLightbox, { SRLWrapper } from 'simple-react-lightbox';
 import {  Divider, Typography, useMediaQuery } from '@mui/material';
-import { useTheme } from '@emotion/react';
+import { useTheme } from '@mui/material/styles';
 import Upload from './Upload';
 import { styled } from '@mui/system';
 

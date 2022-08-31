@@ -1,12 +1,7 @@
-// import { styled } from '@mui/material/styles';
+
 import { Avatar, Box, Grid, List, ListItem, ListItemAvatar, ListItemText, Paper, Typography } from '@mui/material'
-// import { fontSize } from '@mui/system';
-// import React from 'react'
 import ImageSlider from './ImageSlider';
 import SquareIcon from '@mui/icons-material/Square';
-// import { getFireDocsRT, getFireInitDoc, getFireInitDocs } from '../../fireConfig/firestore';
-// import { getFirestore, collection, query, where, onSnapshot } from "firebase/firestore";
-// import fireApp from "../../fireConfig/firebaseInit";
 
 
 const sliderSettings = {
@@ -21,7 +16,6 @@ const sliderSettings = {
   // centerMode: true,
 
 };
-// const AnnounceDBName = "Announcements";
 
 const paperStyle = {
   margin: { xs: 2, md: 8 }, padding: { xs: 0.5, md: 3 }
@@ -34,33 +28,9 @@ const lineClampStyle = {
   WebkitBoxOrient: 'vertical',
 }
 function Home({ announceData, initCollectData }) {
-  // const [announcements, setannouncements] = useState([]);
-  const announcements = announceData;
-  // const [initCollect, setinitCollect] = useState({ WelcomeMessage: [] });
-  // useEffect(() => {
-  // setannouncements(announceData)
-  // setinitCollect(initCollectData);
-  // console.log("Inside: ",initCollect);
-  // console.log("Inside2: ",announcements);
-  // getFireDocsRT('Announcements', (querySnapshot) => {
-  //   const out = [];
-  //   querySnapshot.forEach((doc) => {
-  //     out.push(doc.data());
-  //   });
-  //   setannouncements(out);
-  //   // console.log("Current out in CA: ", out);
-  // });
-  // getFireInitDoc('InitCollect', 'InitCollectDoc', (doc) => {
-  //   console.log("Current data: ", doc.data());
-  // });
-
-  // }, [announcements,initCollect]);
   const contentImage1 = "/images/welcomeImg.png"
-  // console.log("test: ",initCollect)
   const contentPara1 = initCollectData.WelcomeMessage;
   const contentHead1 = "Welcome to St.George High School";
-  // For main carousel
-  // const imagesArr = initCollectData.SliderImg;
   const imagesArr = [
     {
       alt: 'San Francisco- Oakland Bay Bridge, United States',
@@ -72,8 +42,8 @@ function Home({ announceData, initCollectData }) {
       src:
         '/images/w2.jpg',
     }
-  ]
-  if (announceData.length && initCollectData.WelcomeMessage ) {
+  ];
+  if (announceData.length && initCollectData.WelcomeMessage) {
 
     return (
       <>
@@ -117,32 +87,34 @@ function Home({ announceData, initCollectData }) {
         <Grid xs={12} md={6} sx={{ ...paperStyle }}>
           <Typography variant='h4'>Announcements</Typography>
           <List sx={{ width: '100%', maxWidth: { xs: '100%', md: '50%' } }}>
-            {announcements.map((ele, index) => (
-              <ListItem key={index} alignItems='flex-start' >
-                <ListItemAvatar key={index + '-1'}>
-                  <Avatar>
-                    <SquareIcon fontSize='small' color='primary' />
-                  </Avatar>
-                </ListItemAvatar>
-                {/* sx={{ maxHeight: 120, textOverflow: 'ellipsis', overflow: 'hidden' }} */}
-                <ListItemText key={index + '-2'}
-                  primary={
-                    <Typography variant='h6'>{ele.Heading}</Typography>
-                  } secondary={
-                    <>
-                      {ele.DateInfo.toDate().toDateString()}
-                      <Typography color='text.primary'
-                        sx={{
-                          ...lineClampStyle,
-                          WebkitLineClamp: '3',
-                        }}
-                      >
-                        {ele.Content}
-                      </Typography>
-                    </>
-                  } />
-              </ListItem>
-            ))}
+            {announceData.map((element, index) => {
+              const ele = element.data;
+              return (
+                <ListItem key={index} alignItems='flex-start' >
+                  <ListItemAvatar key={index + '-1'}>
+                    <Avatar>
+                      <SquareIcon fontSize='small' color='primary' />
+                    </Avatar>
+                  </ListItemAvatar>
+                  {/* sx={{ maxHeight: 120, textOverflow: 'ellipsis', overflow: 'hidden' }} */}
+                  <ListItemText key={index + '-2'}
+                    primary={
+                      <Typography variant='h6'>{ele.Heading}</Typography>
+                    } secondary={
+                      <>
+                        {ele.DateInfo.toDate().toDateString()}
+                        <Typography color='text.primary'
+                          sx={{
+                            ...lineClampStyle,
+                            WebkitLineClamp: '3',
+                          }}
+                        >
+                          {ele.Content}
+                        </Typography>
+                      </>
+                    } />
+                </ListItem>)
+            })}
 
           </List>
         </Grid>
@@ -152,7 +124,7 @@ function Home({ announceData, initCollectData }) {
     )
   }
   else {
-    return <Box sx={{height:'100vh', textAlign:'center',pt:'40vh'}} component="h1">Loading...</Box>
+    return <Box sx={{ height: '100vh', textAlign: 'center', pt: '40vh' }} component="h1">Loading...</Box>
   }
 }
 

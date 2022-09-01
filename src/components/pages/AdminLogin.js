@@ -16,12 +16,13 @@ function AdminLogin({ setsecNav, secNav }) {
     // const nav = useNavigate();
     const addLogoutNav = useCallback(() => {
         try {
-            console.log("CHECK.......")
+            // console.log("CHECK.......")
             if (secNav.indexOf('logout') === -1) {
                 setsecNav(['gallery', 'about', 'admissions', 'contact', 'admin', 'logout']);
             }
 
         } catch (err) {
+            alert(err);
             console.log("Error ", err)
         }
     },[secNav])
@@ -34,7 +35,7 @@ function AdminLogin({ setsecNav, secNav }) {
     //     }
     // }
     useEffect(() => {
-        console.log("loggedInUser: ", loggedInUser)
+        // console.log("loggedInUser: ", loggedInUser)
         if (loggedInUser) {
             // nav('/admin')
             setcurUserAdmin(true);
@@ -51,7 +52,7 @@ function AdminLogin({ setsecNav, secNav }) {
                 // const token = credential.accessToken;
                 // The signed-in user info.
                 const user = result.user;
-                console.log("LOGINSUCCESS: ", user)
+                // console.log("LOGINSUCCESS: ", user)
                 // nav('/admin');                
                 // setcurUser(user);
                 setcurUserAdmin(true);
@@ -68,7 +69,8 @@ function AdminLogin({ setsecNav, secNav }) {
                 const email = error.customData.email;
                 // The AuthCredential type that was used.
                 // const credential = GoogleAuthProvider.credentialFromError(error);
-                console.log("LOGINFAILED")
+                alert("LOGINFAILED")
+                // console.log("LOGINFAILED")
             });
         // setloading(true);
         // try {

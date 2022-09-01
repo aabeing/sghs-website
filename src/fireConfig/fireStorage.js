@@ -1,7 +1,7 @@
-import { getStorage, ref, getDownloadURL } from "firebase/storage";
+// import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
 // Create a reference to the file we want to download
-const storage = getStorage();
+// const storage = getStorage();
 
 // export const dwldImg = (path) => {
 //     const starsRef = ref(storage, path);

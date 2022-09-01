@@ -12,13 +12,14 @@ export function useAuth() {
 // const auth = getAuth();
 setPersistence(auth, browserSessionPersistence)
     .then(() => {
-        console.log("AUth init")
+        console.log("Auth initialized")
     })
     .catch((error) => {
         const err = new Error();
         err.errorCode = error.code;
         err.errorMessage = error.message;
         // throw err;
+        alert(err);
         console.log("AUTH failed: ", err);
     });
 
@@ -47,16 +48,16 @@ export function AuthProvider({ children }) {
     useEffect(() => {
         const unsub = onAuthStateChanged(auth, (user) => {
             if (user) {
-                console.log("TEST: ", user.uid);
+                // console.log("TEST: ", user.uid);
                 setloggedInUser(user);
             } else {
                 // User is signed out
-                console.log("Signed out log")
+                // console.log("Signed out log")
                 setloggedInUser('');
             }
         });
         return (() => {
-            console.log("Unsubscribing from onauthstatechanged");
+            // console.log("Unsubscribing from onauthstatechanged");
             unsub();
         });
     }, [])

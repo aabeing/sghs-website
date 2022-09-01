@@ -14,10 +14,10 @@ function DefaultComp() {
   const [secNav, setsecNav] = useState(['gallery', 'about', 'admissions', 'contact', 'admin'])
   const announceData = useFireDocs('Announcements');
   const initCollectData = useFireDoc('InitCollect', 'InitCollectDoc');
-  console.log("AAME: ", initCollectData, '\nhere ', announceData)
-  useEffect(() => {
-    console.log('Mounted D')
-  }, [])
+  // console.log("AAME: ", initCollectData, '\nhere ', announceData)
+  // useEffect(() => {
+  //   console.log('Mounted D')
+  // }, [])
   return (
     <BrowserRouter>
       <Routes>

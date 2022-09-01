@@ -49,7 +49,7 @@ export const useFireDoc = (collectionName,docName) => {
         );
         return () => unsubscribe();
     }, [collectionName,docName]);
-    console.log("IN: ",document)
+    // console.log("IN: ",document)
     return { ...document };
 };
 

@@ -81,7 +81,7 @@ export function ThemeMode({ children }) {
             createTheme(customModeObj),
         [customModeObj],
     );
-    console.log("THEME LOG: ", theme);
+    // console.log("THEME LOG: ", theme);
     return (
         <ColorModeContext.Provider value={colorMode}>
             <ThemeProvider theme={theme}>

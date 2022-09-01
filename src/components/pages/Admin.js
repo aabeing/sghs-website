@@ -16,10 +16,10 @@ function Admin() {
 
 
   useEffect(() => {
-    console.log('Admin comp mounted');
+    // console.log('Admin comp mounted');
     const user = auth.currentUser;
     if (user) {
-      console.log("User in admin: ",user);
+      // console.log("User in admin: ",user);
       setcurUser(user);
       // User is signed in, see docs for a list of available properties
       // https://firebase.google.com/docs/reference/js/firebase.User

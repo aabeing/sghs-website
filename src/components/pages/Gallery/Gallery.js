@@ -3,12 +3,13 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import { Container } from '@mui/system';
 import SimpleReactLightbox, { SRLWrapper } from 'simple-react-lightbox';
-import {  Divider, Typography, useMediaQuery } from '@mui/material';
+import { Box, Divider, Grid, Typography, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import Upload from './Upload';
 import { styled } from '@mui/system';
 
 import Delete from './Delete';
+import ImageGrid from './ImageGrid';
 
 
 const itemData = [
@@ -84,10 +85,41 @@ const itemData = [
     cols: 2,
   },
 ];
+const cateArr = [{
+  Name: 'Cate1',
+  ImgData: itemData,
+}, {
+  Name: 'Cate2',
+  ImgData: itemData,
+},
+{
+  Name: 'Cate3',
+  ImgData: itemData,
+}, {
+  Name: 'Cate3',
+  ImgData: itemData,
+},
+{
+  Name: 'Cate1',
+  ImgData: itemData,
+}, {
+  Name: 'Cate2',
+  ImgData: itemData,
+},
+{
+  Name: 'Cate3',
+  ImgData: itemData,
+}, {
+  Name: 'Cate3',
+  ImgData: itemData,
+}
+]
 
 
 export default function Gallery() {
   const theme = useTheme();
+  // const [page,setPage] = React.useState('category');
+  const [imagesData,setImagesData] = React.useState()
   const isMatchLarge = useMediaQuery(theme.breakpoints.up('md'));
   const MyComponent = styled('div')({
     "& .hiddenbtn": {
@@ -99,78 +131,76 @@ export default function Gallery() {
     cursor: 'pointer',
     m: 1,
     transition: ' 0.4s all ease-in-out',
-    '&:hover': {  transform: 'scale(1.03)' } ,
+    '&:hover': { transform: 'scale(1.03)' },
   });
+  const handleClick = (ImgData)=>{
+    setImagesData(ImgData);
+  }
+  if(!imagesData){
+    return (
 
-  return (
-    <>
-      <Upload />
-      <Container maxWidth='xl'>
-        <Divider
-          sx={{
-            paddingTop: 2,
-            "&::before, &::after": {
-              borderColor: "black",
-            },
-          }}
-        >
-          <Typography variant='h4'>Some Text</Typography>
-        </Divider>
-        {/* Large screen view */}
-        {/* {isMatchLarge && */}
-          <SimpleReactLightbox>
-            <SRLWrapper>
-              <ImageList cols={4} gap={12} sx={{
-                m: { md: 1 }, p: { md: 3 },
-                gridTemplateColumns: 'repeat(auto-fill,minmax(310px,1fr))!important'
-              }}>
-                {itemData.map((item,index) => (
-                  <MyComponent>
-                    <ImageListItem key={index}>
-                      <img
-                        src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-                        srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                        alt={item.title}
-                        // style={{ cursor: 'pointer' }}
-                        loading="lazy"
-                      />
-                      {/* <ImageListItemBar title='Delete' sx={{ background: (theme) => theme.palette.secondary.main }}  /> */}
-                      
-
-                      <Delete/>
-                    </ImageListItem>
-                    
-                  </MyComponent>
-                ))}
-              </ImageList>
-            </SRLWrapper>
-          </SimpleReactLightbox>
-        {/* } */}
-        {/* Small screen view */}
-        {/* {!isMatchLarge &&
-          <ImageList cols={4} gap={12} sx={{
-            gridTemplateColumns: 'repeat(auto-fill,minmax(310px,1fr))!important'
+      <>
+        {/* <Upload /> */}
+        <Container maxWidth='xl' sx={{ alignItems: 'center' }}>
+          <Divider
+            sx={{
+              paddingTop: 2,
+              "&::before, &::after": {
+                borderColor: "black",
+              },
+            }}
+          >
+            <Typography variant='h4'>Gallery</Typography>
+          </Divider>
+          {/* <Container> */}
+          <Grid container justifyContent='space-around' sx={{
+            maxWidth: 800, minWidth: 400, m: 'auto',mt:5,
           }}>
-            {itemData.map((item) => (
-              <ImageListItem key={item.img} sx={{
-                m: 1,
-                cursor: 'pointer',
-              }}>
+            {cateArr.map((ele, index) => {
+              const item = ele.ImgData[0];
+              return (
+                <Grid item padding={2} onClick={()=>handleClick(ele.ImgData)}>
+                  <img
+                    src={`${item.img}?w=200&h=200&fit=crop&auto=format`}
+                    alt={item.title}
+                    style={{ cursor: 'pointer' }}
+                    loading="lazy"
+                  />
+                  <Typography textAlign='center'>
+                  {ele.Name}
+                  </Typography>
+                  
+                </Grid>)
+            })}
+          </Grid>
+          {/* <Box sx={{
+            display: 'flex', justifyContent: 'space-evenly',
+            maxWidth: 800, minWidth: 400,
+            textAlign: 'center', m: 'auto',
+          }}>
+            {cateArr.map((ele, index) => {
+              const item = ele.ImgData[0];
+              return (
                 <img
-                  src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-                  srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                  src={`${item.img}?w=200&h=200&fit=crop&auto=format`}
                   alt={item.title}
                   // style={{ cursor: 'pointer' }}
                   loading="lazy"
                 />
-              </ImageListItem>
-            ))}
-          </ImageList>
-        } */}
+              )
+            })}
+          </Box> */}
+  
+        </Container>
+      </>
+    );
+  }
+  else{
+    return(
+      <ImageGrid imagesData={imagesData}/>
+    )
+  }
 
-      </Container>
-    </>
-  );
 }
 
 

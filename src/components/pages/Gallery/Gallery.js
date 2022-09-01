@@ -117,21 +117,16 @@ export default function Gallery() {
           <Typography variant='h4'>Some Text</Typography>
         </Divider>
         {/* Large screen view */}
-        {isMatchLarge &&
+        {/* {isMatchLarge && */}
           <SimpleReactLightbox>
             <SRLWrapper>
               <ImageList cols={4} gap={12} sx={{
                 m: { md: 1 }, p: { md: 3 },
                 gridTemplateColumns: 'repeat(auto-fill,minmax(310px,1fr))!important'
               }}>
-                {itemData.map((item) => (
+                {itemData.map((item,index) => (
                   <MyComponent>
-                    <ImageListItem key={item.img} sx={{
-                      
-                      // opacity: { md: '.7' },
-
-                      // '&:hover': { md: {  transform: 'scale(1.03)' } },
-                    }}>
+                    <ImageListItem key={index}>
                       <img
                         src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
                         srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
@@ -150,9 +145,9 @@ export default function Gallery() {
               </ImageList>
             </SRLWrapper>
           </SimpleReactLightbox>
-        }
+        {/* } */}
         {/* Small screen view */}
-        {!isMatchLarge &&
+        {/* {!isMatchLarge &&
           <ImageList cols={4} gap={12} sx={{
             gridTemplateColumns: 'repeat(auto-fill,minmax(310px,1fr))!important'
           }}>
@@ -168,11 +163,10 @@ export default function Gallery() {
                   // style={{ cursor: 'pointer' }}
                   loading="lazy"
                 />
-                {/* <ImageListItemBar title={item.title} /> */}
               </ImageListItem>
             ))}
           </ImageList>
-        }
+        } */}
 
       </Container>
     </>

@@ -10,6 +10,7 @@ import { styled } from '@mui/system';
 
 import Delete from './Delete';
 import ImageGrid from './ImageGrid';
+import { useFireDocs } from '../../../fireConfig/useFirestore';
 
 
 const itemData = [
@@ -86,31 +87,31 @@ const itemData = [
   },
 ];
 const cateArr = [{
-  Name: 'Cate1',
+  Name: 'cate1',
   ImgData: itemData,
 }, {
-  Name: 'Cate2',
+  Name: 'cate2',
   ImgData: itemData,
 },
 {
-  Name: 'Cate3',
+  Name: 'cate3',
   ImgData: itemData,
 }, {
-  Name: 'Cate3',
+  Name: 'cate3',
   ImgData: itemData,
 },
 {
-  Name: 'Cate1',
+  Name: 'cate1',
   ImgData: itemData,
 }, {
-  Name: 'Cate2',
+  Name: 'cate2',
   ImgData: itemData,
 },
 {
-  Name: 'Cate3',
+  Name: 'cate3',
   ImgData: itemData,
 }, {
-  Name: 'Cate3',
+  Name: 'cate3',
   ImgData: itemData,
 }
 ]
@@ -118,8 +119,10 @@ const cateArr = [{
 
 export default function Gallery() {
   const theme = useTheme();
+  const cateImgArr = useFireDocs('gallery');
   // const [page,setPage] = React.useState('category');
-  const [imagesData,setImagesData] = React.useState()
+  const [imagesData, setImagesData] = React.useState()
+  const [loading, setLoading] = React.useState(true);
   const isMatchLarge = useMediaQuery(theme.breakpoints.up('md'));
   const MyComponent = styled('div')({
     "& .hiddenbtn": {
@@ -133,47 +136,70 @@ export default function Gallery() {
     transition: ' 0.4s all ease-in-out',
     '&:hover': { transform: 'scale(1.03)' },
   });
-  const handleClick = (ImgData)=>{
+  const handleClick = (ImgData) => {
     setImagesData(ImgData);
   }
-  if(!imagesData){
+  React.useEffect(() => {
+    // new Image().src = picture.fileName
+    var imagesPreload = [];
+    for (let i = 0; i < cateArr.length; i++) {
+      imagesPreload[i] = new Image();
+      // console.log("TEST",ele);
+      // const image = ele.ImgData[0].img;
+      imagesPreload[i].src = cateArr[i].ImgData[0].img;
+      // window[img.src] = img;
+      // console.log(img.src );
+    };
+    setLoading(false);
+  }, [])
+  if (loading || cateImgArr.length === 0) {
     return (
-
       <>
-        {/* <Upload /> */}
-        <Container maxWidth='xl' sx={{ alignItems: 'center' }}>
-          <Divider
-            sx={{
-              paddingTop: 2,
-              "&::before, &::after": {
-                borderColor: "black",
-              },
-            }}
-          >
-            <Typography variant='h4'>Gallery</Typography>
-          </Divider>
-          {/* <Container> */}
-          <Grid container justifyContent='space-around' sx={{
-            maxWidth: 800, minWidth: 400, m: 'auto',mt:5,
-          }}>
-            {cateArr.map((ele, index) => {
-              const item = ele.ImgData[0];
-              return (
-                <Grid item padding={2} onClick={()=>handleClick(ele.ImgData)}>
-                  <img
-                    src={`${item.img}?w=200&h=200&fit=crop&auto=format`}
-                    alt={item.title}
-                    style={{ cursor: 'pointer' }}
-                    loading="lazy"
-                  />
-                  <Typography textAlign='center'>
-                  {ele.Name}
-                  </Typography>
-                  
-                </Grid>)
-            })}
-          </Grid>
-          {/* <Box sx={{
+        Loading...
+      </>
+    )
+  }
+  // Load category page, load child page in else
+  if (!imagesData) {
+    console.log("CHECK: ",cateImgArr)
+    if (cateImgArr) {
+      return (
+        <>
+          {/* <Upload /> */}
+          <Container maxWidth='xl' sx={{ alignItems: 'center' }}>
+            <Divider
+              sx={{
+                paddingTop: 2,
+                "&::before, &::after": {
+                  borderColor: "black",
+                },
+              }}
+            >
+              <Typography variant='h4'>Gallery</Typography>
+            </Divider>
+            {/* <Container> */}
+            <Grid container justifyContent='space-around' sx={{
+              maxWidth: 800, minWidth: 400, m: 'auto', mt: 5,
+            }}>
+              {cateImgArr.map((ele, index) => {
+                // console.log("Err ",ele.data)
+                const item = ele.data.imgData[0];
+                return (
+                  <Grid item key={index} padding={2} onClick={() => handleClick(ele.data.imgData)}>
+                    <img
+                      src={`${item.img}?w=200&h=200&fit=crop&auto=format`}
+                      alt={item.title}
+                      style={{ cursor: 'pointer' }}
+                      loading="lazy"
+                    />
+                    <Typography textAlign='center'>
+                      {ele.id}
+                    </Typography>
+
+                  </Grid>)
+              })}
+            </Grid>
+            {/* <Box sx={{
             display: 'flex', justifyContent: 'space-evenly',
             maxWidth: 800, minWidth: 400,
             textAlign: 'center', m: 'auto',
@@ -190,14 +216,16 @@ export default function Gallery() {
               )
             })}
           </Box> */}
-  
-        </Container>
-      </>
-    );
+
+          </Container>
+        </>
+      );
+    }
+
   }
-  else{
-    return(
-      <ImageGrid imagesData={imagesData}/>
+  else {
+    return (
+      <ImageGrid imagesData={imagesData} />
     )
   }
 

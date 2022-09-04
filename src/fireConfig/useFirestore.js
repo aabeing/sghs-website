@@ -7,7 +7,7 @@ export const useFireDocs = (collectionName) => {
     useEffect(() => {
         const q = query(
             collection(db, collectionName),
-              orderBy('Timestamp', 'desc')
+              orderBy('timestamp', 'desc')
         );
         const unsubscribe = onSnapshot(
             q,

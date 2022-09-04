@@ -1,47 +1,46 @@
- import { CheckCircleOutline } from '@mui/icons-material';
+import { CheckCircleOutline } from '@mui/icons-material';
 import { Box, ImageListItem } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import CircularProgressWithLabel from './CircularProgressWithLabel';
 import { v4 as uuidv4 } from 'uuid';
-// import uploadFileWithProgress from '../../../firebase/uploadFileWithProgress';
+import {addGalleryDoc, uploadFileWithProgress} from '../../../../fireConfig/galleryImages';
 // import addDocument from '../../../firebase/addDocument';
 
-const ProgressItem = ({ file }) => {
-  const [progress, setProgress] = useState(20);
+const ProgressItem = ({ file,cateName='test'}) => {
+  const [progress, setProgress] = useState(0);
   const [imageURL, setImageURL] = useState(null);
   const currentUser = { uid: 'userId' };
   useEffect(() => {
-    // const uploadImage = async () => {
-    //   const imageName = uuidv4() + '.' + file.name.split('.').pop();
-    //   try {
-    //     const url = await uploadFileWithProgress(
-    //       file,
-    //       `gallery/${currentUser.uid}`,
-    //       imageName,
-    //       setProgress
-    //     );
-    //     const galleryDoc = {
-    //       imageURL: url,
-    //       uid: currentUser.uid,
-    //       uEmail: 'test@test.com',
-    //       uName: 'John',
-    //       uPhoto: '',
-    //     };
-    //     await addDocument('gallery', galleryDoc, imageName);
-    //     setImageURL(null);
-    //   } catch (error) {
-    //     alert(error.message);
-    //     console.log(error);
-    //   }
-    // };
+    
+    const uploadImage = async () => {
+      const imageName = uuidv4() + '.' + file.name.split('.').pop();
+      try {
+        const url = await uploadFileWithProgress(
+          file,
+          `gallery/${cateName}`,
+          imageName,
+          setProgress
+        );
+        const imgDataSingle = {
+          img: url,
+          title: file.name.slice(0,6),
+        };
+        // await addDocument('gallery', galleryDoc, imageName);
+        // await addGalleryDoc(cateName,imgDataSingle)
+        setImageURL(null);
+      } catch (error) {
+        alert(error.message);
+        console.log(error);
+      }
+    };
     setImageURL(URL.createObjectURL(file));
-    // uploadImage();
-  }, [file]);
+    uploadImage();
+  }, [file,cateName]);
   return (
     imageURL && (
       <ImageListItem cols={1} rows={1}>
-        <img src={imageURL} alt="images gallery" loading="lazy" style={{'object-fit': 'cover','height':'100px'}}/>
+        <img src={imageURL} alt="images gallery" loading="lazy" style={{ 'object-fit': 'cover', 'height': '100px' }} />
         <Box sx={backDrop}>
           {progress < 100 ? (
             <CircularProgressWithLabel value={progress} />

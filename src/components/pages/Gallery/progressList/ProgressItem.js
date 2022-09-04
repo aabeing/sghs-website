@@ -25,9 +25,9 @@ const ProgressItem = ({ file,imagesData}) => {
         const newImgData = {
           img: url,
           title: file.name.split('.')[0],
+          stImageName: imageName
         };
-        // await addDocument('gallery', galleryDoc, imageName);
-        await addGalleryDoc(imagesData.cateId,imagesData.imgData,newImgData)
+        await addGalleryDoc(imagesData.cateId,newImgData)
         setImageURL(null);
       } catch (error) {
         alert(error.message);

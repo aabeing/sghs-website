@@ -1,9 +1,9 @@
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage"
-import { arrayUnion, doc, FieldValue, serverTimestamp, setDoc } from 'firebase/firestore'
+import { deleteObject, getDownloadURL, ref, uploadBytesResumable } from "firebase/storage"
+import { arrayRemove, arrayUnion, doc, serverTimestamp, setDoc, updateDoc } from 'firebase/firestore'
 import { db, storage } from "./firebaseInit";
 
 export const uploadFileWithProgress = (file, folderPath, imgName, setProgress) => {
-    console.log("INUP")
+    // console.log("INUP")
     return new Promise((resolve, reject) => {
         const storageRef = ref(storage, folderPath + '/' + imgName);
         const uploadTask = uploadBytesResumable(storageRef, file);
@@ -23,7 +23,7 @@ export const uploadFileWithProgress = (file, folderPath, imgName, setProgress) =
         })
     });
 }
-export const addGalleryDoc = ((cateId, imgsArr, newImgData) => {
+export const addGalleryDoc = ((cateId, newImgData) => {
     const docRef = doc(db, 'gallery', cateId);
     return setDoc(docRef, {
         imgData: arrayUnion(newImgData),
@@ -31,3 +31,16 @@ export const addGalleryDoc = ((cateId, imgsArr, newImgData) => {
     },
         { merge: true });
 });
+
+
+export const deleteFileStorage = (filePath) => {
+    const imgRef = ref(storage, filePath)
+    return deleteObject(imgRef);
+}
+export const deleteImgDoc = (cateId, curImgData)=>{
+    const docRef = doc(db, 'gallery', cateId);
+    return updateDoc(docRef, {
+        imgData: arrayRemove(curImgData),
+        timestamp: serverTimestamp(),
+    });
+}

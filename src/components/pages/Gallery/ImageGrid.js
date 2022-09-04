@@ -29,7 +29,7 @@ function ImageGrid({ imagesData }) {
     }
     return (
         <>
-        <Upload />
+        <Upload imagesData={imagesData}/>
         <Container maxWidth='xl'>
           <Divider
             sx={{
@@ -47,9 +47,9 @@ function ImageGrid({ imagesData }) {
                     m: { md: 1 }, p: { md: 3 },
                     gridTemplateColumns: 'repeat(auto-fill,minmax(310px,1fr))!important'
                 }}>
-                    {imagesData.map((item, index) => (
-                        <MyComponent>
-                            <ImageListItem key={index}>
+                    {imagesData.imgData.map((item, index) => (
+                        <MyComponent key={index}>
+                            <ImageListItem >
                                 <img
                                     src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
                                     srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}

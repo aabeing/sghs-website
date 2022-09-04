@@ -1,17 +1,18 @@
-import * as React from 'react';
-import ImageList from '@mui/material/ImageList';
-import ImageListItem from '@mui/material/ImageListItem';
+// import * as React from 'react';
+// import ImageList from '@mui/material/ImageList';
+// import ImageListItem from '@mui/material/ImageListItem';
 import { Container } from '@mui/system';
-import SimpleReactLightbox, { SRLWrapper } from 'simple-react-lightbox';
-import { Box, Divider, Grid, Typography, useMediaQuery } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
-import Upload from './Upload';
-import { styled } from '@mui/system';
+// import SimpleReactLightbox, { SRLWrapper } from 'simple-react-lightbox';
+import {  Divider, Grid, Typography } from '@mui/material';
+// import {  useMediaQuery } from '@mui/material';
+// import { useTheme } from '@mui/material/styles';
+// import Upload from './Upload';
+// import { styled } from '@mui/system';
 
-import Delete from './Delete';
+// import Delete from './Delete';
 import ImageGrid from './ImageGrid';
 import { useFireDocs } from '../../../fireConfig/useFirestore';
-
+import { useState,useEffect } from 'react';
 
 const itemData = [
   {
@@ -118,28 +119,31 @@ const cateArr = [{
 
 
 export default function Gallery() {
-  const theme = useTheme();
+  // const theme = useTheme();
   const cateImgArr = useFireDocs('gallery');
   // const [page,setPage] = React.useState('category');
-  const [imagesData, setImagesData] = React.useState()
-  const [loading, setLoading] = React.useState(true);
-  const isMatchLarge = useMediaQuery(theme.breakpoints.up('md'));
-  const MyComponent = styled('div')({
-    "& .hiddenbtn": {
-      display: "none"
-    },
-    "&:hover .hiddenbtn": {
-      display: "flex"
-    },
-    cursor: 'pointer',
-    m: 1,
-    transition: ' 0.4s all ease-in-out',
-    '&:hover': { transform: 'scale(1.03)' },
-  });
-  const handleClick = (ImgData) => {
-    setImagesData(ImgData);
+  const [imagesData, setImagesData] = useState()
+  const [loading, setLoading] = useState(true);
+  // const isMatchLarge = useMediaQuery(theme.breakpoints.up('md'));
+  // const MyComponent = styled('div')({
+  //   "& .hiddenbtn": {
+  //     display: "none"
+  //   },
+  //   "&:hover .hiddenbtn": {
+  //     display: "flex"
+  //   },
+  //   cursor: 'pointer',
+  //   m: 1,
+  //   transition: ' 0.4s all ease-in-out',
+  //   '&:hover': { transform: 'scale(1.03)' },
+  // });
+  const handleClick = (imgData, cateId) => {
+    setImagesData({
+      imgData: imgData,
+      cateId: cateId,
+    });
   }
-  React.useEffect(() => {
+  useEffect(() => {
     // new Image().src = picture.fileName
     var imagesPreload = [];
     for (let i = 0; i < cateArr.length; i++) {
@@ -161,7 +165,7 @@ export default function Gallery() {
   }
   // Load category page, load child page in else
   if (!imagesData) {
-    console.log("CHECK: ",cateImgArr)
+    console.log("CHECK: ", cateImgArr)
     if (cateImgArr) {
       return (
         <>
@@ -185,7 +189,7 @@ export default function Gallery() {
                 // console.log("Err ",ele.data)
                 const item = ele.data.imgData[0];
                 return (
-                  <Grid item key={index} padding={2} onClick={() => handleClick(ele.data.imgData)}>
+                  <Grid item key={index} padding={2} onClick={() => handleClick(ele.data.imgData, ele.id)}>
                     <img
                       src={`${item.img}?w=200&h=200&fit=crop&auto=format`}
                       alt={item.title}
@@ -225,9 +229,9 @@ export default function Gallery() {
   }
   else {
     return (
-      <ImageGrid imagesData={imagesData} />
+      <ImageGrid imagesData={imagesData}/>
     )
-  }
+}
 
 }
 

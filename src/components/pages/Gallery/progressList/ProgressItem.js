@@ -7,10 +7,10 @@ import { v4 as uuidv4 } from 'uuid';
 import {addGalleryDoc, uploadFileWithProgress} from '../../../../fireConfig/galleryImages';
 // import addDocument from '../../../firebase/addDocument';
 
-const ProgressItem = ({ file,cateName='test'}) => {
+const ProgressItem = ({ file,imagesData}) => {
   const [progress, setProgress] = useState(0);
   const [imageURL, setImageURL] = useState(null);
-  const currentUser = { uid: 'userId' };
+  // const currentUser = { uid: 'userId' };
   useEffect(() => {
     
     const uploadImage = async () => {
@@ -18,16 +18,16 @@ const ProgressItem = ({ file,cateName='test'}) => {
       try {
         const url = await uploadFileWithProgress(
           file,
-          `gallery/${cateName}`,
+          `gallery/${imagesData.cateId}`,
           imageName,
           setProgress
         );
-        const imgDataSingle = {
+        const newImgData = {
           img: url,
-          title: file.name.slice(0,6),
+          title: file.name.split('.')[0],
         };
         // await addDocument('gallery', galleryDoc, imageName);
-        // await addGalleryDoc(cateName,imgDataSingle)
+        await addGalleryDoc(imagesData.cateId,imagesData.imgData,newImgData)
         setImageURL(null);
       } catch (error) {
         alert(error.message);
@@ -36,11 +36,11 @@ const ProgressItem = ({ file,cateName='test'}) => {
     };
     setImageURL(URL.createObjectURL(file));
     uploadImage();
-  }, [file,cateName]);
+  }, [file,imagesData]);
   return (
     imageURL && (
       <ImageListItem cols={1} rows={1}>
-        <img src={imageURL} alt="images gallery" loading="lazy" style={{ 'object-fit': 'cover', 'height': '100px' }} />
+        <img src={imageURL} alt="images gallery" loading="lazy" style={{ 'objectFit': 'cover', 'height': '100px' }} />
         <Box sx={backDrop}>
           {progress < 100 ? (
             <CircularProgressWithLabel value={progress} />

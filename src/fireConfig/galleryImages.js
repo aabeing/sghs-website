@@ -1,6 +1,6 @@
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage"
-import {doc,collection} from 'firebase/firestore'
-import { storage } from "./firebaseInit";
+import { arrayUnion, doc, FieldValue, serverTimestamp, setDoc } from 'firebase/firestore'
+import { db, storage } from "./firebaseInit";
 
 export const uploadFileWithProgress = (file, folderPath, imgName, setProgress) => {
     console.log("INUP")
@@ -23,5 +23,11 @@ export const uploadFileWithProgress = (file, folderPath, imgName, setProgress) =
         })
     });
 }
-// export const addGalleryDoc = ((cateName, imgDataSingle) => {
-// })
+export const addGalleryDoc = ((cateId, imgsArr, newImgData) => {
+    const docRef = doc(db, 'gallery', cateId);
+    return setDoc(docRef, {
+        imgData: arrayUnion(newImgData),
+        timestamp: serverTimestamp(),
+    },
+        { merge: true });
+});

@@ -6,7 +6,6 @@ import { Container } from '@mui/system';
 import {  Divider, Grid, Typography } from '@mui/material';
 // import {  useMediaQuery } from '@mui/material';
 // import { useTheme } from '@mui/material/styles';
-// import Upload from './Upload';
 // import { styled } from '@mui/system';
 
 // import Delete from './Delete';
@@ -181,7 +180,6 @@ export default function Gallery() {
     if (cateImgArr) {
       return (
         <>
-          {/* <Upload /> */}
           <Container maxWidth='xl' sx={{ alignItems: 'center' }}>
             <Divider
               sx={{

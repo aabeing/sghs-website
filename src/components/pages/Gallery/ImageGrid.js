@@ -35,7 +35,7 @@ function ImageGrid({ imagesData, setImagesData }) {
                 <Button variant="contained" endIcon={<ArrowBackIcon />} aria-label="add an image" onClick={() => setImagesData(null)}>
                     Go Back
                 </Button></Container>
-            <Upload imagesData={imagesData} />
+            <Upload imagesData={imagesData} setImagesData={setImagesData}/>
             <Container maxWidth='xl'>
                 <Divider
                     sx={{

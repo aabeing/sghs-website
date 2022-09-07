@@ -3,6 +3,7 @@ import ImageGrid from './ImageGrid';
 import { useFireDocs } from '../../../fireConfig/useFirestore';
 import { useState } from 'react';
 import CateGrid from './CateGrid';
+import Loading from '../Loading';
 
 
 export default function Gallery() {
@@ -14,9 +15,7 @@ export default function Gallery() {
 
   if (cateImgArr.length === 0) {
     return (
-      <>
-        Loading...
-      </>
+      <Loading/>
     )
   }
   // Load category page, load child page in else
@@ -31,7 +30,7 @@ export default function Gallery() {
   else {
     const findImagesData = ()=>{
       const imagesDataDict = cateImgArr.find(ele => ele.id === cateInfo.cateId)
-      console.log("GRID: ",imagesDataDict)
+      // console.log("GRID: ",imagesDataDict)
       return imagesDataDict;
     }
     findImagesData()

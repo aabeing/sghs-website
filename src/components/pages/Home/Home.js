@@ -2,6 +2,10 @@
 import { Avatar, Box, Grid, List, ListItem, ListItemAvatar, ListItemText, Paper, Typography } from '@mui/material'
 import ImageSlider from './ImageSlider';
 import SquareIcon from '@mui/icons-material/Square';
+import Loading from '../Loading';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import { useMemo } from 'react';
 
 
 const sliderSettings = {
@@ -31,7 +35,7 @@ function Home({ announceData, initCollectData }) {
   const contentImage1 = "/images/welcomeImg.png"
   const contentPara1 = initCollectData.WelcomeMessage;
   const contentHead1 = "Welcome to St.George High School";
-  const imagesArr = [
+  const imagesArr = useMemo(()=>[
     {
       alt: 'San Francisco- Oakland Bay Bridge, United States',
       src:
@@ -42,8 +46,26 @@ function Home({ announceData, initCollectData }) {
       src:
         '/images/w2.jpg',
     }
-  ];
-  if (announceData.length && initCollectData.WelcomeMessage) {
+  ],[]);
+  const [load, setload] = useState(true)
+  useEffect(() => {
+      let preImg;
+      let loadedCount = 0;
+      const imgLen = imagesArr.length;
+      imagesArr.forEach((picture) => {
+          preImg = new Image();
+          preImg.src = picture.src;
+          preImg.onload = () => {
+              // console.log("IMG loaded");
+              loadedCount++;
+              if (loadedCount === imgLen) {
+                  setload(false);
+                  // console.log("IMG Loading Done")
+              }
+          }
+      });
+  }, [imagesArr])
+  if (announceData.length && initCollectData.WelcomeMessage && !load) {
 
     return (
       <>
@@ -51,7 +73,7 @@ function Home({ announceData, initCollectData }) {
         <Paper sx={{ ...paperStyle }}>
           <Grid container columns={12} >
             <Grid item xs={12} lg={6} padding={2} sx={{ maxHeight: 750, overflow: 'hidden' }}>
-              <Typography variant='h4' sx={{fontSize: { xs: 27, sm: 35, md: 35, lg: 40 },pt:2,}}>
+              <Typography variant='h4' sx={{ fontSize: { xs: 27, sm: 35, md: 35, lg: 40 }, pt: 2, }}>
                 {contentHead1}
               </Typography>
               {contentPara1.map((ele) => (<>
@@ -124,7 +146,8 @@ function Home({ announceData, initCollectData }) {
     )
   }
   else {
-    return <Box sx={{ height: '100vh', textAlign: 'center', pt: '40vh' }} component="h1">Loading...</Box>
+    // return <Box sx={{ height: '100vh', textAlign: 'center', pt: '40vh' }} component="h1">Loading...</Box>
+    return <Loading />
   }
 }
 

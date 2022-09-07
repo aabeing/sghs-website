@@ -9,7 +9,7 @@ import Delete from './Delete';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Button } from '@mui/material';
 
-function ImageGrid({ imagesData,setcateInfo }) {
+function ImageGrid({ imagesDataDict,setcateInfo }) {
     const MyComponent = styled('div')({
         "& .hiddenbtn": {
             display: "none"
@@ -22,15 +22,13 @@ function ImageGrid({ imagesData,setcateInfo }) {
         transition: ' 0.4s all ease-in-out',
         '&:hover': { transform: 'scale(1.03)' },
     });
-    console.log("TEST grid ",imagesData.data.imgData)
-    console.log("TEST grid2 ",imagesData.id)
     return (
         <>
             <Container sx={{ display: 'flex', justifyContent: 'center', paddingTop: 1 }}>
                 <Button variant="contained" endIcon={<ArrowBackIcon />} aria-label="add an image" onClick={() => setcateInfo(null)}>
                     Go Back
                 </Button></Container>
-            {/* <Upload imagesData={imagesData} setImagesData={setImagesData}/> */}
+            <Upload cateId={imagesDataDict.id}/>
             <Container maxWidth='xl'>
                 <Divider
                     sx={{
@@ -40,7 +38,7 @@ function ImageGrid({ imagesData,setcateInfo }) {
                         },
                     }}
                 >
-                    <Typography variant='h4'>{imagesData.id}</Typography>
+                    <Typography variant='h4'>{imagesDataDict.id}</Typography>
                 </Divider>
                 <SimpleReactLightbox>
                     <SRLWrapper>
@@ -48,7 +46,7 @@ function ImageGrid({ imagesData,setcateInfo }) {
                             m: { md: 1 }, p: { md: 3 },
                             gridTemplateColumns: 'repeat(auto-fill,minmax(310px,1fr))!important'
                         }}>
-                            {imagesData.data.imgData.map((item, index) => (
+                            {imagesDataDict.data.imgData.map((item, index) => (
                                 <MyComponent key={index}>
                                     <ImageListItem >
                                         <img
@@ -60,7 +58,7 @@ function ImageGrid({ imagesData,setcateInfo }) {
                                         {/* <ImageListItemBar title='Delete' sx={{ background: (theme) => theme.palette.secondary.main }}  /> */}
 
                                         {/* {Delete ? <Delete /> : null} */}
-                                        <Delete cateId={imagesData.id} curImgData={item} />
+                                        <Delete cateId={imagesDataDict.id} curImgData={item} />
 
                                     </ImageListItem>
 

@@ -62,7 +62,6 @@ function LogoComp({ setActiveNavBtn, logoHeading }) {
     )
 }
 function SecMenu({ setActiveNavBtn,secNav }) {
-    // console.log("TESTSEC: ",secNav)
     return (
         <AppBar color='primary' position="static" >
             <Container maxWidth="false" >

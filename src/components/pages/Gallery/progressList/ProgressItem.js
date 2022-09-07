@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import {addGalleryDoc, uploadFileWithProgress} from '../../../../fireConfig/galleryImages';
 // import addDocument from '../../../firebase/addDocument';
 
-const ProgressItem = ({ file,imagesData,setImagesData}) => {
+const ProgressItem = ({ file,cateId}) => {
   const [progress, setProgress] = useState(0);
   const [imageURL, setImageURL] = useState(null);
   // const currentUser = { uid: 'userId' };
@@ -18,7 +18,7 @@ const ProgressItem = ({ file,imagesData,setImagesData}) => {
       try {
         const url = await uploadFileWithProgress(
           file,
-          `gallery/${imagesData.cateId}`,
+          `gallery/${cateId}`,
           imageName,
           setProgress
         );
@@ -27,8 +27,9 @@ const ProgressItem = ({ file,imagesData,setImagesData}) => {
           title: file.name.split('.')[0],
           stImageName: imageName
         };
-        await addGalleryDoc(imagesData.cateId,newImgData)
-        setImagesData((prev)=>({...prev,imgData: [...prev.imgData,newImgData]}))
+        await addGalleryDoc(cateId,newImgData);
+        // setProgress(101);
+        // setImagesData((prev)=>({...prev,imgData: [...prev.imgData,newImgData]}))
         setImageURL(null);
       } catch (error) {
         alert(error.message);
@@ -37,7 +38,7 @@ const ProgressItem = ({ file,imagesData,setImagesData}) => {
     };
     setImageURL(URL.createObjectURL(file));
     uploadImage();
-  }, [file,setImagesData]);
+  }, [file,cateId]);
   return (
     imageURL && (
       <ImageListItem cols={1} rows={1}>

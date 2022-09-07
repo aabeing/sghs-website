@@ -48,7 +48,6 @@ export function AuthProvider({ children }) {
     useEffect(() => {
         const unsub = onAuthStateChanged(auth, (user) => {
             if (user) {
-                // console.log("TEST: ", user.uid);
                 setloggedInUser(user);
             } else {
                 // User is signed out

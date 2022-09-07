@@ -1,7 +1,6 @@
 import { collection, doc, onSnapshot, orderBy, query } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { db } from './firebaseInit';
-// console.log("TEST ",fireApp.name);
 export const useFireDocs = (collectionName) => {
     const [documents, setDocuments] = useState([]);
     useEffect(() => {

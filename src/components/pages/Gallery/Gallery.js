@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 
 export default function Gallery() {
   const cateImgArr = useFireDocs('gallery');
-  const [imagesData, setImagesData] = useState();
+  // const [imagesData, setImagesData] = useState();
   const [cateInfo, setcateInfo] = useState();
   const [loading, setLoading] = useState(true);
   // const isMatchLarge = useMediaQuery(theme.breakpoints.up('md'));
@@ -28,21 +28,11 @@ export default function Gallery() {
     if (cateImgArr.length > 0) {
       for (let i = 0; i < cateImgArr.length; i++) {
         imagesPreload[i] = new Image();
-        // console.log("TEST",ele);
         // const image = ele.ImgData[0].img;
         imagesPreload[i].src = cateImgArr[i].data.imgData[0].img;
         // window[img.src] = img;
         // console.log(img.src );
       };
-      console.log("TEST")
-      // if(imagesData){
-      //   // setImagesData()
-      //   setImagesData((present)=>{
-      //     console.log("TESTING ",present);
-      //     console.log(cateImgArr[present.index].data.imgData);
-      //     return ({...present,imgDate:cateImgArr[present.index].data.imgData});
-      //   })
-      // }
       setLoading(false);
     }
   }, [cateImgArr])
@@ -100,7 +90,7 @@ export default function Gallery() {
   }
   else {
     return (
-      <ImageGrid imagesData={cateImgArr[cateInfo.cateIndex]} setcateInfo={setcateInfo} />
+      <ImageGrid imagesDataDict={cateImgArr[cateInfo.cateIndex]} setcateInfo={setcateInfo} />
     )
   }
 

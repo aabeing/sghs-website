@@ -3,7 +3,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { Button, Container } from '@mui/material';
 import ProgressList from './progressList/ProgressList';
 
-function Upload({imagesData,setImagesData}) {
+function Upload({cateId}) {
     // const [imagesLength,setimagesLength] = useState(0);
     const [inpFiles,setInpFiles] = useState([]);
     const fileRef = useRef();
@@ -17,7 +17,7 @@ function Upload({imagesData,setImagesData}) {
     }
     // setimagesLength(fileRef.current.files.length); 
     return (<>
-        <ProgressList files={inpFiles} imagesData={imagesData} setImagesData={setImagesData} />
+        <ProgressList files={inpFiles} cateId={cateId}  />
         <Container sx={{ display: 'flex', justifyContent: 'center', paddingTop: 1 }}>
             <input type="file" multiple style={{ display: 'none' }} ref={fileRef} onChange={handleChange} />
             <Button variant="contained" endIcon={<AddIcon />} aria-label="add an image" onClick={handleClick}>

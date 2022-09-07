@@ -19,7 +19,7 @@ function AdminLogout({setsecNav}) {
         catch {
             setstatus('Log out Failed, try again...')
         }
-    }, [logoutAdmin,nav])
+    }, [logoutAdmin,nav,setsecNav])
     return (
         <>
             {status}

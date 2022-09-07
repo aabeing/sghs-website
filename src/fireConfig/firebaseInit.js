@@ -1,6 +1,9 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { getStorage } from "firebase/storage";
+import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 const { initializeAppCheck, ReCaptchaV3Provider } = require("firebase/app-check");
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -20,6 +23,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const fireApp = initializeApp(firebaseConfig);
+
 const appCheck = initializeAppCheck(fireApp, {
   provider: new ReCaptchaV3Provider(process.env.REACT_APP_FIRE_APPCHECK),
 
@@ -27,5 +31,7 @@ const appCheck = initializeAppCheck(fireApp, {
   // tokens as needed.
   isTokenAutoRefreshEnabled: true
 });
-const analytics = getAnalytics(fireApp);
-export default fireApp;
+const analytics = getAnalytics();
+export const storage = getStorage();
+export const db = getFirestore();
+export const auth = getAuth();

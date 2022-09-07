@@ -1,4 +1,4 @@
-import { collection, doc, onSnapshot, orderBy, query } from 'firebase/firestore';
+import { collection, doc, onSnapshot, orderBy, query, deleteDoc } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { db } from './firebaseInit';
 export const useFireDocs = (collectionName) => {
@@ -6,7 +6,7 @@ export const useFireDocs = (collectionName) => {
     useEffect(() => {
         const q = query(
             collection(db, collectionName),
-              orderBy('timestamp', 'desc')
+            orderBy('timestamp', 'desc')
         );
         const unsubscribe = onSnapshot(
             q,
@@ -28,18 +28,18 @@ export const useFireDocs = (collectionName) => {
     return [...documents];
 };
 
-export const useFireDoc = (collectionName,docName) => {
+export const useFireDoc = (collectionName, docName) => {
     const [document, setDocument] = useState();
     useEffect(() => {
         const q = query(
-            doc(db, collectionName,docName),
+            doc(db, collectionName, docName),
             //   orderBy('timestamp', 'desc')
         );
         const unsubscribe = onSnapshot(
             q,
             (doc) => {
                 setDocument(doc.data());
-                
+
             },
             (error) => {
                 alert(error.message);
@@ -47,8 +47,12 @@ export const useFireDoc = (collectionName,docName) => {
             }
         );
         return () => unsubscribe();
-    }, [collectionName,docName]);
+    }, [collectionName, docName]);
     // console.log("IN: ",document)
     return { ...document };
 };
+
+export const deleteDocFromDb = (collectName, docId) => {
+    return deleteDoc(doc(db, collectName, docId));
+}
 

@@ -8,8 +8,10 @@ import Upload from './Upload';
 import Delete from './Delete';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Button } from '@mui/material';
+import { useAuth } from '../../../context/authContext';
 
-function ImageGrid({ imagesDataDict,setcateInfo }) {
+function ImageGrid({ imagesDataDict, setcateInfo }) {
+    const { auth } = useAuth();
     const MyComponent = styled('div')({
         "& .hiddenbtn": {
             display: "none"
@@ -28,7 +30,7 @@ function ImageGrid({ imagesDataDict,setcateInfo }) {
                 <Button variant="contained" endIcon={<ArrowBackIcon />} aria-label="add an image" onClick={() => setcateInfo(null)}>
                     Go Back
                 </Button></Container>
-            <Upload cateId={imagesDataDict.id}/>
+            {auth.currentUser ? <Upload cateId={imagesDataDict.id} /> : null}
             <Container maxWidth='xl'>
                 <Divider
                     sx={{
@@ -58,7 +60,7 @@ function ImageGrid({ imagesDataDict,setcateInfo }) {
                                         {/* <ImageListItemBar title='Delete' sx={{ background: (theme) => theme.palette.secondary.main }}  /> */}
 
                                         {/* {Delete ? <Delete /> : null} */}
-                                        <Delete cateId={imagesDataDict.id} curImgData={item} />
+                                        {auth.currentUser ? <Delete imagesDataDict={imagesDataDict} curImgData={item} setcateInfo={setcateInfo} /> : null}
 
                                     </ImageListItem>
 

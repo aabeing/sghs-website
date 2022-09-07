@@ -3,17 +3,19 @@ import { Divider, Grid, Typography } from '@mui/material';
 import ImageGrid from './ImageGrid';
 import { useFireDocs } from '../../../fireConfig/useFirestore';
 import { useState, useEffect } from 'react';
+import AddCate from './AddCate';
+import { useAuth } from '../../../context/authContext';
 
 
 export default function Gallery() {
+  const { auth } = useAuth();
   const cateImgArr = useFireDocs('gallery');
   // const [imagesData, setImagesData] = useState();
   const [cateInfo, setcateInfo] = useState();
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(false);
   // const isMatchLarge = useMediaQuery(theme.breakpoints.up('md'));
   const handleClick = (cateId, cateIndex) => {
     setcateInfo({
-      cateId: cateId,
       cateIndex: cateIndex,
     });
     // setImagesData({
@@ -24,19 +26,11 @@ export default function Gallery() {
   }
   useEffect(() => {
     // new Image().src = picture.fileName
-    var imagesPreload = [];
-    if (cateImgArr.length > 0) {
-      for (let i = 0; i < cateImgArr.length; i++) {
-        imagesPreload[i] = new Image();
-        // const image = ele.ImgData[0].img;
-        imagesPreload[i].src = cateImgArr[i].data.imgData[0].img;
-        // window[img.src] = img;
-        // console.log(img.src );
-      };
-      setLoading(false);
-    }
+    // var imagesPreload = [];
+    // if (cateImgArr.length > 0) {
+
   }, [cateImgArr])
-  if (loading || cateImgArr.length === 0) {
+  if (cateImgArr.length === 0) {
     return (
       <>
         Loading...
@@ -47,9 +41,11 @@ export default function Gallery() {
   if (!cateInfo) {
     // console.log("CHECK: ", cateImgArr)
     if (cateImgArr) {
+
       return (
         <>
           <Container maxWidth='xl' sx={{ alignItems: 'center' }}>
+          {auth.currentUser?<AddCate />:null}
             <Divider
               sx={{
                 paddingTop: 2,
@@ -67,12 +63,16 @@ export default function Gallery() {
               {cateImgArr.map((ele, index) => {
                 // console.log("Err ",ele.data)
                 const item = ele.data.imgData[0];
+                console.log()
                 return (
                   <Grid item key={index} padding={2} onClick={() => handleClick(ele.id, index)}>
                     <img
-                      src={`${item.img}?w=200&h=200&fit=crop&auto=format`}
+                      src={item.img}
                       alt={item.title}
-                      style={{ cursor: 'pointer' }}
+                      style={{
+                        cursor: 'pointer', height: '200px', width: '200px',
+                        objectFit: 'cover'
+                      }}
                       loading="lazy"
                     />
                     <Typography textAlign='center'>

@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
 
 function Admin() {
-  const { loggedInUser, auth } = useAuth();
+  const { auth } = useAuth();
   const [curUser,setcurUser] = useState(null)
   // const user = firebase.auth().currentUser;
   const nav = useNavigate();
@@ -31,7 +31,7 @@ function Admin() {
     // if (!loggedInUser) {
     //   nav('/adminlogin')
     // }
-  }, [nav,loggedInUser])
+  }, [nav])
   if (curUser) {
     return (<>
       ADMINNNN

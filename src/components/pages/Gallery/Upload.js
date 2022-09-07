@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import AddIcon from '@mui/icons-material/Add';
 import { Button, Container } from '@mui/material';
 import ProgressList from './progressList/ProgressList';
@@ -21,7 +21,7 @@ function Upload({cateId}) {
         <Container sx={{ display: 'flex', justifyContent: 'center', paddingTop: 1 }}>
             <input type="file" multiple style={{ display: 'none' }} ref={fileRef} onChange={handleChange} />
             <Button variant="contained" endIcon={<AddIcon />} aria-label="add an image" onClick={handleClick}>
-                Add image
+                Add images
             </Button>
             {/* {imagesLength? <br/> `Selected: ${imagesLength}`:null} */}
         </Container>

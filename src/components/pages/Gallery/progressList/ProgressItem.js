@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import {addGalleryDoc, uploadFileWithProgress} from '../../../../fireConfig/galleryImages';
 // import addDocument from '../../../firebase/addDocument';
 
-const ProgressItem = ({ file,cateId}) => {
+const ProgressItem = ({ file,cateId,setInpFiles}) => {
   const [progress, setProgress] = useState(0);
   const [imageURL, setImageURL] = useState(null);
   // const currentUser = { uid: 'userId' };
@@ -31,6 +31,7 @@ const ProgressItem = ({ file,cateId}) => {
         // setProgress(101);
         // setImagesData((prev)=>({...prev,imgData: [...prev.imgData,newImgData]}))
         setImageURL(null);
+        setInpFiles([]);
       } catch (error) {
         alert(error.message);
         console.log(error);
@@ -38,7 +39,7 @@ const ProgressItem = ({ file,cateId}) => {
     };
     setImageURL(URL.createObjectURL(file));
     uploadImage();
-  }, [file,cateId]);
+  }, [file,cateId,setInpFiles]);
   return (
     imageURL && (
       <ImageListItem cols={1} rows={1}>

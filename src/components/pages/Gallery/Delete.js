@@ -10,8 +10,8 @@ function Delete({ imagesDataDict, curImgData,setcateInfo }) {
             const cateId = imagesDataDict.id
             // If last element delete the collection
             if (imagesDataDict.data.imgData.length === 1) {
-                await deleteDocFromDb('gallery', imagesDataDict.id);
                 setcateInfo(null);
+                await deleteDocFromDb('gallery', imagesDataDict.id);                
 
             }
             else {

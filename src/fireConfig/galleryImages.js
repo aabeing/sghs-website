@@ -41,6 +41,5 @@ export const deleteImgDoc = (cateId, curImgData)=>{
     const docRef = doc(db, 'gallery', cateId);
     return updateDoc(docRef, {
         imgData: arrayRemove(curImgData),
-        timestamp: serverTimestamp(),
     });
 }

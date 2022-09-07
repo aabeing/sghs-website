@@ -27,8 +27,8 @@ function CateGrid({ cateImgArr, setcateInfo }) {
                     <Typography variant='h4'>Gallery</Typography>
                 </Divider>
                 {/* <Container> */}
-                <Grid container justifyContent='space-around' sx={{
-                    maxWidth: 800, minWidth: 400, m: 'auto', mt: 5,
+                <Grid container justifyContent='center' sx={{
+                    m: 'auto', mt: 5,
                 }}>
                     {cateImgArr.map((ele, index) => {
                         // console.log("Err ",ele.data)
@@ -40,7 +40,7 @@ function CateGrid({ cateImgArr, setcateInfo }) {
                                     src={item.img}
                                     alt={item.title}
                                     style={{
-                                        cursor: 'pointer', height: '200px', width: '200px',
+                                        cursor: 'pointer', height: '300px', width: '300px',
                                         objectFit: 'cover'
                                     }}
                                     loading="lazy"

@@ -4,7 +4,7 @@ import { useAuth } from '../../context/authContext';
 // import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-function AdminLogout({setsecNav}) {
+function AdminLogout() {
     
     const { logoutAdmin } = useAuth();
     const [status, setstatus] = useState('Logging out');
@@ -12,14 +12,14 @@ function AdminLogout({setsecNav}) {
     useEffect(() => {
         try {
             logoutAdmin();
-            setsecNav(['gallery', 'about', 'admissions', 'contact', 'admin']);
+            // setsecNav(['gallery', 'about', 'admissions', 'contact', 'admin']);
             nav('/admin');
             setstatus('Log out success')
         }
         catch {
             setstatus('Log out Failed, try again...')
         }
-    }, [logoutAdmin,nav,setsecNav])
+    }, [logoutAdmin,nav])
     return (
         <>
             {status}

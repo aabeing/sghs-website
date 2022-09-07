@@ -51,13 +51,13 @@ function Home({ announceData, initCollectData }) {
         <Paper sx={{ ...paperStyle }}>
           <Grid container columns={12} >
             <Grid item xs={12} lg={6} padding={2} sx={{ maxHeight: 750, overflow: 'hidden' }}>
-              <Typography variant='h4'>
+              <Typography variant='h4' sx={{fontSize: { xs: 27, sm: 35, md: 35, lg: 40 },pt:2,}}>
                 {contentHead1}
               </Typography>
               {contentPara1.map((ele) => (<>
 
                 <Typography variant='subtitle1' display='block' sx={{
-                  fontSize: { xs: 16, sm: 17, md: 18, lg: 20 },
+                  fontSize: { xs: 16, sm: 17, md: 18, lg: 20 }
                 }}>
                   {ele}
                 </Typography>

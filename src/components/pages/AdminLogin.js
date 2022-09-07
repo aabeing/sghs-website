@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import GoogleIcon from '@mui/icons-material/Google';
 import { useAuth } from '../../context/authContext';
 // import { Button } from '@mui/material';
@@ -7,25 +7,25 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 // import { async } from '@firebase/util';
 
-function AdminLogin({ setsecNav, secNav }) {
+function AdminLogin() {
 
-    const { loginAdmin, loggedInUser, setloggedInUser, auth } = useAuth();
-    const [status, setstatus] = useState('');
+    const {  loggedInUser, setloggedInUser, auth } = useAuth();
+    // const [status, setstatus] = useState('');
     const [loading, setloading] = useState(false);
     const [curUserAdmin, setcurUserAdmin] = useState(loggedInUser)
     // const nav = useNavigate();
-    const addLogoutNav = useCallback(() => {
-        try {
-            // console.log("CHECK.......")
-            if (secNav.indexOf('logout') === -1) {
-                setsecNav(['gallery', 'about', 'admissions', 'contact', 'admin', 'logout']);
-            }
+    // const addLogoutNav = useCallback(() => {
+    //     try {
+    //         // console.log("CHECK.......")
+    //         if (secNav.indexOf('logout') === -1) {
+    //             setsecNav(['gallery', 'about', 'admissions', 'contact', 'admin', 'logout']);
+    //         }
 
-        } catch (err) {
-            alert(err);
-            console.log("Error ", err)
-        }
-    },[secNav])
+    //     } catch (err) {
+    //         alert(err);
+    //         console.log("Error ", err)
+    //     }
+    // },[secNav])
     // const addLogoutNav = () => {
     //     try {
     //         console.log("CHECK.......")
@@ -39,9 +39,9 @@ function AdminLogin({ setsecNav, secNav }) {
         if (loggedInUser) {
             // nav('/admin')
             setcurUserAdmin(true);
-            addLogoutNav();
+            // addLogoutNav();
         }
-    }, [loggedInUser, addLogoutNav])
+    }, [loggedInUser])
     const handleLogin = async () => {
         setloading(true);
         const provider = new GoogleAuthProvider();
@@ -56,7 +56,7 @@ function AdminLogin({ setsecNav, secNav }) {
                 // nav('/admin');                
                 // setcurUser(user);
                 setcurUserAdmin(true);
-                addLogoutNav();
+                // addLogoutNav();
                 setloggedInUser(user);
 
             }).catch((error) => {
@@ -66,7 +66,7 @@ function AdminLogin({ setsecNav, secNav }) {
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 // The email of the user's account used.
-                const email = error.customData.email;
+                // const email = error.customData.email;
                 // The AuthCredential type that was used.
                 // const credential = GoogleAuthProvider.credentialFromError(error);
                 alert("LOGINFAILED")
@@ -106,7 +106,7 @@ function AdminLogin({ setsecNav, secNav }) {
                 >
                     Sign in with Google
                 </LoadingButton>
-                {status ? <div>status</div> : null}
+                {/* {status ? <div>status</div> : null} */}
             </>
         )
     }

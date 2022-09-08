@@ -2,7 +2,6 @@ import { Box } from '@mui/material';
 import React from 'react'
 
 function Admissions() {
-  const myHTML = `https://forms.gle/x4TEFBuKkKua15m67`;
   // <iframe src="" >Loading…</iframe>
   return (
     <Box height="80vh">

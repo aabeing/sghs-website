@@ -10,38 +10,43 @@ import AdminLogin from './pages/AdminLogin'
 import AdminLogout from './pages/AdminLogout'
 import { useFireDocs, useFireDoc } from '../fireConfig/useFirestore'
 import { useAuth } from '../context/authContext'
+import Announcements from './pages/Announcements'
 
 function DefaultComp() {
-  const { auth } = useAuth();
+  const { auth, setIsAdmin } = useAuth();
   let adminMenu;
   const [secNav, setsecNav] = useState(['gallery', 'about', 'admissions', 'contact', 'admin'])
   const announceData = useFireDocs('Announcements');
   const initCollectData = useFireDoc('InitCollect', 'InitCollectDoc');
-// console.log("Auth val: ",auth.currentUser)
+  // console.log("Auth val: ",auth.currentUser)
+  if (initCollectData && auth.currentUser) {
+    if (initCollectData.adminUid === auth.currentUser.uid) {
+      setIsAdmin(true);
+    }
+  }
   useEffect(() => {
     // console.log('Mounted D');
-    if(auth.currentUser){
-      // console.log("log ",secNav)
-      setsecNav(['gallery', 'about', 'admissions', 'contact', 'admin','logout'])
-   }
-   else{
-    // console.log("else ",secNav)
-    setsecNav(['gallery', 'about', 'admissions', 'contact', 'admin'])
-   }
-   
+    if (auth.currentUser) {
+      setsecNav(['gallery', 'announcements', 'admin', 'logout'])
+    }
+    else {
+      setsecNav(['gallery', 'announcements', 'admin'])
+      // setIsAdmin(false)
+    }
   }, [auth.currentUser])
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Navigation secNav={secNav}  />}>
+        <Route path='/' element={<Navigation secNav={secNav} />}>
           <Route index element={<Home announceData={announceData} initCollectData={initCollectData} />} />
           <Route path='home' element={<Home announceData={announceData} initCollectData={initCollectData} />} />
           <Route path='about' element={<About />} />
           <Route path='admissions' element={<Admissions />} />
           <Route path='contact' element={<Contact />} />
           <Route path='gallery' element={<Gallery />} />
+          <Route path='announcements' element={<Announcements announceData={announceData} />} />
           <Route path='/admin' element={<AdminLogin />} />
-          {auth.currentUser && <Route path='/logout' element={<AdminLogout/>} />}
+          <Route path='/logout' element={<AdminLogout />} />
         </Route>
       </Routes>
     </BrowserRouter>

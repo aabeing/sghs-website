@@ -14,7 +14,7 @@ import Loading from '../Loading';
 import { useEffect } from 'react';
 
 function ImageGrid({ imagesDataDict, setcateInfo }) {
-    const { auth } = useAuth();
+    const { auth, isAdmin } = useAuth();
     const MyComponent = styled('div')({
         "& .hiddenbtn": {
             display: "none"
@@ -27,6 +27,7 @@ function ImageGrid({ imagesDataDict, setcateInfo }) {
         transition: ' 0.4s all ease-in-out',
         '&:hover': { transform: 'scale(1.03)' },
     });
+    // console.log("VAL: ",isAdmin);
     // Images preloading
     const [load, setload] = useState(true)
     useEffect(() => {
@@ -44,7 +45,7 @@ function ImageGrid({ imagesDataDict, setcateInfo }) {
                     // console.log("IMG Loading Done")
                 }
             }
-        });        
+        });
     }, [imagesDataDict.data.imgData])
     if (load) {
         return (<Loading />)
@@ -56,7 +57,7 @@ function ImageGrid({ imagesDataDict, setcateInfo }) {
                     <Button variant="contained" endIcon={<ArrowBackIcon />} aria-label="add an image" onClick={() => setcateInfo(null)}>
                         Go Back
                     </Button></Container>
-                {auth.currentUser ? <Upload cateId={imagesDataDict.id} /> : null}
+                {auth.currentUser && isAdmin ? <Upload cateId={imagesDataDict.id} /> : null}
                 <Container maxWidth='xl'>
                     <Divider
                         sx={{
@@ -86,7 +87,7 @@ function ImageGrid({ imagesDataDict, setcateInfo }) {
                                             {/* <ImageListItemBar title='Delete' sx={{ background: (theme) => theme.palette.secondary.main }}  /> */}
 
                                             {/* {Delete ? <Delete /> : null} */}
-                                            {auth.currentUser ? <Delete imagesDataDict={imagesDataDict} curImgData={item} setcateInfo={setcateInfo} /> : null}
+                                            {auth.currentUser && isAdmin ? <Delete imagesDataDict={imagesDataDict} curImgData={item} setcateInfo={setcateInfo} /> : null}
 
                                         </ImageListItem>
 

@@ -8,7 +8,7 @@ import { useState } from 'react';
 
 function CateGrid({ cateImgArr, setcateInfo }) {
 
-    const { auth } = useAuth();
+    const { auth,isAdmin } = useAuth();
     const handleClick = (cateId, cateIndex) => {
         setcateInfo({
             // cateIndex: cateIndex,
@@ -42,7 +42,7 @@ function CateGrid({ cateImgArr, setcateInfo }) {
         return (
             <>
                 <Container maxWidth='xl' sx={{ alignItems: 'center' }}>
-                    {auth.currentUser ? <AddCate /> : null}
+                    {auth.currentUser && isAdmin ? <AddCate /> : null}
                     <Divider
                         sx={{
                             paddingTop: 2,

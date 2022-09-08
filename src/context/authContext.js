@@ -26,7 +26,8 @@ setPersistence(auth, browserSessionPersistence)
 export function AuthProvider({ children }) {
 
     const [loggedInUser, setloggedInUser] = useState();
-    async function loginAdmin() {
+    const [isAdmin,setIsAdmin] = useState(false);
+    // async function loginAdmin() {
         // await signInWithRedirect(auth, provider);
         // const auth = getAuth();
         // await setPersistence(auth, inMemoryPersistence)
@@ -39,7 +40,7 @@ export function AuthProvider({ children }) {
         //         err.errorMessage = error.message;
         //         throw err;
         //     });
-    }
+    // }
     async function logoutAdmin() {
         await signOut(auth);
         // setloggedInUser('');
@@ -53,6 +54,7 @@ export function AuthProvider({ children }) {
                 // User is signed out
                 // console.log("Signed out log")
                 setloggedInUser('');
+                setIsAdmin(false);
             }
         });
         return (() => {
@@ -63,10 +65,10 @@ export function AuthProvider({ children }) {
 
     const value = {
         loggedInUser,
-        loginAdmin,
         logoutAdmin,
         setloggedInUser,
         auth,
+        isAdmin,setIsAdmin,
     }
     return (
         <AuthContext.Provider value={value}>

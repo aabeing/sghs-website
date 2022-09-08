@@ -9,37 +9,12 @@ import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
 function AdminLogin() {
 
-    const {  loggedInUser, setloggedInUser, auth } = useAuth();
-    // const [status, setstatus] = useState('');
+    const {  loggedInUser, setloggedInUser, auth,isAdmin } = useAuth();
     const [loading, setloading] = useState(false);
     const [curUserAdmin, setcurUserAdmin] = useState(loggedInUser)
-    // const nav = useNavigate();
-    // const addLogoutNav = useCallback(() => {
-    //     try {
-    //         // console.log("CHECK.......")
-    //         if (secNav.indexOf('logout') === -1) {
-    //             setsecNav(['gallery', 'about', 'admissions', 'contact', 'admin', 'logout']);
-    //         }
-
-    //     } catch (err) {
-    //         alert(err);
-    //         console.log("Error ", err)
-    //     }
-    // },[secNav])
-    // const addLogoutNav = () => {
-    //     try {
-    //         console.log("CHECK.......")
-    //         setsecNav(['gallery', 'about', 'admissions', 'contact','admin','logout']);
-    //     } catch (err) {
-    //         console.log("Error ", err)
-    //     }
-    // }
     useEffect(() => {
-        // console.log("loggedInUser: ", loggedInUser)
         if (loggedInUser) {
-            // nav('/admin')
             setcurUserAdmin(true);
-            // addLogoutNav();
         }
     }, [loggedInUser])
     const handleLogin = async () => {
@@ -58,6 +33,8 @@ function AdminLogin() {
                 setcurUserAdmin(true);
                 // addLogoutNav();
                 setloggedInUser(user);
+                console.log("TTT ",isAdmin)
+
 
             }).catch((error) => {
                 setcurUserAdmin(false);

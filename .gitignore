@@ -15,6 +15,7 @@
 .*
 .DS_Store
 .env
+.firebase*
 .firebase/*
 .firebaserc
 .env.local

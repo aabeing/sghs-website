@@ -10,7 +10,7 @@ import AdminLogin from './pages/AdminLogin'
 import AdminLogout from './pages/AdminLogout'
 import { useFireDocs, useFireDoc } from '../fireConfig/useFirestore'
 import { useAuth } from '../context/authContext'
-import Announcements from './pages/Announcements'
+import Announcements from './pages/Announcements/Announcements'
 
 function DefaultComp() {
   const { auth, setIsAdmin } = useAuth();

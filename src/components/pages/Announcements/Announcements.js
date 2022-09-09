@@ -1,6 +1,7 @@
 import { Avatar, Box, Grid, List, ListItem, ListItemAvatar, ListItemText, Paper, Typography } from '@mui/material'
 import SquareIcon from '@mui/icons-material/Square';
-import Loading from './Loading';
+import Loading from '../Loading';
+import Edit from './Edit';
 function Announcements({announceData}) {
     const boxStyle = {
         margin: { xs: 2, md: 8 }, padding: { xs: 0.5, md: 3 }
@@ -15,6 +16,7 @@ function Announcements({announceData}) {
     if (announceData.length) {
         return (
                 <Box sx={boxStyle}>
+                    <Edit/>
                     <Typography variant='h4' textAlign='left'>Announcements</Typography>
                     <List sx={{ width: '100%', maxWidth: { xs: '100%' } }}>
                         {announceData.map((element, index) => {

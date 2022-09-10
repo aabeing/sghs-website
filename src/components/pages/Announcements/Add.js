@@ -17,10 +17,10 @@ function Add({ setPage, page, announceData }) {
     return (
         <>
             <Container sx={{ display: 'flex', justifyContent: 'center', py: 1 }}>
-                {page === 'view' && <Button onClick={handleBtn} variant="contained" endIcon={<AddIcon />} aria-label="add an image" >
+                {page === 'view' && <Button onClick={handleBtn} variant="contained" endIcon={<AddIcon />} aria-label="Add Announcement" >
                     Add Announcement
                 </Button>}
-                {page === 'add' && <Button onClick={handleBtn} variant="contained" endIcon={<ArrowBackIcon />} aria-label="add an image" >
+                {page === 'add' && <Button onClick={handleBtn} variant="contained" endIcon={<ArrowBackIcon />} aria-label="go back" >
                     Go Back
                 </Button>}
             </Container>

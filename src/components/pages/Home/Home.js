@@ -35,7 +35,7 @@ function Home({ announceData, initCollectData }) {
   const contentImage1 = "/images/welcomeImg.png"
   const contentPara1 = initCollectData.WelcomeMessage;
   const contentHead1 = "Welcome to St.George High School";
-  const imagesArr = useMemo(()=>[
+  const imagesArr = useMemo(() => [
     {
       alt: 'San Francisco- Oakland Bay Bridge, United States',
       src:
@@ -46,26 +46,26 @@ function Home({ announceData, initCollectData }) {
       src:
         '/images/w2.jpg',
     }
-  ],[]);
+  ], []);
   const [load, setload] = useState(true)
   useEffect(() => {
-      let preImg;
-      let loadedCount = 0;
-      const imgLen = imagesArr.length;
-      imagesArr.forEach((picture) => {
-          preImg = new Image();
-          preImg.src = picture.src;
-          preImg.onload = () => {
-              // console.log("IMG loaded");
-              loadedCount++;
-              if (loadedCount === imgLen) {
-                  setload(false);
-                  // console.log("IMG Loading Done")
-              }
-          }
-      });
+    let preImg;
+    let loadedCount = 0;
+    const imgLen = imagesArr.length;
+    imagesArr.forEach((picture) => {
+      preImg = new Image();
+      preImg.src = picture.src;
+      preImg.onload = () => {
+        // console.log("IMG loaded");
+        loadedCount++;
+        if (loadedCount === imgLen) {
+          setload(false);
+          // console.log("IMG Loading Done")
+        }
+      }
+    });
   }, [imagesArr])
-  if (announceData.length && initCollectData.WelcomeMessage && !load) {
+  if (initCollectData.WelcomeMessage && !load) {
 
     return (
       <>
@@ -107,7 +107,7 @@ function Home({ announceData, initCollectData }) {
         </Paper>
 
         <Grid xs={12} md={6} sx={{ ...paperStyle }}>
-          <Typography variant='h4'>Announcements</Typography>
+          {announceData.length ? <Typography variant='h4'>Announcements</Typography> : null}
           <List sx={{ width: '100%', maxWidth: { xs: '100%', md: '50%' } }}>
             {announceData.map((element, index) => {
               const ele = element.data;
@@ -121,7 +121,7 @@ function Home({ announceData, initCollectData }) {
                   {/* sx={{ maxHeight: 120, textOverflow: 'ellipsis', overflow: 'hidden' }} */}
                   <ListItemText key={index + '-2'}
                     primary={
-                      <Typography variant='h6'>{ele.Heading}</Typography>
+                      <Typography variant='h6'>{ele.heading}</Typography>
                     } secondary={
                       <>
                         {ele.timestamp.toDate().toDateString()}
@@ -131,7 +131,7 @@ function Home({ announceData, initCollectData }) {
                             WebkitLineClamp: '3',
                           }}
                         >
-                          {ele.Content}
+                          {ele.content}
                         </Typography>
                       </>
                     } />

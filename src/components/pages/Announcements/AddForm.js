@@ -1,18 +1,25 @@
-import { TextField } from '@mui/material'
-import { Stack } from '@mui/system'
+import { Alert, Button, Collapse, Divider, TextField, Typography } from '@mui/material'
 import React from 'react'
 import { useState } from 'react'
+import AddIcon from '@mui/icons-material/Add';
+import { Container } from '@mui/system';
+import addFireDoc from '../../../fireConfig/addDoc';
+import Loading from '../Loading';
+import { useEffect } from 'react';
 
 function AddForm() {
+  const [submitBtnDisabled, setSubmitBtnDisabled] = useState(false);
+  const [onSuccessAlert, setOnSuccessAlert] = useState(false);
   const now = new Date();
   now.setDate(now.getDate() + 1)
   now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
   // console.log(now.toISOString().slice(0, 16))
-
-  const [inputData, setInputData] = useState({
+  const inpInit = {
     heading: '', content: '',
     expiryDate: now.toISOString().slice(0, 16)
-  })
+  }
+
+  const [inputData, setInputData] = useState(inpInit)
   // console.log("TEST: ", data)
   const handleChange = (event) => {
     // console.log(event.target.name)
@@ -23,10 +30,47 @@ function AddForm() {
     // console.log(inputData)
 
   }
+  const handleSubmit = async (event) => {
+    try {
+      event.preventDefault();
+      setSubmitBtnDisabled(true);
+      const docData = { ...inputData, expiryDate: new Date(inputData.expiryDate) }
+      console.log(docData)
+      const docRef = await addFireDoc('Announcements', docData);
+      console.log("Document written with ID: ", docRef.id);
+      setSubmitBtnDisabled(false);
+      setOnSuccessAlert(true)
+    }
+    catch (error) {
+      setSubmitBtnDisabled(false);
+      alert(error.message);
+      console.log(error);
+    }
+  }
+  useEffect(() => {
+    if (onSuccessAlert) {
+      const timeId = setTimeout(() => {
+        // After 3 seconds set the show value to false
+        setInputData({
+          heading: '', content: '',
+          expiryDate: now.toISOString().slice(0, 16)
+        });
+        setOnSuccessAlert(false);
+
+      }, 2000)
+
+      return () => {
+        clearTimeout(timeId)
+      }
+    }
+  }, [onSuccessAlert]);
   return (
     <>
-      {/* <Divider /> */}
-      <form style={{ marginLeft: 30, marginRight: 30 }}>
+      <Collapse in={onSuccessAlert}>
+        <Alert severity="success">Announcement {inputData.heading} created successfully</Alert>
+      </Collapse>
+      <Divider sx={{ pt: 2 }} />
+      <form style={{ marginLeft: 30, marginRight: 30 }} onSubmit={handleSubmit}>
         <TextField name='heading'
           onChange={handleChange}
           required margin="normal" label="Heading" variant="filled" fullWidth
@@ -39,13 +83,12 @@ function AddForm() {
           multiline
           rows={4}
           value={inputData.content}
-        // value={value}
-        // onChange={handleChange}
         />
         <TextField
           name='expiryDate'
           onChange={handleChange}
           value={inputData.expiryDate}
+          variant="filled"
           margin="normal"
           id="datetime-local"
           required
@@ -57,7 +100,22 @@ function AddForm() {
             shrink: true,
           }}
         />
+        <Typography color='primary'> IMP: After the Expiry, announcement will be removed from home page. Also Expiry info won't be visible to the user</Typography>
+        <Typography color='primary'> Announcement date will be current datetime.</Typography>
+        {/* <Container> */}
+        <Button sx={{
+          margin: 3
+        }}
+          disabled={submitBtnDisabled}
+          size='large'
+          fullWidth type='submit' variant="contained" endIcon={<AddIcon />} aria-label="Add Announcement" >
+          Add
+        </Button>
+        {/* </Container> */}
+
       </form>
+      {submitBtnDisabled ? <Loading /> : null}
+
     </>
 
   )

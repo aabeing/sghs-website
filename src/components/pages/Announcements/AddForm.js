@@ -2,7 +2,6 @@ import { Alert, Button, Collapse, Divider, TextField, Typography } from '@mui/ma
 import React from 'react'
 import { useState } from 'react'
 import AddIcon from '@mui/icons-material/Add';
-import { Container } from '@mui/system';
 import addFireDoc from '../../../fireConfig/addDoc';
 import Loading from '../Loading';
 import { useEffect } from 'react';
@@ -63,11 +62,11 @@ function AddForm() {
         clearTimeout(timeId)
       }
     }
-  }, [onSuccessAlert]);
+  }, [onSuccessAlert,now]);
   return (
     <>
       <Collapse in={onSuccessAlert}>
-        <Alert severity="success">Announcement {inputData.heading} created successfully</Alert>
+        <Alert severity="success">Announcement created</Alert>
       </Collapse>
       <Divider sx={{ pt: 2 }} />
       <form style={{ marginLeft: 30, marginRight: 30 }} onSubmit={handleSubmit}>

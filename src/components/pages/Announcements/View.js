@@ -14,17 +14,17 @@ function View({ announceData }) {
         "&:hover .hiddenbtn": {
             display: "flex"
         },
-        m: 1,
+        m: 1,        
         // transition: ' 0.4s all ease-in-out',
         '&:hover': { transform: 'scale(1)' },
     });
     return (
-        <List sx={{ width: '100%', maxWidth: { xs: '100%' } }}>
+        <List sx={{ width: '100%', maxWidth: { xs: '100%' },border: '3px solid', borderColor: 'text.primary', }}>
 
             {announceData.map((element, index) => {
                 const ele = element.data;
                 return (
-                    <MyComponentHover>
+                    <MyComponentHover >
                         <ListItem key={index} alignItems='flex-start' >
                             <ListItemAvatar key={index + '-1'}>
                                 <Avatar>

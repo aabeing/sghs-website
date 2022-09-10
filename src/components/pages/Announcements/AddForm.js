@@ -5,13 +5,18 @@ import AddIcon from '@mui/icons-material/Add';
 import addFireDoc from '../../../fireConfig/addDoc';
 import Loading from '../Loading';
 import { useEffect } from 'react';
+import { useMemo } from 'react';
 
 function AddForm() {
   const [submitBtnDisabled, setSubmitBtnDisabled] = useState(false);
   const [onSuccessAlert, setOnSuccessAlert] = useState(false);
-  const now = new Date();
-  now.setDate(now.getDate() + 1)
-  now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+  const now = useMemo(()=>{
+    const now = new Date();
+    now.setDate(now.getDate() + 1)
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+    return now;
+  },[])
+
   // console.log(now.toISOString().slice(0, 16))
   const inpInit = {
     heading: '', content: '',

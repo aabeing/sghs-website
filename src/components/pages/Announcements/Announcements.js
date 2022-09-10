@@ -1,10 +1,10 @@
 import { Box, Typography } from '@mui/material'
 // import SquareIcon from '@mui/icons-material/Square';
 import Loading from '../Loading';
-import Edit from './Edit';
 import { useAuth } from '../../../context/authContext';
 import { useState } from 'react';
 import View from './View';
+import Add from './Add';
 function Announcements({ announceData }) {
     const { auth, isAdmin } = useAuth();
     const [page, setPage] = useState("view")
@@ -22,7 +22,7 @@ function Announcements({ announceData }) {
         return (
             <Box sx={boxStyle}>
                 <Typography variant='h4' textAlign='left'>Announcements</Typography>
-                {auth.currentUser && isAdmin ? <Edit setPage={setPage} page={page} announceData={announceData}/> : null}
+                {auth.currentUser && isAdmin ? <Add setPage={setPage} page={page} announceData={announceData}/> : null}
                 {page === 'view' ?
                    <View announceData={announceData}/>
                     : null}

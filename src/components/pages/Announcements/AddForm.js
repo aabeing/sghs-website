@@ -54,7 +54,7 @@ function AddForm() {
   useEffect(() => {
     if (onSuccessAlert) {
       const timeId = setTimeout(() => {
-        // After 3 seconds set the show value to false
+        // After 2 seconds
         setInputData({
           heading: '', content: '',
           expiryDate: now.toISOString().slice(0, 16)

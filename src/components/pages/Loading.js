@@ -9,7 +9,7 @@ function Loading() {
         const timeId = setTimeout(() => {
             // After 10 seconds set alertErr
             if (navigator.onLine) {
-                setalertErr('Something went wrong!');
+                setalertErr('Something went wrong! Are you offline?');
             }
             else {
                 setalertErr('You are offline! Please connect to internet');

@@ -5,11 +5,12 @@ import { useAuth } from '../../context/authContext';
 import LoadingButton from '@mui/lab/LoadingButton';
 // import { useNavigate } from 'react-router-dom';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { Container } from '@mui/material';
 // import { async } from '@firebase/util';
 
 function AdminLogin() {
 
-    const {  loggedInUser, setloggedInUser, auth,isAdmin } = useAuth();
+    const { loggedInUser, setloggedInUser, auth, isAdmin } = useAuth();
     const [loading, setloading] = useState(false);
     const [curUserAdmin, setcurUserAdmin] = useState(loggedInUser)
     useEffect(() => {
@@ -33,7 +34,7 @@ function AdminLogin() {
                 setcurUserAdmin(true);
                 // addLogoutNav();
                 setloggedInUser(user);
-                console.log("TTT ",isAdmin)
+                console.log("TTT ", isAdmin)
 
 
             }).catch((error) => {
@@ -73,18 +74,20 @@ function AdminLogin() {
     }
     else {
         return (
-            <>
+            <Container sx={{ height: '60vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <LoadingButton
+                    size='large'
                     onClick={handleLogin}
                     endIcon={<GoogleIcon />}
                     loading={loading}
                     loadingPosition="end"
                     variant="contained"
+                // sx={{m:'auto'}}
                 >
                     Sign in with Google
                 </LoadingButton>
                 {/* {status ? <div>status</div> : null} */}
-            </>
+            </Container>
         )
     }
 

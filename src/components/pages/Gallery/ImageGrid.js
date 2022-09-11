@@ -15,7 +15,7 @@ import { useEffect } from 'react';
 
 function ImageGrid({ imagesDataDict, setcateInfo }) {
     const { auth, isAdmin } = useAuth();
-    const MyComponent = styled('div')({
+    const MyComponentHover = styled('div')({
         "& .hiddenbtn": {
             display: "none"
         },
@@ -76,7 +76,7 @@ function ImageGrid({ imagesDataDict, setcateInfo }) {
                                 gridTemplateColumns: 'repeat(auto-fill,minmax(310px,1fr))!important'
                             }}>
                                 {imagesDataDict.data.imgData.map((item, index) => (
-                                    <MyComponent key={index}>
+                                    <MyComponentHover key={index}>
                                         <ImageListItem >
                                             <img
                                                 src={item.img}
@@ -91,7 +91,7 @@ function ImageGrid({ imagesDataDict, setcateInfo }) {
 
                                         </ImageListItem>
 
-                                    </MyComponent>
+                                    </MyComponentHover>
                                 ))}
                             </ImageList>
                         </SRLWrapper>

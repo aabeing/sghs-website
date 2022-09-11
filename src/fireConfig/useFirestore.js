@@ -1,13 +1,26 @@
-import { collection, doc, onSnapshot, orderBy, query, deleteDoc } from 'firebase/firestore';
+import { collection, doc, onSnapshot, orderBy, query, deleteDoc, where } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { db } from './firebaseInit';
 export const useFireDocs = (collectionName) => {
+
     const [documents, setDocuments] = useState([]);
     useEffect(() => {
-        const q = query(
-            collection(db, collectionName),
-            orderBy('timestamp', 'desc')
-        );
+        let q;
+        if(collectionName === 'Announcements'){
+            const today = new Date()
+            q = query(
+                collection(db, collectionName),
+                orderBy("expiryDate",'desc'),
+                where("expiryDate", ">=", today),
+                orderBy('timestamp', 'desc'),                
+            );
+        }
+        else{
+            q = query(
+                collection(db, collectionName),
+                orderBy('timestamp', 'desc')
+            );
+        }
         const unsubscribe = onSnapshot(
             q,
             (snapshot) => {

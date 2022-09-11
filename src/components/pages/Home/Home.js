@@ -6,6 +6,7 @@ import Loading from '../Loading';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 const sliderSettings = {
@@ -32,10 +33,11 @@ const lineClampStyle = {
   WebkitBoxOrient: 'vertical',
 }
 function Home({ announceData, initCollectData }) {
+  const nav = useNavigate();
   const contentImage1 = "/images/welcomeImg.png"
   const contentPara1 = initCollectData.WelcomeMessage;
   const contentHead1 = "Welcome to St.George High School";
-  const imagesArr = useMemo(()=>[
+  const imagesArr = useMemo(() => [
     {
       alt: 'San Francisco- Oakland Bay Bridge, United States',
       src:
@@ -46,27 +48,29 @@ function Home({ announceData, initCollectData }) {
       src:
         '/images/w2.jpg',
     }
-  ],[]);
+  ], []);
   const [load, setload] = useState(true)
   useEffect(() => {
-      let preImg;
-      let loadedCount = 0;
-      const imgLen = imagesArr.length;
-      imagesArr.forEach((picture) => {
-          preImg = new Image();
-          preImg.src = picture.src;
-          preImg.onload = () => {
-              // console.log("IMG loaded");
-              loadedCount++;
-              if (loadedCount === imgLen) {
-                  setload(false);
-                  // console.log("IMG Loading Done")
-              }
-          }
-      });
+    let preImg;
+    let loadedCount = 0;
+    const imgLen = imagesArr.length;
+    imagesArr.forEach((picture) => {
+      preImg = new Image();
+      preImg.src = picture.src;
+      preImg.onload = () => {
+        // console.log("IMG loaded");
+        loadedCount++;
+        if (loadedCount === imgLen) {
+          setload(false);
+          // console.log("IMG Loading Done")
+        }
+      }
+    });
   }, [imagesArr])
-  if (announceData.length && initCollectData.WelcomeMessage && !load) {
-
+  if (initCollectData.WelcomeMessage && !load) {
+    const goToAnnounce = () => {
+      nav('/announcements');
+    }
     return (
       <>
         <ImageSlider imagesArr={imagesArr} settings={sliderSettings} />
@@ -106,9 +110,15 @@ function Home({ announceData, initCollectData }) {
           </Grid>
         </Paper>
 
-        <Grid xs={12} md={6} sx={{ ...paperStyle }}>
-          <Typography variant='h4'>Announcements</Typography>
-          <List sx={{ width: '100%', maxWidth: { xs: '100%', md: '50%' } }}>
+        <Box sx={{ ...paperStyle, maxWidth: { xs: '100%', md: '50%' } }} >
+          {/* <Box sx={{ height: 100 }}> */}
+          {announceData.length ? <Typography variant='h4'>Announcements</Typography> : null}
+          <List onClick={goToAnnounce}
+            sx={{
+              width: '100%', maxHeight: 500, overflowY: 'auto',
+              border: '3px solid', borderColor: 'text.primary',
+              cursor: 'pointer'
+            }}>
             {announceData.map((element, index) => {
               const ele = element.data;
               return (
@@ -121,17 +131,17 @@ function Home({ announceData, initCollectData }) {
                   {/* sx={{ maxHeight: 120, textOverflow: 'ellipsis', overflow: 'hidden' }} */}
                   <ListItemText key={index + '-2'}
                     primary={
-                      <Typography variant='h6'>{ele.Heading}</Typography>
+                      <Typography variant='h6'>{ele.heading}</Typography>
                     } secondary={
                       <>
                         {ele.timestamp.toDate().toDateString()}
                         <Typography color='text.primary'
                           sx={{
                             ...lineClampStyle,
-                            WebkitLineClamp: '3',
+                            WebkitLineClamp: '2',
                           }}
                         >
-                          {ele.Content}
+                          {ele.content}
                         </Typography>
                       </>
                     } />
@@ -139,7 +149,8 @@ function Home({ announceData, initCollectData }) {
             })}
 
           </List>
-        </Grid>
+          {/* </Box> */}
+        </Box>
 
 
       </>

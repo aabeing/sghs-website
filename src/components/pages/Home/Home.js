@@ -171,7 +171,7 @@ function Home({ announceData, initCollectData }) {
           </Box>
           : null}
         <Box sx={{ ...paperStyle }}>
-          {blogData.length ? <LatestBlogs blogData={blogData} /> : null}
+          {blogData ? <LatestBlogs blogData={blogData} /> : null}
         </Box>
 
 

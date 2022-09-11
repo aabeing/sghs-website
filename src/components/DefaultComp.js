@@ -11,6 +11,7 @@ import AdminLogout from './pages/AdminLogout'
 import { useFireDocs, useFireDoc } from '../fireConfig/useFirestore'
 import { useAuth } from '../context/authContext'
 import Announcements from './pages/Announcements/Announcements'
+import TimeTable from './pages/TimeTable'
 // import axios from 'axios'
 
 function DefaultComp() {
@@ -28,10 +29,10 @@ function DefaultComp() {
   useEffect(() => {
     // console.log('Mounted D');
     if (auth.currentUser) {
-      setsecNav(['gallery', 'announcements', 'admin', 'logout'])
+      setsecNav(['gallery', 'announcements', 'timetable', 'admin', 'logout'])
     }
     else {
-      setsecNav(['gallery', 'announcements', 'admin'])
+      setsecNav(['gallery', 'announcements', 'timetable', 'admin'])
       // setIsAdmin(false)
     }
 
@@ -45,6 +46,7 @@ function DefaultComp() {
           <Route path='home' element={<Home announceData={announceData} initCollectData={initCollectData} />} />
           <Route path='about' element={<About />} />
           <Route path='admissions' element={<Admissions />} />
+          <Route path='timetable' element={<TimeTable />} />
           <Route path='contact' element={<Contact />} />
           <Route path='gallery' element={<Gallery />} />
           <Route path='announcements' element={<Announcements announceData={announceData} />} />

@@ -1,5 +1,5 @@
 
-import { Avatar, Box, Grid, List, ListItem, ListItemAvatar, ListItemText, Paper, Typography } from '@mui/material'
+import { Avatar, Box, Divider, Grid, List, ListItem, ListItemAvatar, ListItemText, Paper, Typography } from '@mui/material'
 import ImageSlider from './ImageSlider';
 import SquareIcon from '@mui/icons-material/Square';
 import Loading from '../Loading';
@@ -70,7 +70,7 @@ function Home({ announceData, initCollectData }) {
       }
     });
     // Get blogger data
-    axios.get(`https://blogger.googleapis.com/v3/blogs/1225166691027089983/posts?fetchBodies=true&fetchImages=true&maxResults=5&orderBy=PUBLISHED&status=LIVE&key=${process.env.REACT_APP_BLOGGER_APIKEY}`).then(res => {
+    axios.get(`https://blogger.googleapis.com/v3/blogs/1225166691027089983/posts?fetchBodies=true&fetchImages=true&maxResults=4&orderBy=PUBLISHED&status=LIVE&key=${process.env.REACT_APP_BLOGGER_APIKEY}`).then(res => {
       // console.log("axios");
       // console.log(res);
       // console.log(res.data.items);
@@ -124,43 +124,49 @@ function Home({ announceData, initCollectData }) {
         {announceData.length ?
           <Box sx={{ ...paperStyle, maxWidth: { xs: '100%', md: '50%' } }} >
             {/* <Box sx={{ height: 100 }}> */}
-            <Typography variant='h4'>Announcements</Typography>
-            <List onClick={goToAnnounce}
-              sx={{
-                width: '100%', maxHeight: 500, overflowY: 'auto',
-                border: '3px solid', borderColor: 'text.primary',
-                cursor: 'pointer'
-              }}>
-              {announceData.map((element, index) => {
-                const ele = element.data;
-                return (
-                  <ListItem key={index} alignItems='flex-start' >
-                    <ListItemAvatar key={index + '-1'}>
-                      <Avatar>
-                        <SquareIcon fontSize='small' color='primary' />
-                      </Avatar>
-                    </ListItemAvatar>
-                    {/* sx={{ maxHeight: 120, textOverflow: 'ellipsis', overflow: 'hidden' }} */}
-                    <ListItemText key={index + '-2'}
-                      primary={
-                        <Typography variant='h6'>{ele.heading}</Typography>
-                      } secondary={
-                        <>
-                          {ele.timestamp.toDate().toDateString()}
-                          <Typography color='text.primary'
-                            sx={{
-                              ...lineClampStyle,
-                              WebkitLineClamp: '2',
-                            }}
-                          >
-                            {ele.content}
-                          </Typography>
-                        </>
-                      } />
-                  </ListItem>)
-              })}
+            <Typography variant='h4' sx={{marginBottom:1}}>Announcements</Typography>
+            <Paper>
+              <List onClick={goToAnnounce}
+                sx={{
+                  width: '100%', maxHeight: 500, overflowY: 'auto',
+                  // border: '3px solid', borderColor: 'primary.main',
+                  cursor: 'pointer'
+                }}>
+                {announceData.map((element, index) => {
+                  const ele = element.data;
+                  return (
+                    <>
+                      <ListItem key={index} alignItems='flex-start' >
+                        <ListItemAvatar key={index + '-1'}>
+                          <Avatar>
+                            <SquareIcon fontSize='small' color='primary' />
+                          </Avatar>
+                        </ListItemAvatar>
+                        {/* sx={{ maxHeight: 120, textOverflow: 'ellipsis', overflow: 'hidden' }} */}
+                        <ListItemText key={index + '-2'}
+                          primary={
+                            <Typography variant='h6'>{ele.heading}</Typography>
+                          } secondary={
+                            <>
+                              {ele.timestamp.toDate().toDateString()}
+                              <Typography color='text.primary'
+                                sx={{
+                                  ...lineClampStyle,
+                                  WebkitLineClamp: '2',
+                                }}
+                              >
+                                {ele.content}
+                              </Typography>
+                            </>
+                          } />
+                      </ListItem>
+                      {index !== (announceData.length - 1) ? <Divider /> : null}
+                    </>
+                  )
+                })}
 
-            </List>
+              </List>
+            </Paper>
             {/* </Box> */}
           </Box>
           : null}

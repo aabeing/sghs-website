@@ -28,7 +28,7 @@ function Announcements({ announceData }) {
                 <View announceData={announceData} />
                 : null}
             {!announceData.length && page === 'view' ?
-                <Typography variant='h5'>Zero Announcements loaded</Typography>
+                <Typography variant='h5'>No recent Announcements</Typography>
                 : null}
         </Box>
     )

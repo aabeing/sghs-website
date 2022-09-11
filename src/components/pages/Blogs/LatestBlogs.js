@@ -1,18 +1,20 @@
-import { Box, Typography } from "@mui/material"
+import { Grid, Typography } from "@mui/material"
 import BlogCard from "./BlogCard"
 
 
-function LatestBlogs({blogData}) {
-    console.log("BLOG: ",blogData)
+function LatestBlogs({ blogData }) {
+  console.log("BLOG: ", blogData)
   return (
     <>
-    <Typography variant='h4'>Blog Posts</Typography>
-    <Box sx={{display:'flex',justifyContent:'start',alignItems:'start'}}>
-    {blogData.map(ele=>
-      <BlogCard blogPost={ele}/>
-      )}
-    </Box>
-    
+      <Typography variant='h4' sx={{marginBottom:1}}>Blog Posts</Typography>
+      {/* <Box sx={{
+        display: 'flex', justifyContent: 'start', alignItems: 'start',
+      }}> */}
+      <Grid container justifyContent='flex-start'>
+        {blogData.map(ele =>
+          <BlogCard blogPost={ele} />
+        )}
+      </Grid>
     </>
   )
 }

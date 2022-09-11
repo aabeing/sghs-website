@@ -11,10 +11,11 @@ import AdminLogout from './pages/AdminLogout'
 import { useFireDocs, useFireDoc } from '../fireConfig/useFirestore'
 import { useAuth } from '../context/authContext'
 import Announcements from './pages/Announcements/Announcements'
+// import axios from 'axios'
 
 function DefaultComp() {
   const { auth, setIsAdmin } = useAuth();
-  let adminMenu;
+  // let adminMenu;
   const [secNav, setsecNav] = useState(['gallery', 'about', 'admissions', 'contact', 'admin'])
   const announceData = useFireDocs('Announcements');
   const initCollectData = useFireDoc('InitCollect', 'InitCollectDoc');
@@ -33,6 +34,8 @@ function DefaultComp() {
       setsecNav(['gallery', 'announcements', 'admin'])
       // setIsAdmin(false)
     }
+
+
   }, [auth.currentUser])
   return (
     <BrowserRouter>

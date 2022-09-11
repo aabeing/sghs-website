@@ -1,5 +1,5 @@
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Button, IconButton } from '@mui/material';
+import { Button } from '@mui/material';
 import { deleteDocFromDb } from '../../../fireConfig/useFirestore';
 
 function Delete({ docId }) {

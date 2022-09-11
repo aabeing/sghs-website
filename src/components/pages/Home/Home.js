@@ -7,6 +7,8 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import LatestBlogs from '../Blogs/LatestBlogs';
+import axios from 'axios';
 
 
 const sliderSettings = {
@@ -34,6 +36,7 @@ const lineClampStyle = {
 }
 function Home({ announceData, initCollectData }) {
   const nav = useNavigate();
+  const [blogData, setBlogData] = useState([])
   const contentImage1 = "/images/welcomeImg.png"
   const contentPara1 = initCollectData.WelcomeMessage;
   const contentHead1 = "Welcome to St.George High School";
@@ -66,6 +69,14 @@ function Home({ announceData, initCollectData }) {
         }
       }
     });
+    // Get blogger data
+    axios.get(`https://blogger.googleapis.com/v3/blogs/1225166691027089983/posts?fetchBodies=true&fetchImages=true&maxResults=5&orderBy=PUBLISHED&status=LIVE&key=${process.env.REACT_APP_BLOGGER_APIKEY}`).then(res => {
+      // console.log("axios");
+      // console.log(res);
+      // console.log(res.data.items);
+      setBlogData(res.data.items);
+    }
+    ).catch(err => { alert("Blogger retrieve error"); console.log("Blogger retrieve error: ", err) })
   }, [imagesArr])
   if (initCollectData.WelcomeMessage && !load) {
     const goToAnnounce = () => {
@@ -110,46 +121,51 @@ function Home({ announceData, initCollectData }) {
           </Grid>
         </Paper>
 
-        <Box sx={{ ...paperStyle, maxWidth: { xs: '100%', md: '50%' } }} >
-          {/* <Box sx={{ height: 100 }}> */}
-          {announceData.length ? <Typography variant='h4'>Announcements</Typography> : null}
-          <List onClick={goToAnnounce}
-            sx={{
-              width: '100%', maxHeight: 500, overflowY: 'auto',
-              border: '3px solid', borderColor: 'text.primary',
-              cursor: 'pointer'
-            }}>
-            {announceData.map((element, index) => {
-              const ele = element.data;
-              return (
-                <ListItem key={index} alignItems='flex-start' >
-                  <ListItemAvatar key={index + '-1'}>
-                    <Avatar>
-                      <SquareIcon fontSize='small' color='primary' />
-                    </Avatar>
-                  </ListItemAvatar>
-                  {/* sx={{ maxHeight: 120, textOverflow: 'ellipsis', overflow: 'hidden' }} */}
-                  <ListItemText key={index + '-2'}
-                    primary={
-                      <Typography variant='h6'>{ele.heading}</Typography>
-                    } secondary={
-                      <>
-                        {ele.timestamp.toDate().toDateString()}
-                        <Typography color='text.primary'
-                          sx={{
-                            ...lineClampStyle,
-                            WebkitLineClamp: '2',
-                          }}
-                        >
-                          {ele.content}
-                        </Typography>
-                      </>
-                    } />
-                </ListItem>)
-            })}
+        {announceData.length ?
+          <Box sx={{ ...paperStyle, maxWidth: { xs: '100%', md: '50%' } }} >
+            {/* <Box sx={{ height: 100 }}> */}
+            <Typography variant='h4'>Announcements</Typography>
+            <List onClick={goToAnnounce}
+              sx={{
+                width: '100%', maxHeight: 500, overflowY: 'auto',
+                border: '3px solid', borderColor: 'text.primary',
+                cursor: 'pointer'
+              }}>
+              {announceData.map((element, index) => {
+                const ele = element.data;
+                return (
+                  <ListItem key={index} alignItems='flex-start' >
+                    <ListItemAvatar key={index + '-1'}>
+                      <Avatar>
+                        <SquareIcon fontSize='small' color='primary' />
+                      </Avatar>
+                    </ListItemAvatar>
+                    {/* sx={{ maxHeight: 120, textOverflow: 'ellipsis', overflow: 'hidden' }} */}
+                    <ListItemText key={index + '-2'}
+                      primary={
+                        <Typography variant='h6'>{ele.heading}</Typography>
+                      } secondary={
+                        <>
+                          {ele.timestamp.toDate().toDateString()}
+                          <Typography color='text.primary'
+                            sx={{
+                              ...lineClampStyle,
+                              WebkitLineClamp: '2',
+                            }}
+                          >
+                            {ele.content}
+                          </Typography>
+                        </>
+                      } />
+                  </ListItem>)
+              })}
 
-          </List>
-          {/* </Box> */}
+            </List>
+            {/* </Box> */}
+          </Box>
+          : null}
+        <Box sx={{ ...paperStyle }}>
+          {blogData.length ? <LatestBlogs blogData={blogData} /> : null}
         </Box>
 
 

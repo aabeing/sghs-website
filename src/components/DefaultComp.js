@@ -12,6 +12,7 @@ import { useFireDocs, useFireDoc } from '../fireConfig/useFirestore'
 import { useAuth } from '../context/authContext'
 import Announcements from './pages/Announcements/Announcements'
 import TimeTable from './pages/TimeTable'
+import Staff from './pages/Staff'
 // import axios from 'axios'
 
 function DefaultComp() {
@@ -29,10 +30,10 @@ function DefaultComp() {
   useEffect(() => {
     // console.log('Mounted D');
     if (auth.currentUser) {
-      setsecNav(['gallery', 'announcements', 'timetable', 'admin', 'logout'])
+      setsecNav(['gallery', 'announcements', 'timetable', 'staff', 'admin', 'logout'])
     }
     else {
-      setsecNav(['gallery', 'announcements', 'timetable', 'admin'])
+      setsecNav(['gallery', 'announcements', 'timetable', 'staff', 'admin'])
       // setIsAdmin(false)
     }
 
@@ -47,6 +48,7 @@ function DefaultComp() {
           <Route path='about' element={<About />} />
           <Route path='admissions' element={<Admissions />} />
           <Route path='timetable' element={<TimeTable />} />
+          <Route path='staff' element={<Staff />} />
           <Route path='contact' element={<Contact />} />
           <Route path='gallery' element={<Gallery />} />
           <Route path='announcements' element={<Announcements announceData={announceData} />} />

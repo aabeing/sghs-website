@@ -13,6 +13,8 @@ import { useAuth } from '../context/authContext'
 import Announcements from './pages/Announcements/Announcements'
 import TimeTable from './pages/TimeTable'
 import Staff from './pages/Staff'
+import Test from './pages/TestFrame'
+import Folder from './pages/Folder'
 // import axios from 'axios'
 
 function DefaultComp() {
@@ -29,11 +31,12 @@ function DefaultComp() {
   }
   useEffect(() => {
     // console.log('Mounted D');
+    const secNavItemsDefault = ['gallery', 'announcements', 'timetable', 'staff', 'test', 'folder', 'admin']
     if (auth.currentUser) {
-      setsecNav(['gallery', 'announcements', 'timetable', 'staff', 'admin', 'logout'])
+      setsecNav([...secNavItemsDefault, 'logout'])
     }
     else {
-      setsecNav(['gallery', 'announcements', 'timetable', 'staff', 'admin'])
+      setsecNav([...secNavItemsDefault])
       // setIsAdmin(false)
     }
 
@@ -54,6 +57,8 @@ function DefaultComp() {
           <Route path='announcements' element={<Announcements announceData={announceData} />} />
           <Route path='/admin' element={<AdminLogin />} />
           <Route path='/logout' element={<AdminLogout />} />
+          <Route path='test' element={<Test />} />
+          <Route path='folder' element={<Folder />} />
         </Route>
       </Routes>
     </BrowserRouter>

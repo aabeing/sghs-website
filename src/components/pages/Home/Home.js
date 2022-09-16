@@ -70,7 +70,7 @@ function Home({ announceData, initCollectData }) {
       }
     });
     // Get blogger data
-    axios.get(`https://blogger.googleapis.com/v3/blogs/1225166691027089983/posts?fetchBodies=true&fetchImages=true&maxResults=4&orderBy=PUBLISHED&status=LIVE&key=${process.env.REACT_APP_BLOGGER_APIKEY}`).then(res => {
+    axios.get(`https://blogger.googleapis.com/v3/blogs/1225166691027089983/posts?fetchBodies=true&fetchImages=true&labels=home&maxResults=4&orderBy=PUBLISHED&status=LIVE&key=${process.env.REACT_APP_BLOGGER_APIKEY}`).then(res => {
       // console.log("axios");
       // console.log(res);
       // console.log(res.data.items);
@@ -124,7 +124,7 @@ function Home({ announceData, initCollectData }) {
         {announceData.length ?
           <Box sx={{ ...paperStyle, maxWidth: { xs: '100%', md: '50%' } }} >
             {/* <Box sx={{ height: 100 }}> */}
-            <Typography variant='h4' sx={{marginBottom:1}}>Announcements</Typography>
+            <Typography variant='h4' sx={{ marginBottom: 1 }}>Announcements</Typography>
             <Paper>
               <List onClick={goToAnnounce}
                 sx={{
@@ -171,7 +171,13 @@ function Home({ announceData, initCollectData }) {
           </Box>
           : null}
         <Box sx={{ ...paperStyle }}>
-          {blogData ? <LatestBlogs blogData={blogData} /> : null}
+
+          {blogData ?
+            <>
+              <Typography variant='h4' sx={{ marginBottom: 1 }}>Events</Typography>
+              <LatestBlogs blogData={blogData} />
+            </>
+            : null}
         </Box>
 
 

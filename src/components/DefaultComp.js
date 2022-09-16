@@ -13,12 +13,16 @@ import { useAuth } from '../context/authContext'
 import Announcements from './pages/Announcements/Announcements'
 import TimeTable from './pages/TimeTable'
 import Staff from './pages/Staff'
+import Downloads from './pages/Downloads'
+import { useMemo } from 'react'
+import Results from './pages/Results/Results'
 // import axios from 'axios'
 
 function DefaultComp() {
   const { auth, setIsAdmin } = useAuth();
+  const secNavItemsDefault = useMemo(() => ['gallery', 'announcements', 'timetable', 'staff', 'results', 'downloads', 'admin'], [])
   // let adminMenu;
-  const [secNav, setsecNav] = useState(['gallery', 'about', 'admissions', 'contact', 'admin'])
+  const [secNav, setsecNav] = useState(secNavItemsDefault)
   const announceData = useFireDocs('Announcements');
   const initCollectData = useFireDoc('InitCollect', 'InitCollectDoc');
   // console.log("Auth val: ",auth.currentUser)
@@ -30,15 +34,15 @@ function DefaultComp() {
   useEffect(() => {
     // console.log('Mounted D');
     if (auth.currentUser) {
-      setsecNav(['gallery', 'announcements', 'timetable', 'staff', 'admin', 'logout'])
+      setsecNav([...secNavItemsDefault, 'logout'])
     }
     else {
-      setsecNav(['gallery', 'announcements', 'timetable', 'staff', 'admin'])
+      setsecNav([...secNavItemsDefault])
       // setIsAdmin(false)
     }
 
 
-  }, [auth.currentUser])
+  }, [auth.currentUser, secNavItemsDefault])
   return (
     <BrowserRouter>
       <Routes>
@@ -54,6 +58,8 @@ function DefaultComp() {
           <Route path='announcements' element={<Announcements announceData={announceData} />} />
           <Route path='/admin' element={<AdminLogin />} />
           <Route path='/logout' element={<AdminLogout />} />
+          <Route path='downloads' element={<Downloads />} />
+          <Route path='results' element={<Results />} />
         </Route>
       </Routes>
     </BrowserRouter>

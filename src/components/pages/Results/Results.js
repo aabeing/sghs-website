@@ -1,11 +1,10 @@
-import { Box, Button, Grid, Typography } from '@mui/material';
+import { Box, Button, Grid, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { sanitize } from 'dompurify';
 import { useState } from 'react';
 import Loading from '../Loading';
 import EditIcon from '@mui/icons-material/Edit';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useAuth } from '../../../context/authContext';
-import ResultFrame from './ResultFrame';
 import LatestBlogs from '../Blogs/LatestBlogs';
 import { useEffect } from 'react';
 import axios from 'axios';
@@ -35,7 +34,24 @@ function Results() {
         }
         ).catch(err => { alert("Blogger retrieve error"); console.log("Blogger retrieve error: ", err) })
     }, []);
-
+    // const isSmall = useMediaQuery(theme.breakpoints.between('xs', 'md'));
+    const theme = useTheme();
+    const isLarge = useMediaQuery(theme.breakpoints.up('md'));
+    const isSmToMd = useMediaQuery(theme.breakpoints.between('sm', 'md'));
+    let slideframeHeight;
+    let boxHeight;
+    if (isLarge) {
+        slideframeHeight = '600'
+        boxHeight = '70vh'
+    }
+    else if(isSmToMd){
+        slideframeHeight = '450'
+        boxHeight = '60vh'
+    }
+    else {
+        slideframeHeight = '210'
+        boxHeight = '30vh'
+    }
     return (
         <>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 10 }}>
@@ -53,7 +69,7 @@ function Results() {
                         </Button>
                     : null}
             </div>
-            <Box height="70vh" >
+            <Box height={boxHeight} >
                 {edit ? <iframe title='Results edit' src={googleUrlEdit}
                     width="100%"
                     height="100%"
@@ -64,7 +80,10 @@ function Results() {
                     <Grid container justifyContent='center'>
                         {/* <Grid item xl={1} sx={{ display: { xs: 'none', xl: 'inline-block' } }}></Grid> */}
                         <Grid item xs={12} lg={10} xl={8}>
-                            <ResultFrame iframeLoading={iframeLoading} googleUrl={googleUrl} />
+                            <iframe src={googleUrl}
+                                title='Results view page' frameborder="0" width="100%" height={slideframeHeight} allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" loading="lazy"
+                                onLoad={iframeLoading}>
+                            </iframe>
                         </Grid>
                         {/* <Grid item xl={4} sx={{ display: { xs: 'none', xl: 'inline-block' } }}>
                             <Box sx={{

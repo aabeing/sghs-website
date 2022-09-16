@@ -48,7 +48,7 @@ function TimeTable() {
 
                     <Grid container justifyContent='center'>
                         <Grid item xs={12} lg={10} xl={7}>< iframe title='Timetable sheet' src={googleUrl} width="100%" height="600"
-                            frameBorder="0" marginHeight="0" marginWidth="0"
+                            // frameBorder="0" marginHeight="0" marginWidth="0"
                             loading="lazy"
                             onLoad={iframeLoading} > Loading…</iframe>
                         </Grid>

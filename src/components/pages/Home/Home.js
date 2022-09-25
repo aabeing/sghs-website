@@ -87,6 +87,9 @@ function Home({ announceData, initCollectData }) {
     const goToAnnounce = () => {
       nav('/announcements');
     }
+    const goToAbout = () => {
+      nav('/about');
+    }
     return (
       <>
         <ImageSlider imagesArr={imagesArr} settings={sliderSettings} />
@@ -107,7 +110,8 @@ function Home({ announceData, initCollectData }) {
                   <br /></>
                 ))}
               </Box>
-              <Button variant="outlined">Know more</Button>
+              <Button variant="outlined"
+                onClick={goToAbout}>Know more</Button>
             </Grid>
 
             {/* <Grid item xs={0.2} md={0.2} container justifyContent='center' alignContent='center'>

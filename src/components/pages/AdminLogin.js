@@ -5,7 +5,7 @@ import { useAuth } from '../../context/authContext';
 import LoadingButton from '@mui/lab/LoadingButton';
 // import { useNavigate } from 'react-router-dom';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { Container } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 // import { async } from '@firebase/util';
 
 function AdminLogin() {
@@ -88,6 +88,8 @@ function AdminLogin() {
                 >
                     Sign in with Google
                 </LoadingButton>
+                <Typography textAlign='center' variant='body1' paddingLeft={2} color='warning.main'>Supported only for Chrome Desktop and please ensure you are in incognito mode to ensure the safety.</Typography>
+
                 {/* {status ? <div>status</div> : null} */}
             </Container>
         )

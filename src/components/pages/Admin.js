@@ -43,27 +43,6 @@ function Admin() {
     </>)
   }
 
-  // const { loginAdmin, loggedInUser, logoutAdmin } = useAuth();
-  // const [user, setuser] = useState(loggedInUser)
-  // if (user) {
-  //   return (
-  //     <>Admin dashboard
-  //       <Button onClick={() => logoutAdmin()} variant="contained" startIcon={<GoogleIcon color='success' />} >
-  //         Log Out {console.log("CU:",loggedInUser)}
-  //       </Button>
-  //     </>
-  //   )
-  // }
-  // else {
-  //   return (
-  //     <>
-  //       <Button onClick={() => loginAdmin()} variant="contained" startIcon={<GoogleIcon color='success' />} >
-  //         Sign in with Google {console.log("CU:",loggedInUser)}
-  //       </Button>
-  //     </>
-  //   )
-  // }
-
 }
 
 export default Admin

@@ -38,24 +38,28 @@ function Results() {
     const theme = useTheme();
     const isLarge = useMediaQuery(theme.breakpoints.up('md'));
     const isSmToMd = useMediaQuery(theme.breakpoints.between('sm', 'md'));
-    let slideframeHeight;
+    // let slideframeHeight;
     let boxHeight;
+    let customFontSize;
     if (isLarge) {
-        slideframeHeight = '600'
-        boxHeight = '70vh'
+        // slideframeHeight = '600'
+        boxHeight = '600'
+        customFontSize = 45;
     }
-    else if(isSmToMd){
-        slideframeHeight = '450'
-        boxHeight = '60vh'
+    else if (isSmToMd) {
+        // slideframeHeight = '450'
+        boxHeight = '450';
+        customFontSize = 30;
     }
     else {
-        slideframeHeight = '210'
-        boxHeight = '30vh'
+        // slideframeHeight = '210'
+        boxHeight = '210';
+        customFontSize = 25;
     }
     return (
         <>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 10 }}>
-                <Typography noWrap variant="h4" >
+                <Typography noWrap variant="h4" fontSize={customFontSize}>
                     Results
                 </Typography>
                 {auth.currentUser && isAdmin ?
@@ -72,7 +76,7 @@ function Results() {
             <Box height={boxHeight} >
                 {edit ? <iframe title='Results edit' src={googleUrlEdit}
                     width="100%"
-                    height="100%"
+                    height={boxHeight}
                     // frameBorder="0" marginHeight="0" marginWidth="0"
                     loading="lazy"
                     onLoad={iframeLoading}>Loading…</iframe> :
@@ -81,7 +85,7 @@ function Results() {
                         {/* <Grid item xl={1} sx={{ display: { xs: 'none', xl: 'inline-block' } }}></Grid> */}
                         <Grid item xs={12} lg={10} xl={8}>
                             <iframe src={googleUrl}
-                                title='Results view page' frameborder="0" width="100%" height={slideframeHeight} allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" loading="lazy"
+                                title='Results view page' frameborder="0" width="100%" height={boxHeight} allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" loading="lazy"
                                 onLoad={iframeLoading}>
                             </iframe>
                         </Grid>
@@ -127,9 +131,9 @@ function Results() {
                     </Grid >
                 }
             </Box>
-            <Box sx={{ margin: { xs: 2, md: 8 }, padding: { xs: 0.5, md: 3 } }}>
-                <Typography noWrap variant="h4" >
-                    Previous Year Results
+            <Box sx={{ margin: { xs: 2, md: 2 }, padding: { xs: 0.5, md: 3 } }}>
+                <Typography noWrap variant="h4" fontSize={customFontSize} >
+                    Other Results
                 </Typography>
                 {blogData ? <LatestBlogs blogData={blogData} /> : null}
             </Box>

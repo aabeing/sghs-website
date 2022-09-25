@@ -3,14 +3,12 @@ import ImageGrid from './ImageGrid';
 import { useFireDocs } from '../../../fireConfig/useFirestore';
 import { useState } from 'react';
 import CateGrid from './CateGrid';
-import Loading from '../Loading';
+// import Loading from '../Loading';
 
 
 export default function Gallery() {
   const cateImgArr = useFireDocs('gallery');
-  // const [imagesData, setImagesData] = useState();
   const [cateInfo, setcateInfo] = useState();
-  // const [loading, setLoading] = useState(false);
   // const isMatchLarge = useMediaQuery(theme.breakpoints.up('md'));
 
   // if (cateImgArr.length === 0) {

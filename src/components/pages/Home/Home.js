@@ -1,5 +1,5 @@
 
-import { Avatar, Box, Divider, Grid, List, ListItem, ListItemAvatar, ListItemText, Paper, Typography } from '@mui/material'
+import { Avatar, Box, Button, Divider, Grid, List, ListItem, ListItemAvatar, ListItemText, Paper, Typography } from '@mui/material'
 import ImageSlider from './ImageSlider';
 import SquareIcon from '@mui/icons-material/Square';
 import Loading from '../Loading';
@@ -38,7 +38,7 @@ function Home({ announceData, initCollectData }) {
   const nav = useNavigate();
   const [blogData, setBlogData] = useState([])
   // const contentImage1 = "/images/saintGeorge.jpg"
-  const contentPara1 = initCollectData.WelcomeMessage?.split('\n');
+  const contentPara1 = initCollectData.WelcomeMessage?.split('\\n');
   // console.log("TEST \n", initCollectData.WelcomeMessage?.split('\n'))
   const contentHead1 = "Welcome to St.George High School";
   // const imagesArr = useMemo(() => [
@@ -92,19 +92,22 @@ function Home({ announceData, initCollectData }) {
         <ImageSlider imagesArr={imagesArr} settings={sliderSettings} />
         <Paper sx={{ ...paperStyle }}>
           <Grid container columns={12} >
-            <Grid item xs={12} lg={6} padding={2} sx={{ maxHeight: 750, overflow: 'hidden' }}>
+            <Grid item xs={12} lg={6} padding={2} >
               <Typography variant='h4' sx={{ fontSize: { xs: 27, sm: 35, md: 35, lg: 40 }, pt: 2, }}>
                 {contentHead1}
               </Typography>
-              {contentPara1.map((ele) => (<>
+              <Box sx={{ maxHeight: { xs: 200, md: 300, lg: 750 }, overflow: 'hidden' }}>
+                {contentPara1.map((ele) => (<>
 
-                <Typography variant='subtitle1' display='block' sx={{
-                  fontSize: { xs: 16, sm: 17, md: 18, lg: 20 }
-                }}>
-                  {ele}
-                </Typography>
-                <br /></>
-              ))}
+                  <Typography variant='subtitle1' display='block' sx={{
+                    fontSize: { xs: 16, sm: 17, md: 18, lg: 20 }
+                  }}>
+                    {ele}
+                  </Typography>
+                  <br /></>
+                ))}
+              </Box>
+              <Button variant="outlined">Know more</Button>
             </Grid>
 
             {/* <Grid item xs={0.2} md={0.2} container justifyContent='center' alignContent='center'>
@@ -116,7 +119,7 @@ function Home({ announceData, initCollectData }) {
               <Box component="img"
                 sx={{
                   // pl:'15%',
-                  maxHeight: { sm: '50%', md: '75%' },
+                  maxHeight: { sm: '50%', md: '80%' },
                   maxWidth: { sm: '50%', md: '75%' },
                   overflow: 'hidden',
                   objectFit: 'contain',

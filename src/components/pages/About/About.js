@@ -1,7 +1,9 @@
 
 import { Box, Grid, Paper, Typography } from '@mui/material'
+import { useState } from 'react';
 import { useAuth } from '../../../context/authContext';
 import Loading from '../Loading';
+import Content from './Content';
 import Edit from './Edit';
 
 
@@ -10,6 +12,7 @@ const paperStyle = {
 }
 function About({ initCollectData }) {
   const { auth, isAdmin } = useAuth();
+  const [editMode, setEditMode] = useState(false);
   if (!initCollectData.WelcomeMessage) {
     return (
       <Loading />
@@ -17,27 +20,20 @@ function About({ initCollectData }) {
   }
   else {
     const contentImage1 = initCollectData.AboutImgUrl;
-    const contentPara1 = initCollectData.WelcomeMessage?.split('\\n');
+    // const contentPara = initCollectData.WelcomeMessage?.split('\\n');
     const contentHead1 = "About Us";
     return (
       // <>
 
       < Paper sx={{ ...paperStyle }}>
-        {auth.currentUser && isAdmin ? <Edit /> : null}
+        {auth.currentUser && isAdmin ? <Edit editMode={editMode} setEditMode={setEditMode} /> : null}
         <Grid container columns={12} >
           <Grid item xs={12} lg={6} padding={2} >
             <Typography variant='h4' sx={{ fontSize: { xs: 27, sm: 35, md: 35, lg: 40 }, pt: 2, }}>
               {contentHead1}
             </Typography>
             {/* <Box sx={{ maxHeight: { xs: 200, md: 300, lg: 750 }, overflow: 'hidden' }}> */}
-            {contentPara1.map((ele) => (<>
-              <Typography variant='subtitle1' display='block' sx={{
-                fontSize: { xs: 16, sm: 17, md: 18, lg: 20 }
-              }}>
-                {ele}
-              </Typography>
-              <br /></>
-            ))}
+            <Content initCollectData={initCollectData} editMode={editMode} setEditMode={setEditMode}/>
             {/* </Box> */}
           </Grid>
 

@@ -11,7 +11,7 @@ function Upload({ cateId }) {
         fileRef.current.click();
     }
     const handleChange = (e) => {
-        console.log("Files out", e.target, "\n ", fileRef.current.value);
+        // console.log("Files out", e.target, "\n ", fileRef.current.value);
         setInpFiles([...e.target.files]);
         fileRef.current.value = null;
     }

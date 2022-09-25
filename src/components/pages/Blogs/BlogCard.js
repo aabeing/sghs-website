@@ -24,7 +24,11 @@ function BlogCard({ blogPost }) {
     else {
         blogPlaceImg = "/images/blogDefault.jpg";
     }
-
+    const handleImageError = (e) => {
+        e.target.onerror = null;
+        // e.target.style.display = 'none'
+        e.target.src = "/images/blogDefault.jpg"
+    }
     return (
 
         //     style={{
@@ -44,7 +48,7 @@ function BlogCard({ blogPost }) {
                     // p:10,
                 }}>
                     <CardMedia component="img" height="140"
-                        image={blogPlaceImg} alt="blogpost image"
+                        image={blogPlaceImg} alt="blogpost image" onError={handleImageError}
                     />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div"

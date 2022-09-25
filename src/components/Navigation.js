@@ -15,7 +15,7 @@ import { NavLink as RouterLink, Outlet } from 'react-router-dom';
 import { useColorMode } from '../context/ThemeMode';
 import { styled } from '@mui/material/styles';
 
-const primaryMenu = ['home', 'about', 'admissions', 'contact'];
+const primaryMenu = ['home', 'blog', 'results', 'contact'];//'blog' is external
 // const secondaryMenu = ['gallery', 'about', 'admissions', 'contact'];
 const logoHeadingLarge = 'St.George High School Chempanthotty';
 const logoHeadingSmall = 'St.George HS Chempanthotty';
@@ -61,7 +61,7 @@ function LogoComp({ setActiveNavBtn, logoHeading }) {
         </Button >
     )
 }
-function SecMenu({ setActiveNavBtn,secNav }) {
+function SecMenu({ setActiveNavBtn, secNav }) {
     return (
         <AppBar color='primary' position="static" >
             <Container maxWidth="false" >
@@ -105,7 +105,7 @@ function LargeScreenNav({ setActiveNavBtn, activeNavBtn }) {
         </Box>
     )
 }
-function SmallScreenNav({ setActiveNavBtn,secNav }) {
+function SmallScreenNav({ setActiveNavBtn, secNav }) {
     //Drawer menu
     const [drawerState, setDrawerState] = useState(false);
     const toggleDrawer = (open) => (event) => {
@@ -172,7 +172,7 @@ function SmallScreenNav({ setActiveNavBtn,secNav }) {
         </Box>
     )
 }
-function Navigation({secNav}) {
+function Navigation({ secNav }) {
     const [activeNavBtn, setActiveNavBtn] = useState(0);
     const theme = useTheme();
     const isMatchSmall = useMediaQuery(theme.breakpoints.between('xs', 'md'));
@@ -184,7 +184,7 @@ function Navigation({secNav}) {
                 : null}
             {isMatchSmall ?
                 // Drawer Menu
-                <SmallScreenNav setActiveNavBtn={setActiveNavBtn} activeNavBtn={activeNavBtn} secNav={secNav}/>
+                <SmallScreenNav setActiveNavBtn={setActiveNavBtn} activeNavBtn={activeNavBtn} secNav={secNav} />
                 : null}
             <Box sx={{ mb: 0.2, mt: '74px' }}>
                 {isMatchLarge ? <SecMenu setActiveNavBtn={setActiveNavBtn} secNav={secNav} /> : null}

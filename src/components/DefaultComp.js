@@ -14,13 +14,14 @@ import Announcements from './pages/Announcements/Announcements'
 import TimeTable from './pages/TimeTable'
 import Staff from './pages/Staff'
 import Downloads from './pages/Downloads'
+import BlogRedirect from './pages/BlogRedirect'
 import { useMemo } from 'react'
 import Results from './pages/Results/Results'
 // import axios from 'axios'
 
 function DefaultComp() {
   const { auth, setIsAdmin } = useAuth();
-  const secNavItemsDefault = useMemo(() => ['gallery', 'announcements', 'timetable', 'staff', 'results', 'downloads', 'admin'], [])
+  const secNavItemsDefault = useMemo(() => ['gallery', 'announcements', 'timetable', 'staff', 'downloads', 'admin'], [])
   // let adminMenu;
   const [secNav, setsecNav] = useState(secNavItemsDefault)
   const announceData = useFireDocs('Announcements');
@@ -60,6 +61,11 @@ function DefaultComp() {
           <Route path='/logout' element={<AdminLogout />} />
           <Route path='downloads' element={<Downloads />} />
           <Route path='results' element={<Results />} />
+          {/* <Route path='/bloge' element={() => {
+            window.location.replace = 'https://example.com/1234';
+            return null;
+          }} /> */}
+          <Route path='blog' element={<BlogRedirect />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -37,38 +37,43 @@ const lineClampStyle = {
 function Home({ announceData, initCollectData }) {
   const nav = useNavigate();
   const [blogData, setBlogData] = useState([])
-  const contentImage1 = "/images/welcomeImg.png"
+  // const contentImage1 = "/images/saintGeorge.jpg"
   const contentPara1 = initCollectData.WelcomeMessage;
+  console.log("TEST \n", initCollectData.WelcomeMessage2?.split('\n'))
   const contentHead1 = "Welcome to St.George High School";
-  const imagesArr = useMemo(() => [
-    {
-      alt: 'San Francisco- Oakland Bay Bridge, United States',
-      src:
-        '/images/w1.jpg',
-    },
-    {
-      alt: 'Bird',
-      src:
-        '/images/w2.jpg',
-    }
-  ], []);
+  // const imagesArr = useMemo(() => [
+  //   {
+  //     alt: 'San Francisco- Oakland Bay Bridge, United States',
+  //     src:
+  //       '/images/w1.jpg',
+  //   },
+  //   {
+  //     alt: 'Bird',
+  //     src:
+  //       '/images/w2.jpg',
+  //   }
+  // ], []);
+  const imagesArr = initCollectData.SliderImg;
+  const contentImage1 = initCollectData.AboutImgUrl;
   const [load, setload] = useState(true)
   useEffect(() => {
     let preImg;
     let loadedCount = 0;
-    const imgLen = imagesArr.length;
-    imagesArr.forEach((picture) => {
-      preImg = new Image();
-      preImg.src = picture.src;
-      preImg.onload = () => {
-        // console.log("IMG loaded");
-        loadedCount++;
-        if (loadedCount === imgLen) {
-          setload(false);
-          // console.log("IMG Loading Done")
+    if (imagesArr) {
+      const imgLen = imagesArr.length;
+      imagesArr.forEach((picture) => {
+        preImg = new Image();
+        preImg.src = picture.src;
+        preImg.onload = () => {
+          // console.log("IMG loaded");
+          loadedCount++;
+          if (loadedCount === imgLen) {
+            setload(false);
+            // console.log("IMG Loading Done")
+          }
         }
-      }
-    });
+      });
+    }
     // Get blogger data
     axios.get(`https://blogger.googleapis.com/v3/blogs/1225166691027089983/posts?fetchBodies=true&fetchImages=true&labels=home&maxResults=4&orderBy=PUBLISHED&status=LIVE&key=${process.env.REACT_APP_BLOGGER_APIKEY}`).then(res => {
       // console.log("axios");

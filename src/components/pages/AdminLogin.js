@@ -40,7 +40,7 @@ function AdminLogin() {
             }).catch((error) => {
                 setcurUserAdmin(false);
                 setloading(false);
-                
+
                 // Handle Errors here.
                 // const errorCode = error.code;
                 // const errorMessage = error.message;
@@ -70,9 +70,11 @@ function AdminLogin() {
         // }
     }
     if (curUserAdmin) {
-        return (<>
-            ADMIN NEW
-        </>)
+        return (
+            <Container sx={{m:8}}>
+                Already Logged in as admin...
+            </Container>
+        )
     }
     else {
         return (

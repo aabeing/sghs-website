@@ -1,27 +1,27 @@
-import { Box, Container, Grid, Paper, Typography, useMediaQuery, useTheme } from '@mui/material'
+import { Box, Grid, Paper, Typography, } from '@mui/material'
 import React from 'react'
 
 function Contact() {
-  const theme = useTheme();
-  const isLarge = useMediaQuery(theme.breakpoints.up('md'));
-  const isSmToMd = useMediaQuery(theme.breakpoints.between('sm', 'md'));
-  let boxHeight;
-  let customFontSize;
-  if (isLarge) {
-    // slideframeHeight = '600'
-    boxHeight = '600'
-    customFontSize = 45;
-  }
-  else if (isSmToMd) {
-    // slideframeHeight = '450'
-    boxHeight = '450';
-    customFontSize = 30;
-  }
-  else {
-    // slideframeHeight = '210'
-    boxHeight = '210';
-    customFontSize = 25;
-  }
+  // const theme = useTheme();
+  // const isLarge = useMediaQuery(theme.breakpoints.up('md'));
+  // const isSmToMd = useMediaQuery(theme.breakpoints.between('sm', 'md'));
+  // let boxHeight;
+  // let customFontSize;
+  // if (isLarge) {
+  //   // slideframeHeight = '600'
+  //   // boxHeight = '600'
+  //   customFontSize = 45;
+  // }
+  // else if (isSmToMd) {
+  //   // slideframeHeight = '450'
+  //   // boxHeight = '450';
+  //   customFontSize = 30;
+  // }
+  // else {
+  //   // slideframeHeight = '210'
+  //   // boxHeight = '210';
+  //   customFontSize = 25;
+  // }
   return (
     <>
       <Box sx={{ position: 'relative' }}>

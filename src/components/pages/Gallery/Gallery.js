@@ -13,11 +13,11 @@ export default function Gallery() {
   // const [loading, setLoading] = useState(false);
   // const isMatchLarge = useMediaQuery(theme.breakpoints.up('md'));
 
-  if (cateImgArr.length === 0) {
-    return (
-      <Loading/>
-    )
-  }
+  // if (cateImgArr.length === 0) {
+  //   return (
+  //     <Loading/>
+  //   )
+  // }
   // Load category page, load child page in else
   if (!cateInfo) {
     // console.log("CHECK: ", cateImgArr)

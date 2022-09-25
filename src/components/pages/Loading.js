@@ -1,8 +1,9 @@
 import { Backdrop, CircularProgress, Typography } from '@mui/material'
+import { Container } from '@mui/system';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
-function Loading() {
+function Loading({ editable }) {
     const [alertErr, setalertErr] = useState('');
     // const [isOffline,setIsOffline] = useState(false);
     useEffect(() => {
@@ -29,15 +30,31 @@ function Loading() {
             // clearInterval(interval);
         }
     }, []);
-    return (
-        <Backdrop
-            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-            open={true}
-        >
-            <CircularProgress />
-            {alertErr ? <Typography sx={{ m: 3 }} variant='h4' color='error.main'>{alertErr}</Typography> : null}
-        </Backdrop>
-    )
+    if (editable) {
+        return (
+            <>
+                <Container sx={{
+                    position: 'fixed', top: '50%', left: '47%',
+                    display: 'flex',
+                    margin: 'auto',
+                    height: '100%', width: '100%'
+                }}>
+                    <CircularProgress />
+                </Container>
+            </>
+        )
+    }
+    else {
+        return (
+            <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={true}
+            >
+                <CircularProgress />
+                {alertErr ? <Typography sx={{ m: 3 }} variant='h4' color='error.main'>{alertErr}</Typography> : null}
+            </Backdrop>
+        )
+    }
 }
 
 export default Loading

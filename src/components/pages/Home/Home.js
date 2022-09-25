@@ -5,7 +5,7 @@ import SquareIcon from '@mui/icons-material/Square';
 import Loading from '../Loading';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { useMemo } from 'react';
+// import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LatestBlogs from '../Blogs/LatestBlogs';
 import axios from 'axios';
@@ -38,8 +38,8 @@ function Home({ announceData, initCollectData }) {
   const nav = useNavigate();
   const [blogData, setBlogData] = useState([])
   // const contentImage1 = "/images/saintGeorge.jpg"
-  const contentPara1 = initCollectData.WelcomeMessage;
-  console.log("TEST \n", initCollectData.WelcomeMessage2?.split('\n'))
+  const contentPara1 = initCollectData.WelcomeMessage?.split('\n');
+  // console.log("TEST \n", initCollectData.WelcomeMessage?.split('\n'))
   const contentHead1 = "Welcome to St.George High School";
   // const imagesArr = useMemo(() => [
   //   {

@@ -8,7 +8,7 @@ import { useState } from 'react';
 
 function CateGrid({ cateImgArr, setcateInfo }) {
 
-    const { auth,isAdmin } = useAuth();
+    const { auth, isAdmin } = useAuth();
     const handleClick = (cateId, cateIndex) => {
         setcateInfo({
             // cateIndex: cateIndex,
@@ -36,7 +36,11 @@ function CateGrid({ cateImgArr, setcateInfo }) {
         });
     }, [cateImgArr])
     if (load) {
-        return (<Loading />)
+        return (
+            <>
+                {auth.currentUser && isAdmin ? <AddCate /> : null}
+                < Loading editable={true} />
+            </>)
     }
     else {
         return (

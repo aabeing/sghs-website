@@ -36,7 +36,7 @@ function ImageGrid({ imagesDataDict, setcateInfo }) {
         const imgLen = imagesDataDict.data.imgData.length;
         imagesDataDict.data.imgData.forEach((picture) => {
             preImg = new Image();
-            preImg.src = picture.img;
+            preImg.src = picture.src;
             preImg.onload = () => {
                 // console.log("IMG loaded");
                 loadedCount++;
@@ -79,7 +79,7 @@ function ImageGrid({ imagesDataDict, setcateInfo }) {
                                     <MyComponentHover key={index}>
                                         <ImageListItem >
                                             <img
-                                                src={item.img}
+                                                src={item.src}
                                                 alt={item.title}
                                                 loading="lazy"
                                                 style={{ height: '242px' }}

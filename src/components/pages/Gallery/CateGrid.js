@@ -24,7 +24,7 @@ function CateGrid({ cateImgArr, setcateInfo }) {
         cateImgArr.forEach((ele) => {
             const picture = ele.data.imgData[0];
             preImg = new Image();
-            preImg.src = picture.img;
+            preImg.src = picture.src;
             preImg.onload = () => {
                 // console.log("IMG loaded");
                 loadedCount++;
@@ -68,7 +68,7 @@ function CateGrid({ cateImgArr, setcateInfo }) {
                             return (
                                 <Grid item key={index} padding={2} onClick={() => handleClick(ele.id, index)}>
                                     <img
-                                        src={item.img}
+                                        src={item.src}
                                         alt={item.title}
                                         style={{
                                             cursor: 'pointer', height: '300px', width: '300px',

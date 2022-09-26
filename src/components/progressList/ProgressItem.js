@@ -4,10 +4,10 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 import CircularProgressWithLabel from './CircularProgressWithLabel';
 import { v4 as uuidv4 } from 'uuid';
-import {addGalleryDoc, uploadFileWithProgress} from '../../../../fireConfig/galleryImages';
+import {addImgDoc, uploadFileWithProgress} from '../../fireConfig/galleryImages';
 // import addDocument from '../../../firebase/addDocument';
 
-const ProgressItem = ({ file,cateId,setInpFiles}) => {
+const ProgressItem = ({ file,dbInfo,setInpFiles}) => {
   const [progress, setProgress] = useState(0);
   const [imageURL, setImageURL] = useState(null);
   // const currentUser = { uid: 'userId' };
@@ -18,16 +18,16 @@ const ProgressItem = ({ file,cateId,setInpFiles}) => {
       try {
         const url = await uploadFileWithProgress(
           file,
-          `gallery/${cateId}`,
+          `${dbInfo.collectName}/${dbInfo.docName}`,
           imageName,
           setProgress
         );
         const newImgData = {
-          img: url,
+          src: url,
           title: file.name.split('.')[0],
-          stImageName: imageName
+          stImageName: imageName,
         };
-        await addGalleryDoc(cateId,newImgData);
+        await addImgDoc(dbInfo,newImgData);
         // setProgress(101);
         // setImagesData((prev)=>({...prev,imgData: [...prev.imgData,newImgData]}))
         setImageURL(null);
@@ -39,7 +39,7 @@ const ProgressItem = ({ file,cateId,setInpFiles}) => {
     };
     setImageURL(URL.createObjectURL(file));
     uploadImage();
-  }, [file,cateId,setInpFiles]);
+  }, [file,setInpFiles]);
   return (
     imageURL && (
       <ImageListItem cols={1} rows={1}>

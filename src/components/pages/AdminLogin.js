@@ -71,8 +71,8 @@ function AdminLogin() {
     }
     if (curUserAdmin) {
         return (
-            <Container sx={{m:8}}>
-                Already Logged in as admin...
+            <Container sx={{ m: 8 }}>
+                Successfully Logged in as admin...
             </Container>
         )
     }
@@ -90,7 +90,7 @@ function AdminLogin() {
                 >
                     Sign in with Google
                 </LoadingButton>
-                <Typography textAlign='center' variant='body1' paddingLeft={2} color='warning.main'>Supported only for Chrome Desktop and please ensure you are in incognito mode to ensure the safety.</Typography>
+                <Typography textAlign='center' variant='body1' paddingLeft={2} color='warning.main'>Supported only for Chrome Desktop and please ensure you are in incognito mode for increased security</Typography>
 
                 {/* {status ? <div>status</div> : null} */}
             </Container>

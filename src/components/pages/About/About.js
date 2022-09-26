@@ -19,21 +19,24 @@ function About({ initCollectData }) {
     )
   }
   else {
-    const contentImage1 = initCollectData.AboutImgUrl;
+    const contentImage1 = initCollectData?.aboutImgData[0]?.src;
     // const contentPara = initCollectData.WelcomeMessage?.split('\\n');
-    const contentHead1 = "About Us";
+    // const contentHead1 = "About Us";
+    // const contentHead1 = initCollectData.aboutHead;
     return (
       // <>
 
       < Paper sx={{ ...paperStyle }}>
-        {auth.currentUser && isAdmin ? <Edit editMode={editMode} setEditMode={setEditMode} /> : null}
+        {auth.currentUser && isAdmin ? 
+        <Edit editMode={editMode} setEditMode={setEditMode} curImgData={initCollectData.aboutImgData[0]}/> 
+        : null}
         <Grid container columns={12} >
           <Grid item xs={12} lg={6} padding={2} >
-            <Typography variant='h4' sx={{ fontSize: { xs: 27, sm: 35, md: 35, lg: 40 }, pt: 2, }}>
+            {/* <Typography variant='h4' sx={{ fontSize: { xs: 27, sm: 35, md: 35, lg: 40 }, pt: 2, }}>
               {contentHead1}
-            </Typography>
+            </Typography> */}
             {/* <Box sx={{ maxHeight: { xs: 200, md: 300, lg: 750 }, overflow: 'hidden' }}> */}
-            <Content initCollectData={initCollectData} editMode={editMode} setEditMode={setEditMode}/>
+            <Content initCollectData={initCollectData} editMode={editMode} setEditMode={setEditMode} />
             {/* </Box> */}
           </Grid>
 
@@ -42,7 +45,7 @@ function About({ initCollectData }) {
       {/* <Divider orientation="vertical" textAlign='center' sx={{mr:'50%'}}/> */}
           {/* </Grid>  */}
 
-          <Grid container xs={12} lg={6} padding={2} justifyContent='center' alignContent='center' component={Box} sx={{ overflow: 'hidden', display: { xs: 'none', lg: 'flex' } }}>
+          <Grid container xs={12} lg={6} padding={2} justifyContent='center' alignContent='center' component={Box} sx={{ overflow: 'hidden', display: { xs: 'flex', lg: 'flex' } }}>
             <Box component="img"
               sx={{
                 // pl:'15%',

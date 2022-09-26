@@ -37,9 +37,9 @@ export const deleteFileStorage = (filePath) => {
     const imgRef = ref(storage, filePath)
     return deleteObject(imgRef);
 }
-export const deleteImgDoc = (docName, curImgData)=>{
-    const docRef = doc(db, 'gallery', docName);
+export const deleteImgDoc = (dbInfo, curImgData)=>{
+    const docRef = doc(db, dbInfo.collectName, dbInfo.docName);
     return updateDoc(docRef, {
-        imgData: arrayRemove(curImgData),
+        [dbInfo.imgArrName]: arrayRemove(curImgData),
     });
 }

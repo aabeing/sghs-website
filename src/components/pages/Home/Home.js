@@ -40,7 +40,8 @@ function Home({ announceData, initCollectData }) {
   // const contentImage1 = "/images/saintGeorge.jpg"
   const contentPara1 = initCollectData.WelcomeMessage?.split('\\n');
   // console.log("TEST \n", initCollectData.WelcomeMessage?.split('\n'))
-  const contentHead1 = "Welcome to St.George High School";
+  // const contentHead1 = "Welcome to St.George High School";
+  const contentHead1 = initCollectData.aboutHead;
   // const imagesArr = useMemo(() => [
   //   {
   //     alt: 'San Francisco- Oakland Bay Bridge, United States',
@@ -54,7 +55,10 @@ function Home({ announceData, initCollectData }) {
   //   }
   // ], []);
   const imagesArr = initCollectData.SliderImg;
-  const contentImage1 = initCollectData.AboutImgUrl;
+  let contentImage1 ;
+  if(initCollectData?.aboutImgData){
+    contentImage1 = initCollectData?.aboutImgData[0].src;
+  }
   const [load, setload] = useState(true)
   useEffect(() => {
     let preImg;

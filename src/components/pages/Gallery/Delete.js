@@ -15,7 +15,12 @@ function Delete({ imagesDataDict, curImgData,setcateInfo }) {
 
             }
             else {
-                await deleteImgDoc(cateId, curImgData)
+                const dbInfo = {
+                    collectName: 'gallery',
+                    docName: cateId,
+                    imgArrName: 'imgData'
+                }
+                await deleteImgDoc(dbInfo, curImgData)
             }
             await deleteFileStorage(`gallery/${cateId}/${curImgData.stImageName}`);
 

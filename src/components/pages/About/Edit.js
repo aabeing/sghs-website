@@ -1,7 +1,7 @@
 
 import { LoadingButton } from '@mui/lab';
 import { Box, Button } from '@mui/material';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 
 function Edit({ editMode, setEditMode }) {
@@ -17,7 +17,11 @@ function Edit({ editMode, setEditMode }) {
         setInpFile([...e.target.files]);
         fileRef.current.value = null;
     }
-
+    useEffect(() => {
+        if (!editMode) {
+            setChangeBtnLoad(false)
+        }
+    }, [editMode])
     return (
         <Box sx={{ margin: 1 }}>
             <Button sx={{ margin: 1 }} variant='contained' onClick={() => setEditMode(pre => !pre)}>
@@ -25,13 +29,13 @@ function Edit({ editMode, setEditMode }) {
             </Button>
             {/* <Button sx={{ m: 1 }} variant='contained'>Change Image</Button> */}
             <input type="file" multiple style={{ display: 'none' }} ref={fileRef} onChange={handleChange} />
-            <LoadingButton
+            {editMode && <LoadingButton
                 loading={changeBtnLoad}
                 loadingPosition='end'
                 sx={{ m: 1 }} variant="contained" aria-label="add an image"
                 onClick={handleClick}>
                 Change Image
-            </LoadingButton>
+            </LoadingButton>}
         </Box>
     )
 }

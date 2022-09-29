@@ -1,5 +1,5 @@
 
-import { Box, Grid, Paper, Typography } from '@mui/material'
+import { Box, Grid, Paper } from '@mui/material'
 import { useState } from 'react';
 import { useAuth } from '../../../context/authContext';
 import Loading from '../Loading';
@@ -13,7 +13,7 @@ const paperStyle = {
 function About({ initCollectData }) {
   const { auth, isAdmin } = useAuth();
   const [editMode, setEditMode] = useState(false);
-  if (!initCollectData.WelcomeMessage) {
+  if (!initCollectData.placeholderData) {
     return (
       <Loading />
     )

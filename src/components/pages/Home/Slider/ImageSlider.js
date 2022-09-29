@@ -39,7 +39,7 @@ const ImageSlider = ({ imagesArr, settings }) => {
         {/* <ImageGrid imagesDataDict={findImagesData()} setcateInfo={setcateInfo} /> */}
         < Slider {...settings} >
           {imagesArr.map((item, index) => (
-            <Box key={index} component='img' sx={{ width: 'auto', height: 'auto', maxHeight: 500, objectFit: 'contain' }} src={item.src} alt={item.alt} loading="lazy">
+            <Box key={index} component='img' sx={{ width: 'auto', height: 'auto', maxHeight: 500, objectFit: 'cover' }} src={item.src} alt={item.alt} loading="lazy">
               {/* <img  /> */}
             </Box>
           ))}

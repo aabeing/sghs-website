@@ -4,7 +4,7 @@ import Navigation from './Navigation'
 import About from './pages/About/About'
 import Home from './pages/Home/Home'
 import Admissions from './pages/Admissions'
-import Contact from './pages/Contact'
+import Contact from './pages/Contact/Contact'
 import Gallery from './pages/Gallery/Gallery'
 import AdminLogin from './pages/AdminLogin'
 import AdminLogout from './pages/AdminLogout'
@@ -67,8 +67,8 @@ function DefaultComp() {
             return null;
           }} /> */}
           <Route path='blog' element={<BlogRedirect />} />
-          {auth.currentUser && isAdmin ? 
-          <Route path='editslider' element={<EditSlider sliderImg={initCollectData?.SliderImg}/>} /> : <>Not Found</>}
+          {auth.currentUser && isAdmin ?
+            <Route path='editslider' element={<EditSlider sliderImg={initCollectData?.SliderImg} />} /> : <>Not Found</>}
 
         </Route>
       </Routes>

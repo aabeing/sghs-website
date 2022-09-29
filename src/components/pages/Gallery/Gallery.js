@@ -31,7 +31,7 @@ export default function Gallery() {
       // console.log("GRID: ",imagesDataDict)
       return imagesDataDict;
     }
-    findImagesData()
+    // findImagesData()
     return (
       <ImageGrid imagesDataDict={findImagesData()} setcateInfo={setcateInfo} />
     )

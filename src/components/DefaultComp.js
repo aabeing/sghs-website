@@ -17,10 +17,11 @@ import Downloads from './pages/Downloads'
 import BlogRedirect from './pages/BlogRedirect'
 import { useMemo } from 'react'
 import Results from './pages/Results/Results'
+import EditSlider from './pages/Home/Slider/EditSlider'
 // import axios from 'axios'
 
 function DefaultComp() {
-  const { auth, setIsAdmin } = useAuth();
+  const { auth, setIsAdmin, isAdmin } = useAuth();
   const secNavItemsDefault = useMemo(() => ['gallery', 'announcements', 'timetable', 'staff', 'downloads', 'admin'], [])
   // let adminMenu;
   const [secNav, setsecNav] = useState(secNavItemsDefault)
@@ -66,6 +67,9 @@ function DefaultComp() {
             return null;
           }} /> */}
           <Route path='blog' element={<BlogRedirect />} />
+          {auth.currentUser && isAdmin ? 
+          <Route path='editslider' element={<EditSlider sliderImg={initCollectData?.SliderImg}/>} /> : <>Not Found</>}
+
         </Route>
       </Routes>
     </BrowserRouter>

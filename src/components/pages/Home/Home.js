@@ -1,6 +1,6 @@
 
 import { Avatar, Box, Button, Divider, Grid, List, ListItem, ListItemAvatar, ListItemText, Paper, Typography } from '@mui/material'
-import ImageSlider from './ImageSlider';
+import ImageSlider from './Slider/ImageSlider';
 import SquareIcon from '@mui/icons-material/Square';
 import Loading from '../Loading';
 import { useEffect } from 'react';

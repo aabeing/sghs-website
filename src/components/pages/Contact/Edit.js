@@ -1,12 +1,12 @@
 
 // import { LoadingButton } from '@mui/lab';
 import { Box, Button } from '@mui/material';
-import {  useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { deleteFileStorage, deleteImgDoc } from '../../../fireConfig/galleryImages';
 import ProgressList from '../../progressList/ProgressList';
 
 
-function Edit({ dbInfo,editMode, setEditMode, curImgData }) {
+function Edit({ dbInfo, editMode, setEditMode, curImgData }) {
     const [inpFiles, setInpFiles] = useState([]);
     // const [changeBtnLoad, setChangeBtnLoad] = useState(false)
     const fileRef = useRef();
@@ -16,6 +16,8 @@ function Edit({ dbInfo,editMode, setEditMode, curImgData }) {
     }
     const handleChange = async (e) => {
         // console.log("Files out", e.target, "\n ", fileRef.current.value);
+        setInpFiles([...e.target.files]);
+        fileRef.current.value = null;
         try {
             await deleteImgDoc(dbInfo, curImgData)
             await deleteFileStorage(`${dbInfo.collectName}/${dbInfo.docName}/${curImgData.stImageName}`);
@@ -23,9 +25,6 @@ function Edit({ dbInfo,editMode, setEditMode, curImgData }) {
         catch (err) {
             alert('Deletion failed')
         }
-        setInpFiles([...e.target.files]);
-        fileRef.current.value = null;
-
     }
     // useEffect(() => {
     //     if (!editMode) {

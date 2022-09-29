@@ -1,5 +1,5 @@
 import { Box, Grid, Paper, Typography, } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useAuth } from '../../../context/authContext';
 import { useFireDoc } from '../../../fireConfig/useFirestore';
 import Loading from '../Loading'
@@ -35,21 +35,21 @@ function Contact() {
   const { auth, isAdmin } = useAuth();
   const [editMode, setEditMode] = useState(false);
   const [load, setLoad] = useState(true)
-  const [imgPreLoad, setImgPreLoad] = useState(true)
+  // const [imgPreLoad, setImgPreLoad] = useState(true)
   const ContactDocData = useFireDoc(dbInfo.collectName, dbInfo.docName);
-  useEffect(() => {
-    let preImg;
-    if (ContactDocData.placeholderData) {
-      const picture = ContactDocData?.imgData[0]
-      preImg = new Image();
-      preImg.src = picture.src;
-      preImg.onload = () => {
-        setImgPreLoad(false);
-        // console.log("IMG Loading Done")
-      }
-    }
-  }, [ContactDocData])
-  if (!ContactDocData.placeholderData || imgPreLoad) {
+  // useEffect(() => {
+  //   let preImg;
+  //   if (ContactDocData.placeholderData && ContactDocData?.imgData[0]) {
+  //     const picture = ContactDocData?.imgData[0]
+  //     preImg = new Image();
+  //     preImg.src = picture.src;
+  //     preImg.onload = () => {
+  //       setImgPreLoad(false);
+  //       // console.log("IMG Loading Done")
+  //     }
+  //   }
+  // }, [ContactDocData])
+  if (!ContactDocData.placeholderData) {
     return (
       <Loading />
     )
@@ -63,10 +63,13 @@ function Contact() {
           : null}
 
         <Box sx={{ position: 'relative' }}>
-          <img src={ContactDocData?.imgData[0]?.src}
+          <Box component='img' src={ContactDocData?.imgData[0]?.src}
             alt='contact-banner'
             loading="lazy"
-            style={{ width: '100%', zIndex: 1, objectFit: 'cover', height: 'auto', maxHeight: 500 }}
+            sx={{
+              width: '100%', zIndex: 1, objectFit: 'cover', height: 'auto',
+              maxHeight: { xs: 130, sm: 200, md: 300, lg: 400, xl: 500 }
+            }}
           />
           <Typography color='common.white' sx={{ position: 'absolute', bottom: 0, zIndex: -5 }}>Contact Us</Typography>
         </Box>
@@ -77,7 +80,7 @@ function Contact() {
               onLoad={() => setLoad(false)}
               style={{
                 border: 0, allowfullscreen: '',
-                loading: 'lazy', 
+                loading: 'lazy',
                 referrerpolicy: 'no-referrer-when-downgrade'
               }}
             ></iframe>

@@ -30,7 +30,7 @@ const ImageSlider = ({ imagesArr, settings }) => {
 
       {auth.currentUser && isAdmin ?
         <Box textAlign='center' margin={1}>
-          <Button variant="contained" endIcon={<EditIcon />} onClick={()=>nav('/editslider')}>
+          <Button variant="contained" endIcon={<EditIcon />} onClick={() => nav('/editslider')}>
             Edit Slider Images
           </Button>
         </Box>
@@ -39,7 +39,7 @@ const ImageSlider = ({ imagesArr, settings }) => {
         {/* <ImageGrid imagesDataDict={findImagesData()} setcateInfo={setcateInfo} /> */}
         < Slider {...settings} >
           {imagesArr.map((item, index) => (
-            <Box key={index} component='img' sx={{ width: 'auto', height: 'auto', maxHeight: 500, objectFit: 'cover' }} src={item.src} alt={item.alt} loading="lazy">
+            <Box key={index} component='img' sx={{ width: 'auto', height: 'auto', maxHeight: { xs: 130, sm: 200, md: 300, lg: 400, xl: 500 }, objectFit: 'cover' }} src={item.src} alt={item.alt} loading="lazy">
               {/* <img  /> */}
             </Box>
           ))}

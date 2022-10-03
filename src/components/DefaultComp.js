@@ -22,7 +22,7 @@ import EditSlider from './pages/Home/Slider/EditSlider'
 
 function DefaultComp() {
   const { auth, setIsAdmin, isAdmin } = useAuth();
-  const secNavItemsDefault = useMemo(() => ['gallery', 'announcements', 'timetable', 'staff', 'downloads', 'admin'], [])
+  const secNavItemsDefault = useMemo(() => ['gallery', 'announcements', 'timetable', 'staff', 'downloads'], [])
   // let adminMenu;
   const [secNav, setsecNav] = useState(secNavItemsDefault)
   const announceData = useFireDocs('Announcements');

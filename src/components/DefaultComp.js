@@ -30,7 +30,7 @@ function DefaultComp() {
   // console.log("Auth val: ",auth.currentUser)
   if (initCollectData && auth.currentUser) {
     if (initCollectData.adminUid === auth.currentUser.uid) {
-      console.log("Welcome admin")
+      // console.log("Welcome admin")
       setIsAdmin(true);
     }
   }

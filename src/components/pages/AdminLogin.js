@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import GoogleIcon from '@mui/icons-material/Google';
 import { useAuth } from '../../context/authContext';
 // import { Button } from '@mui/material';
@@ -8,16 +8,16 @@ import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { Container, Typography } from '@mui/material';
 // import { async } from '@firebase/util';
 
-function AdminLogin() {
+function AdminLogin({ adminUid }) {
 
     const { loggedInUser, setloggedInUser, auth, isAdmin } = useAuth();
     const [loading, setloading] = useState(false);
-    const [curUserAdmin, setcurUserAdmin] = useState(loggedInUser)
-    useEffect(() => {
-        if (loggedInUser) {
-            setcurUserAdmin(true);
-        }
-    }, [loggedInUser])
+    // const [curUserAdmin, setcurUserAdmin] = useState(loggedInUser)
+    // useEffect(() => {
+    //     if (loggedInUser) {
+    //         setcurUserAdmin(true);
+    //     }
+    // }, [loggedInUser])
     const handleLogin = async () => {
         setloading(true);
         const provider = new GoogleAuthProvider();
@@ -31,17 +31,22 @@ function AdminLogin() {
                 // const token = credential.accessToken;
                 // The signed-in user info.
                 const user = result.user;
-                // console.log("LOGINSUCCESS: ", user)
-                // nav('/admin');                
-                // setcurUser(user);
-                setcurUserAdmin(true);
-                // addLogoutNav();
-                setloggedInUser(user);
-                console.log("TTT ", isAdmin)
-
-
+                // console.log("TEST login ", adminUid, user.uid)
+                if (adminUid === user.uid) {
+                    // console.log("LOGINSUCCESS: ", user)
+                    // nav('/admin');                
+                    // setcurUser(user);
+                    // setcurUserAdmin(true);
+                    // addLogoutNav();
+                    setloggedInUser(user);
+                    // console.log("TTT ", isAdmin)
+                }
+                else {
+                    // setcurUserAdmin(false);
+                    throw new Error("Not Admin")
+                }
             }).catch((error) => {
-                setcurUserAdmin(false);
+                // setcurUserAdmin(false);
                 setloading(false);
 
                 // Handle Errors here.
@@ -72,7 +77,7 @@ function AdminLogin() {
         //     setstatus('Log in failed.. try again')
         // }
     }
-    if (curUserAdmin) {
+    if (isAdmin) {
         return (
             <Container sx={{ m: 8 }}>
                 Successfully Logged in as admin...

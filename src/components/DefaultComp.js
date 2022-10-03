@@ -30,6 +30,7 @@ function DefaultComp() {
   // console.log("Auth val: ",auth.currentUser)
   if (initCollectData && auth.currentUser) {
     if (initCollectData.adminUid === auth.currentUser.uid) {
+      console.log("Welcome admin")
       setIsAdmin(true);
     }
   }
@@ -58,7 +59,7 @@ function DefaultComp() {
           <Route path='contact' element={<Contact />} />
           <Route path='gallery' element={<Gallery />} />
           <Route path='announcements' element={<Announcements announceData={announceData} />} />
-          <Route path='/admin' element={<AdminLogin />} />
+          <Route path='/admin' element={<AdminLogin adminUid={initCollectData.adminUid} />} />
           <Route path='/logout' element={<AdminLogout />} />
           <Route path='downloads' element={<Downloads />} />
           <Route path='results' element={<Results />} />

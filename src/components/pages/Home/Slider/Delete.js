@@ -1,28 +1,20 @@
 import React from 'react'
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Button } from '@mui/material';
-import { deleteFileStorage, deleteImgDoc } from '../../../fireConfig/galleryImages';
-import { deleteDocFromDb } from '../../../fireConfig/useFirestore';
+import { deleteFileStorage, deleteImgDoc } from '../../../../fireConfig/galleryImages';
+// import { deleteDocFromDb } from '../../../fireConfig/useFirestore';
 
-function Delete({ imagesDataDict, curImgData,setcateInfo }) {
+function Delete({ curImgData }) {
     const handleDelete = async () => {
         try {
-            const cateId = imagesDataDict.id
-            // If last element delete the collection
-            if (imagesDataDict.data.imgData.length === 1) {
-                setcateInfo(null);
-                await deleteDocFromDb('gallery', imagesDataDict.id);                
-
+            const dbInfo = {
+                collectName: 'InitCollect',
+                docName: 'InitCollectDoc',
+                imgArrName: 'SliderImg'
             }
-            else {
-                const dbInfo = {
-                    collectName: 'gallery',
-                    docName: cateId,
-                    imgArrName: 'imgData'
-                }
                 await deleteImgDoc(dbInfo, curImgData)
-            }
-            await deleteFileStorage(`gallery/${cateId}/${curImgData.stImageName}`);
+            
+            await deleteFileStorage(`${dbInfo.collectName}/${dbInfo.docName}/${curImgData.stImageName}`);
 
             // setImagesData((prevState) => {
             //     prevState.imgData.splice(index, 1)

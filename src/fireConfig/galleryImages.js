@@ -23,10 +23,10 @@ export const uploadFileWithProgress = (file, folderPath, imgName, setProgress) =
         })
     });
 }
-export const addGalleryDoc = ((cateId, newImgData) => {
-    const docRef = doc(db, 'gallery', cateId);
+export const addImgDoc = ((dbInfo, newImgData) => {
+    const docRef = doc(db, dbInfo.collectName, dbInfo.docName);
     return setDoc(docRef, {
-        imgData: arrayUnion(newImgData),
+        [dbInfo.imgArrName]: arrayUnion(newImgData),
         timestamp: serverTimestamp(),
     },
         { merge: true });
@@ -37,9 +37,9 @@ export const deleteFileStorage = (filePath) => {
     const imgRef = ref(storage, filePath)
     return deleteObject(imgRef);
 }
-export const deleteImgDoc = (cateId, curImgData)=>{
-    const docRef = doc(db, 'gallery', cateId);
+export const deleteImgDoc = (dbInfo, curImgData)=>{
+    const docRef = doc(db, dbInfo.collectName, dbInfo.docName);
     return updateDoc(docRef, {
-        imgData: arrayRemove(curImgData),
+        [dbInfo.imgArrName]: arrayRemove(curImgData),
     });
 }

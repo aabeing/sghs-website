@@ -1,10 +1,10 @@
 import { Backdrop, CircularProgress, Typography } from '@mui/material'
+// import { Container } from '@mui/system';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
-function Loading() {
+function Loading({ editable }) {
     const [alertErr, setalertErr] = useState('');
-    // const [isOffline,setIsOffline] = useState(false);
     useEffect(() => {
         const timeId = setTimeout(() => {
             // After 10 seconds set alertErr
@@ -29,14 +29,21 @@ function Loading() {
             // clearInterval(interval);
         }
     }, []);
+    let zIndexObj;
+    if (editable) {
+        zIndexObj = { zIndex: -1 }
+    }
+    else {
+        zIndexObj = { zIndex: (theme) => theme.zIndex.drawer + 1 }
+    }
     return (
         <Backdrop
-            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            sx={{ color: '#fff', ...zIndexObj }}
             open={true}
         >
             <CircularProgress />
             {alertErr ? <Typography sx={{ m: 3 }} variant='h4' color='error.main'>{alertErr}</Typography> : null}
-        </Backdrop>
+        </Backdrop >
     )
 }
 

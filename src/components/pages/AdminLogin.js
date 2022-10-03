@@ -40,7 +40,7 @@ function AdminLogin() {
             }).catch((error) => {
                 setcurUserAdmin(false);
                 setloading(false);
-                
+
                 // Handle Errors here.
                 // const errorCode = error.code;
                 // const errorMessage = error.message;
@@ -70,9 +70,11 @@ function AdminLogin() {
         // }
     }
     if (curUserAdmin) {
-        return (<>
-            ADMIN NEW
-        </>)
+        return (
+            <Container sx={{ m: 8 }}>
+                Successfully Logged in as admin...
+            </Container>
+        )
     }
     else {
         return (
@@ -88,7 +90,7 @@ function AdminLogin() {
                 >
                     Sign in with Google
                 </LoadingButton>
-                <Typography textAlign='center' variant='body1' paddingLeft={2} color='warning.main'>Supported only for Chrome Desktop and please ensure you are in incognito mode to ensure the safety.</Typography>
+                <Typography textAlign='center' variant='body1' paddingLeft={2} color='warning.main'>Supported only for Chrome Desktop and please ensure you are in incognito mode for increased security</Typography>
 
                 {/* {status ? <div>status</div> : null} */}
             </Container>

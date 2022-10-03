@@ -1,7 +1,8 @@
 import { useRef, useState } from 'react'
 import AddIcon from '@mui/icons-material/Add';
 import { Button, Container, TextField, Typography } from '@mui/material';
-import ProgressList from './progressList/ProgressList';
+import ProgressList from '../../progressList/ProgressList';
+// import ProgressList from './progressList/ProgressList';
 
 function AddCate() {
     const [cateId, setcateId] = useState('')
@@ -16,9 +17,14 @@ function AddCate() {
         fileRef.current.value = null;
 
     }
+    const dbInfo = {
+        collectName: 'gallery',
+        docName: cateId,
+        imgArrName: 'imgData'
+    }
     // setimagesLength(fileRef.current.files.length); 
     return (<>
-        {cateId && <ProgressList files={inpFiles} cateId={cateId} setInpFiles={setInpFiles} />}
+        {cateId && <ProgressList files={inpFiles} dbInfo={dbInfo} setInpFiles={setInpFiles} />}
         <Container sx={{ display: 'flex', justifyContent: 'center', paddingTop: 1 }}>
             <TextField label="New category name" value={cateId} variant="filled" onChange={(e) => { setcateId(e.target.value) }} />
             <input type="file" style={{ display: 'none' }} ref={fileRef} onChange={(e) => handleChange(e)} />

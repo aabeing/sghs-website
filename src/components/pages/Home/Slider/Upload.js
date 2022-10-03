@@ -1,10 +1,10 @@
 import { useRef, useState } from 'react'
 import AddIcon from '@mui/icons-material/Add';
 import { Button, Container } from '@mui/material';
-import ProgressList from '../../progressList/ProgressList';
-// import ProgressList from './progressList/ProgressList';
+import ProgressList from '../../../progressList/ProgressList';
 
-function Upload({ cateId }) {
+
+function Upload() {
     // const [imagesLength,setimagesLength] = useState(0);
     const [inpFiles, setInpFiles] = useState([]);
     const fileRef = useRef();
@@ -18,9 +18,9 @@ function Upload({ cateId }) {
     }
     // setimagesLength(fileRef.current.files.length); 
     const dbInfo = {
-        collectName: 'gallery',
-        docName: cateId,
-        imgArrName: 'imgData'
+        collectName: 'InitCollect',
+        docName: 'InitCollectDoc',
+        imgArrName: 'SliderImg'
     }
     return (<>
         <ProgressList files={inpFiles} dbInfo={dbInfo} setInpFiles={setInpFiles} />

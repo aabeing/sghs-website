@@ -1,11 +1,11 @@
 
-import { Avatar, Box, Divider, Grid, List, ListItem, ListItemAvatar, ListItemText, Paper, Typography } from '@mui/material'
-import ImageSlider from './ImageSlider';
+import { Avatar, Box, Button, Divider, Grid, List, ListItem, ListItemAvatar, ListItemText, Paper, Typography } from '@mui/material'
+import ImageSlider from './Slider/ImageSlider';
 import SquareIcon from '@mui/icons-material/Square';
 import Loading from '../Loading';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { useMemo } from 'react';
+// import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LatestBlogs from '../Blogs/LatestBlogs';
 import axios from 'axios';
@@ -38,9 +38,10 @@ function Home({ announceData, initCollectData }) {
   const nav = useNavigate();
   const [blogData, setBlogData] = useState([])
   // const contentImage1 = "/images/saintGeorge.jpg"
-  const contentPara1 = initCollectData.WelcomeMessage;
-  console.log("TEST \n", initCollectData.WelcomeMessage2?.split('\n'))
-  const contentHead1 = "Welcome to St.George High School";
+  const contentPara1 = initCollectData.WelcomeMessage?.split('\\n');
+  // console.log("TEST \n", initCollectData.WelcomeMessage?.split('\n'))
+  // const contentHead1 = "Welcome to St.George High School";
+  const contentHead1 = initCollectData.aboutHead;
   // const imagesArr = useMemo(() => [
   //   {
   //     alt: 'San Francisco- Oakland Bay Bridge, United States',
@@ -54,7 +55,10 @@ function Home({ announceData, initCollectData }) {
   //   }
   // ], []);
   const imagesArr = initCollectData.SliderImg;
-  const contentImage1 = initCollectData.AboutImgUrl;
+  let contentImage1 ;
+  if(initCollectData?.aboutImgData){
+    contentImage1 = initCollectData?.aboutImgData[0].src;
+  }
   const [load, setload] = useState(true)
   useEffect(() => {
     let preImg;
@@ -87,24 +91,31 @@ function Home({ announceData, initCollectData }) {
     const goToAnnounce = () => {
       nav('/announcements');
     }
+    const goToAbout = () => {
+      nav('/about');
+    }
     return (
       <>
         <ImageSlider imagesArr={imagesArr} settings={sliderSettings} />
         <Paper sx={{ ...paperStyle }}>
           <Grid container columns={12} >
-            <Grid item xs={12} lg={6} padding={2} sx={{ maxHeight: 750, overflow: 'hidden' }}>
+            <Grid item xs={12} lg={6} padding={2} >
               <Typography variant='h4' sx={{ fontSize: { xs: 27, sm: 35, md: 35, lg: 40 }, pt: 2, }}>
                 {contentHead1}
               </Typography>
-              {contentPara1.map((ele) => (<>
+              <Box sx={{ maxHeight: { xs: 200, md: 300, lg: 750 }, overflow: 'hidden' }}>
+                {contentPara1.map((ele) => (<>
 
-                <Typography variant='subtitle1' display='block' sx={{
-                  fontSize: { xs: 16, sm: 17, md: 18, lg: 20 }
-                }}>
-                  {ele}
-                </Typography>
-                <br /></>
-              ))}
+                  <Typography variant='subtitle1' display='block' sx={{
+                    fontSize: { xs: 16, sm: 17, md: 18, lg: 20 }
+                  }}>
+                    {ele}
+                  </Typography>
+                  <br /></>
+                ))}
+              </Box>
+              <Button variant="outlined"
+                onClick={goToAbout}>Know more</Button>
             </Grid>
 
             {/* <Grid item xs={0.2} md={0.2} container justifyContent='center' alignContent='center'>
@@ -116,7 +127,7 @@ function Home({ announceData, initCollectData }) {
               <Box component="img"
                 sx={{
                   // pl:'15%',
-                  maxHeight: { sm: '50%', md: '75%' },
+                  maxHeight: { sm: '50%', md: '80%' },
                   maxWidth: { sm: '50%', md: '75%' },
                   overflow: 'hidden',
                   objectFit: 'contain',

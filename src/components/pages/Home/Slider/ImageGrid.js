@@ -4,18 +4,23 @@ import ImageListItem from '@mui/material/ImageListItem';
 import SimpleReactLightbox, { SRLWrapper } from 'simple-react-lightbox';
 import { styled } from '@mui/system';
 import { Container, Divider, Typography } from '@mui/material';
-import Upload from './Upload';
-import Delete from './Delete';
+// import Upload from './Upload';
+// import Delete from './Delete';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Button } from '@mui/material';
-import { useAuth } from '../../../context/authContext';
+// import { useAuth } from '../../../context/authContext';
 import { useState } from 'react';
-import Loading from '../Loading';
+// import Loading from '../Loading';
 import { useEffect } from 'react';
+import { useAuth } from '../../../../context/authContext';
+import Loading from '../../Loading';
+import { useNavigate } from 'react-router-dom';
+import Upload from './Upload';
+import Delete from './Delete';
 
-function ImageGrid({ imagesDataDict, setcateInfo }) {
-    
+function ImageGrid({ imagesDataDict }) {
     const { auth, isAdmin } = useAuth();
+    const nav = useNavigate()
     const MyComponentHover = styled('div')({
         "& .hiddenbtn": {
             display: "none"
@@ -34,8 +39,8 @@ function ImageGrid({ imagesDataDict, setcateInfo }) {
     useEffect(() => {
         let preImg;
         let loadedCount = 0;
-        const imgLen = imagesDataDict.data.imgData.length;
-        imagesDataDict.data.imgData.forEach((picture) => {
+        const imgLen = imagesDataDict.length;
+        imagesDataDict.forEach((picture) => {
             preImg = new Image();
             preImg.src = picture.src;
             preImg.onload = () => {
@@ -46,9 +51,8 @@ function ImageGrid({ imagesDataDict, setcateInfo }) {
                     // console.log("IMG Loading Done")
                 }
             }
-            // console.log("TEST ",imagesDataDict);
         });
-    }, [imagesDataDict.data.imgData])
+    }, [imagesDataDict])
     if (load) {
         return (<Loading />)
     }
@@ -56,7 +60,7 @@ function ImageGrid({ imagesDataDict, setcateInfo }) {
         return (
             <>
                 <Container sx={{ display: 'flex', justifyContent: 'center', paddingTop: 1 }}>
-                    <Button variant="contained" endIcon={<ArrowBackIcon />} aria-label="add an image" onClick={() => setcateInfo(null)}>
+                    <Button variant="contained" endIcon={<ArrowBackIcon />} aria-label="add an image" onClick={() => nav('/home')}>
                         Go Back
                     </Button></Container>
                 {auth.currentUser && isAdmin ? <Upload cateId={imagesDataDict.id} /> : null}
@@ -69,15 +73,15 @@ function ImageGrid({ imagesDataDict, setcateInfo }) {
                             },
                         }}
                     >
-                        <Typography variant='h4'>{imagesDataDict.id}</Typography>
+                        <Typography variant='h4'>Slider Images</Typography>
                     </Divider>
                     <SimpleReactLightbox>
                         <SRLWrapper>
                             <ImageList cols={4} gap={12} sx={{
                                 m: { md: 1 }, p: { md: 3 },
-                                gridTemplateColumns: 'repeat(auto-fill,minmax(310px,1fr))!important'
+                                gridTemplateColumns: 'repeat(auto-fill,minmax(500px,1fr))!important'
                             }}>
-                                {imagesDataDict.data.imgData.map((item, index) => (
+                                {imagesDataDict.map((item, index) => (
                                     <MyComponentHover key={index}>
                                         <ImageListItem >
                                             <img
@@ -89,7 +93,9 @@ function ImageGrid({ imagesDataDict, setcateInfo }) {
                                             {/* <ImageListItemBar title='Delete' sx={{ background: (theme) => theme.palette.secondary.main }}  /> */}
 
                                             {/* {Delete ? <Delete /> : null} */}
-                                            {auth.currentUser && isAdmin ? <Delete imagesDataDict={imagesDataDict} curImgData={item} setcateInfo={setcateInfo} /> : null}
+
+
+                                            {auth.currentUser && isAdmin ? <Delete curImgData={item} /> : null}
 
                                         </ImageListItem>
 

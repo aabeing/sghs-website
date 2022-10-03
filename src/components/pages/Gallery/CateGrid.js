@@ -8,7 +8,7 @@ import { useState } from 'react';
 
 function CateGrid({ cateImgArr, setcateInfo }) {
 
-    const { auth,isAdmin } = useAuth();
+    const { auth, isAdmin } = useAuth();
     const handleClick = (cateId, cateIndex) => {
         setcateInfo({
             // cateIndex: cateIndex,
@@ -24,7 +24,7 @@ function CateGrid({ cateImgArr, setcateInfo }) {
         cateImgArr.forEach((ele) => {
             const picture = ele.data.imgData[0];
             preImg = new Image();
-            preImg.src = picture.img;
+            preImg.src = picture.src;
             preImg.onload = () => {
                 // console.log("IMG loaded");
                 loadedCount++;
@@ -36,7 +36,11 @@ function CateGrid({ cateImgArr, setcateInfo }) {
         });
     }, [cateImgArr])
     if (load) {
-        return (<Loading />)
+        return (
+            <>
+                {auth.currentUser && isAdmin ? <AddCate /> : null}
+                < Loading editable={true} />
+            </>)
     }
     else {
         return (
@@ -64,7 +68,7 @@ function CateGrid({ cateImgArr, setcateInfo }) {
                             return (
                                 <Grid item key={index} padding={2} onClick={() => handleClick(ele.id, index)}>
                                     <img
-                                        src={item.img}
+                                        src={item.src}
                                         alt={item.title}
                                         style={{
                                             cursor: 'pointer', height: '300px', width: '300px',

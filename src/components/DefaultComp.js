@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Navigation from './Navigation'
-import About from './pages/About'
+import About from './pages/About/About'
 import Home from './pages/Home/Home'
 import Admissions from './pages/Admissions'
-import Contact from './pages/Contact'
+import Contact from './pages/Contact/Contact'
 import Gallery from './pages/Gallery/Gallery'
 import AdminLogin from './pages/AdminLogin'
 import AdminLogout from './pages/AdminLogout'
@@ -17,10 +17,11 @@ import Downloads from './pages/Downloads'
 import BlogRedirect from './pages/BlogRedirect'
 import { useMemo } from 'react'
 import Results from './pages/Results/Results'
+import EditSlider from './pages/Home/Slider/EditSlider'
 // import axios from 'axios'
 
 function DefaultComp() {
-  const { auth, setIsAdmin } = useAuth();
+  const { auth, setIsAdmin, isAdmin } = useAuth();
   const secNavItemsDefault = useMemo(() => ['gallery', 'announcements', 'timetable', 'staff', 'downloads', 'admin'], [])
   // let adminMenu;
   const [secNav, setsecNav] = useState(secNavItemsDefault)
@@ -50,7 +51,7 @@ function DefaultComp() {
         <Route path='/' element={<Navigation secNav={secNav} />}>
           <Route index element={<Home announceData={announceData} initCollectData={initCollectData} />} />
           <Route path='home' element={<Home announceData={announceData} initCollectData={initCollectData} />} />
-          <Route path='about' element={<About />} />
+          <Route path='about' element={<About initCollectData={initCollectData} />} />
           <Route path='admissions' element={<Admissions />} />
           <Route path='timetable' element={<TimeTable />} />
           <Route path='staff' element={<Staff />} />
@@ -66,6 +67,9 @@ function DefaultComp() {
             return null;
           }} /> */}
           <Route path='blog' element={<BlogRedirect />} />
+          {auth.currentUser && isAdmin ?
+            <Route path='editslider' element={<EditSlider sliderImg={initCollectData?.SliderImg} />} /> : <>Not Found</>}
+
         </Route>
       </Routes>
     </BrowserRouter>

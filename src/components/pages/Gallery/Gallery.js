@@ -3,21 +3,19 @@ import ImageGrid from './ImageGrid';
 import { useFireDocs } from '../../../fireConfig/useFirestore';
 import { useState } from 'react';
 import CateGrid from './CateGrid';
-import Loading from '../Loading';
+// import Loading from '../Loading';
 
 
 export default function Gallery() {
   const cateImgArr = useFireDocs('gallery');
-  // const [imagesData, setImagesData] = useState();
   const [cateInfo, setcateInfo] = useState();
-  // const [loading, setLoading] = useState(false);
   // const isMatchLarge = useMediaQuery(theme.breakpoints.up('md'));
 
-  if (cateImgArr.length === 0) {
-    return (
-      <Loading/>
-    )
-  }
+  // if (cateImgArr.length === 0) {
+  //   return (
+  //     <Loading/>
+  //   )
+  // }
   // Load category page, load child page in else
   if (!cateInfo) {
     // console.log("CHECK: ", cateImgArr)
@@ -33,7 +31,7 @@ export default function Gallery() {
       // console.log("GRID: ",imagesDataDict)
       return imagesDataDict;
     }
-    findImagesData()
+    // findImagesData()
     return (
       <ImageGrid imagesDataDict={findImagesData()} setcateInfo={setcateInfo} />
     )

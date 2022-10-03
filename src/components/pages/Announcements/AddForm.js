@@ -10,12 +10,12 @@ import { useMemo } from 'react';
 function AddForm() {
   const [submitBtnDisabled, setSubmitBtnDisabled] = useState(false);
   const [onSuccessAlert, setOnSuccessAlert] = useState(false);
-  const now = useMemo(()=>{
+  const now = useMemo(() => {
     const now = new Date();
-    now.setDate(now.getDate() + 1)
+    now.setDate(now.getDate() + 7)
     now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
     return now;
-  },[])
+  }, [])
 
   // console.log(now.toISOString().slice(0, 16))
   const inpInit = {
@@ -67,7 +67,7 @@ function AddForm() {
         clearTimeout(timeId)
       }
     }
-  }, [onSuccessAlert,now]);
+  }, [onSuccessAlert, now]);
   return (
     <>
       <Collapse in={onSuccessAlert}>

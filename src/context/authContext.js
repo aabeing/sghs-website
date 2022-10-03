@@ -45,7 +45,8 @@ export function AuthProvider({ children }) {
     async function logoutAdmin() {
         await signOut(auth);
         // setloggedInUser('');
-        window.location.replace('https://accounts.google.com/Logout')
+        window.open('https://accounts.google.com/Logout', "_blank");
+        // window.location.replace('https://accounts.google.com/Logout', '_blank')
         // try {
         //     const resp = await axios.get("https://accounts.google.com/Logout");
         //     console.log(resp);

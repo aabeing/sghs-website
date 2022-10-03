@@ -132,7 +132,7 @@ function Results() {
                 }
             </Box>
             <Box sx={{ margin: { xs: 2, md: 2 }, padding: { xs: 0.5, md: 3 } }}>
-                {blogData ?
+                {blogData.length !== 0 ?
                     <>
                         <Typography noWrap variant="h4" fontSize={customFontSize} >
                             Other Results

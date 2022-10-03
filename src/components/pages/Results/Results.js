@@ -28,7 +28,7 @@ function Results() {
 
     useEffect(() => {
         // Get blogger data
-        axios.get(`https://blogger.googleapis.com/v3/blogs/1225166691027089983/posts?fetchBodies=true&fetchImages=true&labels=home&maxResults=4&orderBy=PUBLISHED&status=LIVE&key=${process.env.REACT_APP_BLOGGER_APIKEY}`).then(res => {
+        axios.get(`https://blogger.googleapis.com/v3/blogs/1225166691027089983/posts?fetchBodies=true&fetchImages=true&labels=results&maxResults=4&orderBy=PUBLISHED&status=LIVE&key=${process.env.REACT_APP_BLOGGER_APIKEY}`).then(res => {
 
             setBlogData(res.data.items);
         }
@@ -132,10 +132,13 @@ function Results() {
                 }
             </Box>
             <Box sx={{ margin: { xs: 2, md: 2 }, padding: { xs: 0.5, md: 3 } }}>
-                <Typography noWrap variant="h4" fontSize={customFontSize} >
-                    Other Results
-                </Typography>
-                {blogData ? <LatestBlogs blogData={blogData} /> : null}
+                {blogData ?
+                    <>
+                        <Typography noWrap variant="h4" fontSize={customFontSize} >
+                            Other Results
+                        </Typography>
+                        <LatestBlogs blogData={blogData} />
+                    </> : null}
             </Box>
             {load ? <Loading /> : null}
         </>

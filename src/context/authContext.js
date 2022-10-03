@@ -1,8 +1,9 @@
 import { createContext, useContext, useEffect, useState } from 'react'
-import { getAuth, GoogleAuthProvider, signInWithRedirect, onAuthStateChanged, signOut, browserSessionPersistence, setPersistence, inMemoryPersistence } from "firebase/auth";
+import { onAuthStateChanged, signOut, browserSessionPersistence, setPersistence } from "firebase/auth";
+// import { getAuth, GoogleAuthProvider, signInWithRedirect, inMemoryPersistence } from "firebase/auth";
 // import { useNavigate } from 'react-router-dom';y
 import { auth } from '../fireConfig/firebaseInit';
-import axios from 'axios';
+// import axios from 'axios';
 
 const AuthContext = createContext()
 export function useAuth() {

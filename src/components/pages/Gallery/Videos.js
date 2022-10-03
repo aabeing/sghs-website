@@ -17,7 +17,10 @@ function Videos() {
         ).catch(err => { alert("Blogger retrieve error"); console.log("Blogger retrieve error: ", err) })
     }, []);
     return (
-        <Box sx={{ margin: { xs: 2, md: 2 }, padding: { xs: 0.5, md: 3 } }}>
+        <Box sx={{
+            margin: { xs: 2, md: 1.5 },
+            // padding: { xs: 0.5, md: 3 }
+        }}>
             {blogData?.length !== 0 ?
                 <>
                     {/* <Typography noWrap variant="h4" fontSize={customFontSize} >

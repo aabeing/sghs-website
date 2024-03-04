@@ -59,7 +59,7 @@ function Results() {
     return (
         <>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 10 }}>
-                <Typography noWrap variant="h4" fontSize={customFontSize}>
+                <Typography noWrap variant="h4" fontSize={customFontSize} fontWeight='bold'>
                     Results
                 </Typography>
                 {auth.currentUser && isAdmin ?
@@ -125,7 +125,7 @@ function Results() {
             <Box sx={{ margin: { xs: 2, md: 2 }, padding: { xs: 0.5, md: 3 } }}>
                 {blogData.length !== 0 ?
                     <>
-                        <Typography noWrap variant="h4" fontSize={customFontSize} >
+                        <Typography noWrap variant="h4" fontSize={customFontSize} fontWeight='bold'>
                             Exam Results
                         </Typography>
                         <LatestBlogs blogData={blogData} />

@@ -143,7 +143,7 @@ function Home({ announceData, initCollectData }) {
         {announceData.length ?
           <Box sx={{ ...paperStyle, maxWidth: { xs: '100%', md: '50%' } }} >
             {/* <Box sx={{ height: 100 }}> */}
-            <Typography variant='h4' sx={{ marginBottom: 1 }}>Announcements</Typography>
+            <Typography variant='h4' sx={{ marginBottom: 1 }} fontWeight='bold'>Announcements</Typography>
             <Paper>
               <List onClick={goToAnnounce}
                 sx={{
@@ -193,7 +193,7 @@ function Home({ announceData, initCollectData }) {
 
           {blogData ?
             <>
-              <Typography variant='h4' sx={{ marginBottom: 1 }}>Events</Typography>
+              <Typography variant='h4' sx={{ marginBottom: 1 }} fontWeight='bold'>Events</Typography>
               <LatestBlogs blogData={blogData} />
             </>
             : null}

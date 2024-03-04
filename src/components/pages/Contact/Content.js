@@ -92,18 +92,23 @@ function Content({ ContactDocData, editMode, setEditMode, dbInfo }) {
         // console.log("TEST: ", contentParaObj)
         return (
             <>
-                <Typography variant='h3'>
+                <Typography variant='h3' fontWeight='bold' sx={{ textDecoration: 'underline', margin: '20px 0' }}>
                     {contactInfo.heading}
+                    {/* Contact US */}
                 </Typography>
-                <Typography variant='h5'>
-                    Call: {contactInfo.phNumber}
+                <Typography variant='h5' fontWeight='bold'>
+                    Phone:
                 </Typography>
-                <Typography variant='h6'>
-                    Address: {contactInfo.addressInfo}
+                {contactInfo.phNumber}
+
+                <Typography variant='h6' fontWeight='bold'>
+                    Address:
+                </Typography >
+                {contactInfo.addressInfo}
+                <Typography variant='h6' fontWeight='bold'>
+                    E-mail:
                 </Typography>
-                <Typography variant='h6'>
-                    E-mail: {contactInfo.emailId}
-                </Typography>
+                {contactInfo.emailId}
                 <br /></>
         )
     }

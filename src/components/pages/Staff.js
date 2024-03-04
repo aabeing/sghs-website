@@ -24,7 +24,7 @@ function Staff() {
     return (
         <>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 10 }}>
-                <Typography noWrap variant="h4" >
+                <Typography noWrap variant="h4" fontWeight='bold'>
                     Staff - {now.getFullYear()}
                 </Typography>
                 {auth.currentUser && isAdmin ?

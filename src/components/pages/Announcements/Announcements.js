@@ -22,13 +22,13 @@ function Announcements({ announceData }) {
     // if (announceData.length) {
     return (
         <Box sx={boxStyle}>
-            <Typography variant='h4' textAlign='left'>Announcements</Typography>
+            <Typography variant='h4' textAlign='left' fontWeight='bold'>Announcements</Typography>
             {auth.currentUser && isAdmin ? <Add setPage={setPage} page={page} announceData={announceData} /> : null}
             {page === 'view' && announceData.length ?
                 <View announceData={announceData} />
                 : null}
             {!announceData.length && page === 'view' ?
-                <Typography variant='h5'>No recent Announcements</Typography>
+                <Typography variant='h5' fontWeight='bold'>No recent Announcements</Typography>
                 : null}
         </Box>
     )

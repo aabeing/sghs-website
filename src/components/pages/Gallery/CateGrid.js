@@ -74,7 +74,10 @@ function CateGrid({ cateImgArr, setcateInfo }) {
                                 const item = ele.data.imgData[0];
                                 console.log()
                                 return (
-                                    <Grid item key={index} padding={2} onClick={() => handleClick(ele.id, index)}>
+                                    <Grid item key={index} padding={2} style={{
+                                        boxShadow: '0 0 3px #FF0000, 0 0 5px #0000FF', margin: '15px',
+
+                                    }} onClick={() => handleClick(ele.id, index)}>
                                         <img
                                             src={item.src}
                                             alt={item.title}

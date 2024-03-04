@@ -38,7 +38,7 @@ function TimeTable() {
     return (
         <>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 10, flexDirection: 'row', flexWrap: 'wrap' }}>
-                <Typography noWrap variant="h4" >
+                <Typography noWrap variant="h4" fontWeight='bold'>
                     Time Table - {now.getFullYear()}
                 </Typography>
                 {auth.currentUser && isAdmin ?

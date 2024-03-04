@@ -126,7 +126,7 @@ function Results() {
                 {blogData.length !== 0 ?
                     <>
                         <Typography noWrap variant="h4" fontSize={customFontSize} >
-                            Other Results
+                            Exam Results
                         </Typography>
                         <LatestBlogs blogData={blogData} />
                     </> : null}

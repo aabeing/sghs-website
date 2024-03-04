@@ -4,6 +4,7 @@ import { getAnalytics } from "firebase/analytics";
 import { getStorage } from "firebase/storage";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+import { getPerformance } from "firebase/performance";
 const { initializeAppCheck, ReCaptchaV3Provider } = require("firebase/app-check");
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -31,6 +32,7 @@ const appCheck = initializeAppCheck(fireApp, {
   // tokens as needed.
   isTokenAutoRefreshEnabled: true
 });
+const perf = getPerformance(fireApp);
 const analytics = getAnalytics();
 export const storage = getStorage();
 export const db = getFirestore();

@@ -3,7 +3,7 @@ import { sanitize } from 'dompurify';
 import { useState } from 'react';
 import Loading from '../Loading';
 import EditIcon from '@mui/icons-material/Edit';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+// import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useAuth } from '../../../context/authContext';
 import LatestBlogs from '../Blogs/LatestBlogs';
 import { useEffect } from 'react';
@@ -12,7 +12,7 @@ import axios from 'axios';
 function Results() {
     const { auth, isAdmin } = useAuth();
     const [blogData, setBlogData] = useState([])
-    const [edit, setEdit] = useState(false);
+    // const [edit, setEdit] = useState(false);
     const [load, setLoad] = useState(true);
     const iframeLoading = () => {
         setLoad(false);
@@ -28,7 +28,7 @@ function Results() {
 
     useEffect(() => {
         // Get blogger data
-        axios.get(`https://blogger.googleapis.com/v3/blogs/1225166691027089983/posts?fetchBodies=true&fetchImages=true&labels=home&maxResults=4&orderBy=PUBLISHED&status=LIVE&key=${process.env.REACT_APP_BLOGGER_APIKEY}`).then(res => {
+        axios.get(`https://blogger.googleapis.com/v3/blogs/1225166691027089983/posts?fetchBodies=true&fetchImages=true&labels=results&maxResults=4&orderBy=PUBLISHED&status=LIVE&key=${process.env.REACT_APP_BLOGGER_APIKEY}`).then(res => {
 
             setBlogData(res.data.items);
         }
@@ -63,33 +63,25 @@ function Results() {
                     Results
                 </Typography>
                 {auth.currentUser && isAdmin ?
-                    edit ?
-                        <Button onClick={() => setEdit(false)} sx={{ ml: 2 }} variant='contained'
-                            endIcon={<ArrowBackIcon />}>Go Back
-                        </Button>
-                        :
-                        <Button onClick={() => setEdit(true)} sx={{ ml: 2 }} variant='contained'
+                    <a href={googleUrlEdit} target='_blank' rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+                        <Button sx={{ ml: 2 }} variant='contained'
                             endIcon={<EditIcon />}>Edit
                         </Button>
+                    </a>
                     : null}
             </div>
             <Box height={boxHeight} >
-                {edit ? <iframe title='Results edit' src={googleUrlEdit}
-                    width="100%"
-                    height={boxHeight}
-                    // frameBorder="0" marginHeight="0" marginWidth="0"
-                    loading="lazy"
-                    onLoad={iframeLoading}>Loading…</iframe> :
 
-                    <Grid container justifyContent='center'>
-                        {/* <Grid item xl={1} sx={{ display: { xs: 'none', xl: 'inline-block' } }}></Grid> */}
-                        <Grid item xs={12} lg={10} xl={8}>
-                            <iframe src={googleUrl}
-                                title='Results view page' frameborder="0" width="100%" height={boxHeight} allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" loading="lazy"
-                                onLoad={iframeLoading}>
-                            </iframe>
-                        </Grid>
-                        {/* <Grid item xl={4} sx={{ display: { xs: 'none', xl: 'inline-block' } }}>
+
+                <Grid container justifyContent='center'>
+                    {/* <Grid item xl={1} sx={{ display: { xs: 'none', xl: 'inline-block' } }}></Grid> */}
+                    <Grid item xs={12} lg={10} xl={8}>
+                        <iframe src={googleUrl}
+                            title='Results view page' frameborder="0" width="100%" height={boxHeight} allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" loading="lazy"
+                            onLoad={iframeLoading}>
+                        </iframe>
+                    </Grid>
+                    {/* <Grid item xl={4} sx={{ display: { xs: 'none', xl: 'inline-block' } }}>
                             <Box sx={{
                                 ml: '30%', borderRadius: '50%', height: 180, width: 175,
                                 backgroundColor: '#242582',
@@ -128,14 +120,16 @@ function Results() {
                             </Box>
 
                         </Grid> */}
-                    </Grid >
-                }
+                </Grid >
             </Box>
             <Box sx={{ margin: { xs: 2, md: 2 }, padding: { xs: 0.5, md: 3 } }}>
-                <Typography noWrap variant="h4" fontSize={customFontSize} >
-                    Other Results
-                </Typography>
-                {blogData ? <LatestBlogs blogData={blogData} /> : null}
+                {blogData.length !== 0 ?
+                    <>
+                        <Typography noWrap variant="h4" fontSize={customFontSize} >
+                            Other Results
+                        </Typography>
+                        <LatestBlogs blogData={blogData} />
+                    </> : null}
             </Box>
             {load ? <Loading /> : null}
         </>

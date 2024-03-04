@@ -31,7 +31,7 @@ function About({ initCollectData }) {
         <Edit editMode={editMode} setEditMode={setEditMode} curImgData={initCollectData.aboutImgData[0]}/> 
         : null}
         <Grid container columns={12} >
-          <Grid item xs={12} lg={6} padding={2} >
+          <Grid item xs={12} md={6} padding={2} >
             {/* <Typography variant='h4' sx={{ fontSize: { xs: 27, sm: 35, md: 35, lg: 40 }, pt: 2, }}>
               {contentHead1}
             </Typography> */}
@@ -45,12 +45,12 @@ function About({ initCollectData }) {
       {/* <Divider orientation="vertical" textAlign='center' sx={{mr:'50%'}}/> */}
           {/* </Grid>  */}
 
-          <Grid container xs={12} lg={6} padding={2} justifyContent='center' alignContent='center' component={Box} sx={{ overflow: 'hidden', display: { xs: 'flex', lg: 'flex' } }}>
+          <Grid container xs={12} md={6} padding={2} justifyContent='center' alignContent='center' component={Box} sx={{ overflow: 'hidden', display: { xs: 'flex', lg: 'flex' } }}>
             <Box component="img"
               sx={{
                 // pl:'15%',
-                maxHeight: { sm: '50%', md: '80%' },
-                maxWidth: { sm: '50%', md: '75%' },
+                maxHeight: { xs: '100%', md: '80%' },
+                maxWidth: { xs: '100%', md: '80%' },
                 overflow: 'hidden',
                 objectFit: 'contain',
               }} alt="Saint George Image" src={contentImage1} loading="lazy"

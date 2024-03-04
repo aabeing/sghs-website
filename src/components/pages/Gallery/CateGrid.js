@@ -1,10 +1,11 @@
 import { Container } from '@mui/system';
-import { Divider, Grid, Typography } from '@mui/material';
+import { Divider, Grid, Tab, Tabs, Typography } from '@mui/material';
 import AddCate from './AddCate';
 import { useAuth } from '../../../context/authContext';
 import Loading from '../Loading';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import Videos from './Videos';
 
 function CateGrid({ cateImgArr, setcateInfo }) {
 
@@ -17,6 +18,7 @@ function CateGrid({ cateImgArr, setcateInfo }) {
     }
     // Images preloading
     const [load, setload] = useState(true)
+    const [imageOrVideo, setImageOrVideo] = useState(0)
     useEffect(() => {
         let preImg;
         let loadedCount = 0;
@@ -57,32 +59,42 @@ function CateGrid({ cateImgArr, setcateInfo }) {
                     >
                         <Typography variant='h4'>Gallery</Typography>
                     </Divider>
-                    {/* <Container> */}
-                    <Grid container justifyContent='center' sx={{
-                        m: 'auto', mt: 5,
-                    }}>
-                        {cateImgArr.map((ele, index) => {
-                            // console.log("Err ",ele.data)
-                            const item = ele.data.imgData[0];
-                            console.log()
-                            return (
-                                <Grid item key={index} padding={2} onClick={() => handleClick(ele.id, index)}>
-                                    <img
-                                        src={item.src}
-                                        alt={item.title}
-                                        style={{
-                                            cursor: 'pointer', height: '300px', width: '300px',
-                                            objectFit: 'cover'
-                                        }}
-                                        loading="lazy"
-                                    />
-                                    <Typography textAlign='center'>
-                                        {ele.id}
-                                    </Typography>
+                    <Tabs value={imageOrVideo}
+                        onChange={() => setImageOrVideo((cur) => (cur + 1) % 2)}
+                        centered>
+                        <Tab label="Images" />
+                        <Tab label="Videos" />
+                    </Tabs>
+                    {imageOrVideo === 0 &&
+                        <Grid container justifyContent='center' sx={{
+                            m: 'auto', mt: 5,
+                        }}>
+                            {cateImgArr.map((ele, index) => {
+                                // console.log("Err ",ele.data)
+                                const item = ele.data.imgData[0];
+                                console.log()
+                                return (
+                                    <Grid item key={index} padding={2} onClick={() => handleClick(ele.id, index)}>
+                                        <img
+                                            src={item.src}
+                                            alt={item.title}
+                                            style={{
+                                                cursor: 'pointer', height: '300px', width: '300px',
+                                                objectFit: 'cover'
+                                            }}
+                                            loading="lazy"
+                                        />
+                                        <Typography textAlign='center'>
+                                            {ele.id}
+                                        </Typography>
 
-                                </Grid>)
-                        })}
-                    </Grid>
+                                    </Grid>)
+                            })}
+                        </Grid>
+                    }
+                    {imageOrVideo === 1 &&
+                        <Videos />
+                    }
                 </Container>
             </>
         );

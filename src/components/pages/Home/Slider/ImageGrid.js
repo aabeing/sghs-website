@@ -39,19 +39,24 @@ function ImageGrid({ imagesDataDict }) {
     useEffect(() => {
         let preImg;
         let loadedCount = 0;
-        const imgLen = imagesDataDict.length;
-        imagesDataDict.forEach((picture) => {
-            preImg = new Image();
-            preImg.src = picture.src;
-            preImg.onload = () => {
-                // console.log("IMG loaded");
-                loadedCount++;
-                if (loadedCount === imgLen) {
-                    setload(false);
-                    // console.log("IMG Loading Done")
+        if (imagesDataDict) {
+            const imgLen = imagesDataDict.length;
+            imagesDataDict.forEach((picture) => {
+                preImg = new Image();
+                preImg.src = picture.src;
+                preImg.onload = () => {
+                    // console.log("IMG loaded");
+                    loadedCount++;
+                    if (loadedCount === imgLen) {
+                        setload(false);
+                        // console.log("IMG Loading Done")
+                    }
                 }
+            });
+            if (imgLen === 0) {
+                setload(false);
             }
-        });
+        }
     }, [imagesDataDict])
     if (load) {
         return (<Loading />)
@@ -95,7 +100,7 @@ function ImageGrid({ imagesDataDict }) {
                                             {/* {Delete ? <Delete /> : null} */}
 
 
-                                            {auth.currentUser && isAdmin ? <Delete curImgData={item} /> : null}
+                                            {auth.currentUser && isAdmin && imagesDataDict.length > 1 ? <Delete curImgData={item} /> : null}
 
                                         </ImageListItem>
 

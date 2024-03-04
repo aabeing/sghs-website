@@ -1,7 +1,9 @@
 import { createContext, useContext, useEffect, useState } from 'react'
-import { getAuth, GoogleAuthProvider, signInWithRedirect, onAuthStateChanged, signOut, browserSessionPersistence, setPersistence, inMemoryPersistence } from "firebase/auth";
+import { onAuthStateChanged, signOut, browserSessionPersistence, setPersistence } from "firebase/auth";
+// import { getAuth, GoogleAuthProvider, signInWithRedirect, inMemoryPersistence } from "firebase/auth";
 // import { useNavigate } from 'react-router-dom';y
-import {auth} from '../fireConfig/firebaseInit';
+import { auth } from '../fireConfig/firebaseInit';
+// import axios from 'axios';
 
 const AuthContext = createContext()
 export function useAuth() {
@@ -26,24 +28,34 @@ setPersistence(auth, browserSessionPersistence)
 export function AuthProvider({ children }) {
 
     const [loggedInUser, setloggedInUser] = useState();
-    const [isAdmin,setIsAdmin] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
     // async function loginAdmin() {
-        // await signInWithRedirect(auth, provider);
-        // const auth = getAuth();
-        // await setPersistence(auth, inMemoryPersistence)
-        //     .then(() => {
-        //         signInWithRedirect(auth, provider);
-        //     })
-        //     .catch((error) => {
-        //         const err = new Error();
-        //         err.errorCode = error.code;
-        //         err.errorMessage = error.message;
-        //         throw err;
-        //     });
+    // await signInWithRedirect(auth, provider);
+    // const auth = getAuth();
+    // await setPersistence(auth, inMemoryPersistence)
+    //     .then(() => {
+    //         signInWithRedirect(auth, provider);
+    //     })
+    //     .catch((error) => {
+    //         const err = new Error();
+    //         err.errorCode = error.code;
+    //         err.errorMessage = error.message;
+    //         throw err;
+    //     });
     // }
     async function logoutAdmin() {
         await signOut(auth);
         // setloggedInUser('');
+        window.open('https://accounts.google.com/Logout', "_blank");
+        // window.location.replace('https://accounts.google.com/Logout', '_blank')
+        // try {
+        //     const resp = await axios.get("https://accounts.google.com/Logout");
+        //     console.log(resp);
+        // } catch (err) {
+        //     // Handle Error Here
+        //     console.error(err);
+        //     alert(err)
+        // }
     }
 
     useEffect(() => {
@@ -68,7 +80,7 @@ export function AuthProvider({ children }) {
         logoutAdmin,
         setloggedInUser,
         auth,
-        isAdmin,setIsAdmin,
+        isAdmin, setIsAdmin,
     }
     return (
         <AuthContext.Provider value={value}>

@@ -3,12 +3,12 @@ import { sanitize } from 'dompurify';
 import { useState } from 'react';
 import Loading from './Loading';
 import EditIcon from '@mui/icons-material/Edit';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+// import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useAuth } from '../../context/authContext';
 
 function Staff() {
     const { auth, isAdmin } = useAuth();
-    const [edit, setEdit] = useState(false);
+    // const [edit, setEdit] = useState(false);
     const [load, setLoad] = useState(true);
     const iframeLoading = () => {
         setLoad(false);
@@ -28,32 +28,21 @@ function Staff() {
                     Staff - {now.getFullYear()}
                 </Typography>
                 {auth.currentUser && isAdmin ?
-                    edit ?
-                        <Button onClick={() => setEdit(false)} sx={{ ml: 2 }} variant='contained'
-                            endIcon={<ArrowBackIcon />}>Go Back
-                        </Button>
-                        :
-                        <Button onClick={() => setEdit(true)} sx={{ ml: 2 }} variant='contained'
+                    <a href={googleUrlEdit} target='_blank' rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+                        <Button sx={{ ml: 2 }} variant='contained'
                             endIcon={<EditIcon />}>Edit
                         </Button>
+                    </a>
                     : null}
             </div>
             <Box height="90vh" >
-                {edit ? <iframe title='Staff edit' src={googleUrlEdit}
-                    width="100%"
-                    height="100%"
-                    // frameBorder="0" marginHeight="0" marginWidth="0"
-                    loading="lazy"
-                    onLoad={iframeLoading}>Loading…</iframe> :
-
-                    <Grid container justifyContent='center'>
-                        <Grid item xs={12} lg={10} xl={7}>< iframe title='Staff sheet' src={googleUrl} width="100%" height="800"
-                            // frameBorder="0" marginHeight="0" marginWidth="0"
-                            loading="lazy"
-                            onLoad={iframeLoading} > Loading…</iframe>
-                        </Grid>
-                    </Grid >
-                }
+                <Grid container justifyContent='center'>
+                    <Grid item xs={12} lg={10} xl={7}>< iframe title='Staff sheet' src={googleUrl} width="100%" height="800"
+                        // frameBorder="0" marginHeight="0" marginWidth="0"
+                        loading="lazy"
+                        onLoad={iframeLoading} > Loading…</iframe>
+                    </Grid>
+                </Grid >
             </Box>
 
             {load ? <Loading /> : null}

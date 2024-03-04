@@ -55,8 +55,8 @@ function Home({ announceData, initCollectData }) {
   //   }
   // ], []);
   const imagesArr = initCollectData.SliderImg;
-  let contentImage1 ;
-  if(initCollectData?.aboutImgData){
+  let contentImage1;
+  if (initCollectData?.aboutImgData) {
     contentImage1 = initCollectData?.aboutImgData[0].src;
   }
   const [load, setload] = useState(true)
@@ -77,9 +77,12 @@ function Home({ announceData, initCollectData }) {
           }
         }
       });
+      if (imgLen === 0) {
+        setload(false);
+      }
     }
     // Get blogger data
-    axios.get(`https://blogger.googleapis.com/v3/blogs/1225166691027089983/posts?fetchBodies=true&fetchImages=true&labels=home&maxResults=4&orderBy=PUBLISHED&status=LIVE&key=${process.env.REACT_APP_BLOGGER_APIKEY}`).then(res => {
+    axios.get(`https://blogger.googleapis.com/v3/blogs/1225166691027089983/posts?fetchBodies=true&fetchImages=true&labels=events&maxResults=4&orderBy=PUBLISHED&status=LIVE&key=${process.env.REACT_APP_BLOGGER_APIKEY}`).then(res => {
       // console.log("axios");
       // console.log(res);
       // console.log(res.data.items);
